@@ -112,7 +112,7 @@ class _MainAppHandlerState extends State<MainAppHandler>
                 [widgetWrapCCOverlay(context, state)],
           ));
     } else {
-      print('hello landscape');
+      // landscape
       return Scaffold(
           floatingActionButton: FloatingActionButton(
             onPressed: () {

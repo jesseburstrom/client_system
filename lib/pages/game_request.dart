@@ -54,7 +54,7 @@ class GameRequest extends LanguagesGameRequest with InputItems {
   Widget widgetWaiting() {
     Widget widget = Text("");
     for (var i = 0; i < games.length; i++) {
-      if (games[i]['id'].indexOf(net.socketConnection.id) != -1) {
+      if (games[i]['playerIds'].indexOf(net.socketConnection.id) != -1) {
         widget = Text(games[i]['gameType'] +
             ' ' +
             games[i]['connected'].toString() +

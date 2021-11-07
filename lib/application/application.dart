@@ -76,7 +76,13 @@ class Application extends LanguagesApplication with AnimationsBoardEffect {
 
   callbackDiceUpdateDiceValues() {
     updateDiceValues();
-    net.sendDices(gameDices.diceValue, gameId, playerIds);
+    Map<String, dynamic> msg = {};
+    msg["diceValue"] = gameDices.diceValue;
+    msg["gameId"] = gameId;
+    msg["playerIds"] = playerIds;
+    msg["action"] = "sendDices";
+    print(msg);
+    net.sendToClients(msg);
   }
 
   updateDiceValues() {

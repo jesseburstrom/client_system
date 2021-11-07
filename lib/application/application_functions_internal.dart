@@ -13,7 +13,15 @@ extension GameFunctionsInternal on Application {
         myPlayerId == playerToMove &&
         !fixedCell[player][cell] &&
         cellValue[player][cell] != -1) {
-      net.sendSelection(player, cell, gameDices.diceValue, gameId, playerIds);
+      Map<String, dynamic> msg = {};
+      msg["diceValue"] = gameDices.diceValue;
+      msg["gameId"] = gameId;
+      msg["playerIds"] = playerIds;
+      msg["player"] = player;
+      msg["cell"] = cell;
+      msg["action"] = "sendSelection";
+      print(msg);
+      net.sendToClients(msg);
       calcNewSums(player, cell);
     }
   }
