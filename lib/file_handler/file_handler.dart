@@ -1,4 +1,4 @@
-part of '../main.dart';
+part of "../main.dart";
 
 class FileHandler {
   Future<String> localPath() async {
@@ -9,7 +9,7 @@ class FileHandler {
   Future<File> localFile(String fileName) async {
     final path = await localPath();
     print(path);
-    return File('$path/' + fileName);
+    return File("$path/" + fileName);
   }
 
 //Future<Map<String, dynamic>> readFile(String fileName) async {
@@ -21,7 +21,7 @@ class FileHandler {
       return jsonDecode(contents);
     } catch (e) {
       // If encountering an error, return 0
-      print('no file');
+      print("no file");
       rethrow;
     }
   }

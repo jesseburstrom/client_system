@@ -1,4 +1,4 @@
-part of '../main.dart';
+part of "../main.dart";
 
 extension GameCalcDiceValues on Application {
   int zero() {
@@ -253,7 +253,7 @@ extension GameCalcDiceValues on Application {
   int calcSmallLadder() {
     var value = 0;
     var diceNr = calcDiceNr();
-    if (gameType == 'Ordinary') {
+    if (gameType == "Ordinary") {
       // Text is not displayed and therefore not translated
       if ((diceNr[0] > 0) &&
           (diceNr[1] > 0) &&
@@ -263,7 +263,7 @@ extension GameCalcDiceValues on Application {
         value = 1 + 2 + 3 + 4 + 5;
       }
     }
-    if (gameType == 'Mini') {
+    if (gameType == "Mini") {
       if ((diceNr[0] > 0) &&
           (diceNr[1] > 0) &&
           (diceNr[2] > 0) &&
@@ -271,7 +271,7 @@ extension GameCalcDiceValues on Application {
         value = 1 + 2 + 3 + 4;
       }
     }
-    if (gameType == 'Maxi') {
+    if (gameType == "Maxi") {
       if ((diceNr[0] > 0) &&
           (diceNr[1] > 0) &&
           (diceNr[2] > 0) &&
@@ -286,7 +286,7 @@ extension GameCalcDiceValues on Application {
   int calcLargeLadder() {
     var value = 0;
     var diceNr = calcDiceNr();
-    if (gameType == 'Ordinary') {
+    if (gameType == "Ordinary") {
       if ((diceNr[1] > 0) &&
           (diceNr[2] > 0) &&
           (diceNr[3] > 0) &&
@@ -295,7 +295,7 @@ extension GameCalcDiceValues on Application {
         value = 2 + 3 + 4 + 5 + 6;
       }
     }
-    if (gameType == 'Mini') {
+    if (gameType == "Mini") {
       if ((diceNr[2] > 0) &&
           (diceNr[3] > 0) &&
           (diceNr[4] > 0) &&
@@ -303,7 +303,7 @@ extension GameCalcDiceValues on Application {
         value = 3 + 4 + 5 + 6;
       }
     }
-    if (gameType == 'Maxi') {
+    if (gameType == "Maxi") {
       if ((diceNr[1] > 0) &&
           (diceNr[2] > 0) &&
           (diceNr[3] > 0) &&
@@ -318,7 +318,7 @@ extension GameCalcDiceValues on Application {
   int calcMiddleLadder() {
     var value = 0;
     var diceNr = calcDiceNr();
-    if (gameType == 'Mini') {
+    if (gameType == "Mini") {
       if ((diceNr[1] > 0) &&
           (diceNr[2] > 0) &&
           (diceNr[3] > 0) &&
@@ -332,7 +332,7 @@ extension GameCalcDiceValues on Application {
   int calcFullLadder() {
     var value = 0;
     var diceNr = calcDiceNr();
-    if (gameType == 'Maxi') {
+    if (gameType == "Maxi") {
       if ((diceNr[0] > 0) &&
           (diceNr[1] > 0) &&
           (diceNr[2] > 0) &&

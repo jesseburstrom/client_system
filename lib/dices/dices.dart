@@ -1,4 +1,4 @@
-part of '../main.dart';
+part of "../main.dart";
 
 class UnityMessage {
   UnityMessage(this.action);
@@ -26,22 +26,22 @@ class UnityMessage {
   }
 
   UnityMessage.fromJson(Map<String, dynamic> json)
-      : action = json['action'],
-        nrDices = json['nrDices'],
-        nrThrows = json['nrThrows'],
-        property = json['property'],
-        unityColors = json['colors'],
-        flag = json['flag'],
-        dices = json['Dices'];
+      : action = json["action"],
+        nrDices = json["nrDices"],
+        nrThrows = json["nrThrows"],
+        property = json["property"],
+        unityColors = json["colors"],
+        flag = json["flag"],
+        dices = json["Dices"];
 
   Map<String, dynamic> toJson() => {
-        'action': action,
-        'nrDices': nrDices,
-        'nrThrows': nrThrows,
-        'property': property,
-        'colors': unityColors,
-        'bool': flag,
-        'Dices': dices,
+        "action": action,
+        "nrDices": nrDices,
+        "nrThrows": nrThrows,
+        "property": property,
+        "colors": unityColors,
+        "bool": flag,
+        "Dices": dices,
       };
 
   var action = "";
@@ -69,20 +69,20 @@ class Dices extends LanguagesDices with AnimationsRollDices {
   var nrDices = 5;
   var diceValue = List.filled(5, 0);
   var diceRef = [
-    'assets/images/empty.jpg',
-    'assets/images/empty.jpg',
-    'assets/images/empty.jpg',
-    'assets/images/empty.jpg',
-    'assets/images/empty.jpg'
+    "assets/images/empty.jpg",
+    "assets/images/empty.jpg",
+    "assets/images/empty.jpg",
+    "assets/images/empty.jpg",
+    "assets/images/empty.jpg"
   ];
   var diceFile = [
-    'empty.jpg',
-    '1.jpg',
-    '2.jpg',
-    '3.jpg',
-    '4.jpg',
-    '5.jpg',
-    '6.jpg'
+    "empty.jpg",
+    "1.jpg",
+    "2.jpg",
+    "3.jpg",
+    "4.jpg",
+    "5.jpg",
+    "6.jpg"
   ];
 
   late Function callbackUpdateDiceValues;
@@ -101,7 +101,7 @@ class Dices extends LanguagesDices with AnimationsRollDices {
     holdDices = List.filled(nrDices, false);
     holdDiceText = List.filled(nrDices, "");
     holdDiceOpacity = List.filled(nrDices, 0.0);
-    diceRef = List.filled(nrDices, 'assets/images/empty.jpg');
+    diceRef = List.filled(nrDices, "assets/images/empty.jpg");
     nrRolls = 0;
   }
 
@@ -114,7 +114,7 @@ class Dices extends LanguagesDices with AnimationsRollDices {
     holdDices = List.filled(nrDices, false);
     holdDiceText = List.filled(nrDices, "");
     holdDiceOpacity = List.filled(nrDices, 0.0);
-    diceRef = List.filled(nrDices, 'assets/images/empty.jpg');
+    diceRef = List.filled(nrDices, "assets/images/empty.jpg");
     nrRolls = 0;
   }
 
@@ -136,7 +136,7 @@ class Dices extends LanguagesDices with AnimationsRollDices {
       sendDicesToUnity();
     } else {
       for (var i = 0; i < nrDices; i++) {
-        diceRef[i] = 'assets/images/' + diceFile[diceValue[i]];
+        diceRef[i] = "assets/images/" + diceFile[diceValue[i]];
       }
     }
   }
@@ -147,7 +147,7 @@ class Dices extends LanguagesDices with AnimationsRollDices {
       for (var i = 0; i < nrDices; i++) {
         if (!holdDices[i]) {
           diceValue[i] = randomNumberGenerator.nextInt(6) + 1;
-          diceRef[i] = 'assets/images/' + diceFile[diceValue[i]];
+          diceRef[i] = "assets/images/" + diceFile[diceValue[i]];
         } else {
           if (nrRolls == 3) {
             holdDices[i] = false;
@@ -169,8 +169,8 @@ class Dices extends LanguagesDices with AnimationsRollDices {
     var json = jsonEncode(msg.toJson());
     print(json);
     unityWidgetController.postMessage(
-      'GameManager',
-      'flutterMessage',
+      "GameManager",
+      "flutterMessage",
       json,
     );
   }
@@ -181,8 +181,8 @@ class Dices extends LanguagesDices with AnimationsRollDices {
     var json = jsonEncode(msg.toJson());
     print(json);
     unityWidgetController.postMessage(
-      'GameManager',
-      'flutterMessage',
+      "GameManager",
+      "flutterMessage",
       json,
     );
   }
@@ -193,8 +193,8 @@ class Dices extends LanguagesDices with AnimationsRollDices {
     var json = jsonEncode(msg.toJson());
     print(json);
     unityWidgetController.postMessage(
-      'GameManager',
-      'flutterMessage',
+      "GameManager",
+      "flutterMessage",
       json,
     );
   }
@@ -205,32 +205,32 @@ class Dices extends LanguagesDices with AnimationsRollDices {
     var json = jsonEncode(msg.toJson());
     print(json);
     unityWidgetController.postMessage(
-      'GameManager',
-      'flutterMessage',
+      "GameManager",
+      "flutterMessage",
       json,
     );
   }
 
   void sendTransparencyChangedToUnity() {
-    var msg = UnityMessage.changeBool('Transparency', unityTransparent[0]);
+    var msg = UnityMessage.changeBool("Transparency", unityTransparent[0]);
 
     var json = jsonEncode(msg.toJson());
     print(json);
     unityWidgetController.postMessage(
-      'GameManager',
-      'flutterMessage',
+      "GameManager",
+      "flutterMessage",
       json,
     );
   }
 
   void sendLightMotionChangedToUnity() {
-    var msg = UnityMessage.changeBool('LightMotion', unityLightMotion[0]);
+    var msg = UnityMessage.changeBool("LightMotion", unityLightMotion[0]);
 
     var json = jsonEncode(msg.toJson());
     print(json);
     unityWidgetController.postMessage(
-      'GameManager',
-      'flutterMessage',
+      "GameManager",
+      "flutterMessage",
       json,
     );
   }
@@ -238,12 +238,12 @@ class Dices extends LanguagesDices with AnimationsRollDices {
   // Communication from Unity to Flutter
   void onUnityMessage(message) {
     var msg = message.toString();
-    print('Received message from unity: $msg');
+    print("Received message from unity: $msg");
     try {
       var _json = jsonDecode(msg);
       print(_json);
-      if (_json['action'] == 'results') {
-        diceValue = _json['diceResult'].cast<int>();
+      if (_json["action"] == "results") {
+        diceValue = _json["diceResult"].cast<int>();
         print(diceValue);
         callbackUpdateDiceValues();
 
@@ -261,13 +261,13 @@ class Dices extends LanguagesDices with AnimationsRollDices {
     sendResetToUnity();
     callbackUnityCreated();
 
-    print('Unity Created');
+    print("Unity Created");
   }
 
   // Communication from Unity when new scene is loaded to Flutter
   void onUnitySceneLoaded(SceneLoaded sceneInfo) {
-    print('Received scene loaded from unity: ${sceneInfo.name}');
+    print("Received scene loaded from unity: ${sceneInfo.name}");
     print(
-        'Received scene loaded from unity buildIndex: ${sceneInfo.buildIndex}');
+        "Received scene loaded from unity buildIndex: ${sceneInfo.buildIndex}");
   }
 }

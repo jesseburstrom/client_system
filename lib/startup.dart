@@ -1,11 +1,11 @@
-part of './main.dart';
+part of "./main.dart";
 
-var localhost = 'http://192.168.0.168:3000';
-var localhostIO = 'http://192.168.0.168:3001';
+var localhost = "http://192.168.0.168:3000";
+var localhostIO = "http://192.168.0.168:3001";
 var gameStarted = false;
 var platformWeb = false;
 var reloadHighscore = true; // only used ones at loadup
-var userName = 'Yatzy';
+var userName = "Yatzy";
 var stackedWidgets = <Widget>[];
 late Function globalSetState;
 late BuildContext globalContext;
@@ -90,13 +90,13 @@ class _MainAppHandlerState extends State<MainAppHandler>
             onPressed: () {
               pages.navigateToSelectPage(context);
             },
-            tooltip: 'Settings',
+            tooltip: "Settings",
             child: const Icon(Icons.settings_applications),
             backgroundColor: Colors.blue,
           ),
           body: Stack(
             children: <Widget>[
-                  Image.asset('assets/images/yatzy_portrait.jpg',
+                  Image.asset("assets/images/yatzy_portrait.jpg",
                       fit: BoxFit.cover,
                       height: double.infinity,
                       width: double.infinity),
@@ -118,13 +118,13 @@ class _MainAppHandlerState extends State<MainAppHandler>
             onPressed: () {
               pages.navigateToSelectPage(context);
             },
-            tooltip: 'Settings',
+            tooltip: "Settings",
             child: const Icon(Icons.settings_applications),
             backgroundColor: Colors.blue,
           ),
           body: Stack(
             children: <Widget>[
-                  Image.asset('assets/images/yatzy_landscape2.jpg',
+                  Image.asset("assets/images/yatzy_landscape2.jpg",
                       fit: BoxFit.cover,
                       height: double.infinity,
                       width: double.infinity),

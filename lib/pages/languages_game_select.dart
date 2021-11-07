@@ -1,24 +1,24 @@
-part of '../main.dart';
+part of "../main.dart";
 
 class LanguagesGameSelect extends Languages {
-  final _gameTypeOrdinary = {'English': 'Ordinary'};
-  final _gameTypeMini = {'English': 'Mini'};
-  final _gameTypeMaxi = {'English': 'Maxi'};
-  final _choseUnity = {'English': '3D Dices'};
-  final _settings = {'English': 'Settings'};
-  final _game = {'English': 'Game'};
-  final _general = {'English': 'General'};
-  final _colorChangeOverlay = {'English': 'Color Change Overlay'};
-  final _choseLanguage = {'English': 'Chose Language'};
-  final _startGame = {'English': 'Start Game'};
-  final _gameList = {'English': 'Games List'};
-  final _transparency = {'English': 'Transparency'};
-  final _lightMotion = {'English': 'Light Motion'};
-  final _red = {'English': 'Red'};
-  final _green = {'English': 'Green'};
-  final _blue = {'English': 'Blue'};
-  final _appearance = {'English': 'Appearance'};
-  final _misc = {'English': 'Misc'};
+  final _gameTypeOrdinary = {"English": "Ordinary"};
+  final _gameTypeMini = {"English": "Mini"};
+  final _gameTypeMaxi = {"English": "Maxi"};
+  final _choseUnity = {"English": "3D Dices"};
+  final _settings = {"English": "Settings"};
+  final _game = {"English": "Game"};
+  final _general = {"English": "General"};
+  final _colorChangeOverlay = {"English": "Color Change Overlay"};
+  final _choseLanguage = {"English": "Chose Language"};
+  final _startGame = {"English": "Start Game"};
+  final _gameList = {"English": "Games List"};
+  final _transparency = {"English": "Transparency"};
+  final _lightMotion = {"English": "Light Motion"};
+  final _red = {"English": "Red"};
+  final _green = {"English": "Green"};
+  final _blue = {"English": "Blue"};
+  final _appearance = {"English": "Appearance"};
+  final _misc = {"English": "Misc"};
 
   String get gameTypeOrdinary_ => getText(_gameTypeOrdinary);
 
@@ -57,21 +57,21 @@ class LanguagesGameSelect extends Languages {
   String get misc_ => getText(_misc);
 
   languagesSetup() {
-    _gameTypeOrdinary['Swedish'] = 'Standard';
-    _choseUnity['Swedish'] = '3D Tärningar';
-    _settings['Swedish'] = 'Inställningar';
-    _game['Swedish'] = 'Spel';
-    _general['Swedish'] = 'Allmänt';
-    _colorChangeOverlay['Swedish'] = 'Färginställningar Live';
-    _choseLanguage['Swedish'] = 'Välj Språk';
-    _startGame['Swedish'] = 'Starta Spelet';
-    _gameList['Swedish'] = 'Spel Lista';
-    _transparency['Swedish'] = 'Transparens';
-    _lightMotion['Swedish'] = 'Cirkulärt Ljus';
-    _red['Swedish'] = 'Röd';
-    _green['Swedish'] = 'Grön';
-    _blue['Swedish'] = 'Blå';
-    _appearance['Swedish'] = 'Utseende';
-    _misc['Swedish'] = 'Diverse';
+    _gameTypeOrdinary["Swedish"] = "Standard";
+    _choseUnity["Swedish"] = "3D Tärningar";
+    _settings["Swedish"] = "Inställningar";
+    _game["Swedish"] = "Spel";
+    _general["Swedish"] = "Allmänt";
+    _colorChangeOverlay["Swedish"] = "Färginställningar Live";
+    _choseLanguage["Swedish"] = "Välj Språk";
+    _startGame["Swedish"] = "Starta Spelet";
+    _gameList["Swedish"] = "Spel Lista";
+    _transparency["Swedish"] = "Transparens";
+    _lightMotion["Swedish"] = "Cirkulärt Ljus";
+    _red["Swedish"] = "Röd";
+    _green["Swedish"] = "Grön";
+    _blue["Swedish"] = "Blå";
+    _appearance["Swedish"] = "Utseende";
+    _misc["Swedish"] = "Diverse";
   }
 }

@@ -1,4 +1,4 @@
-part of '../main.dart';
+part of "../main.dart";
 
 class InputItems {
   Widget widgetImage(double width, double height, String image) {
@@ -25,7 +25,7 @@ class InputItems {
             hintText: hintText),
         validator: (value) {
           if (value!.isEmpty) {
-            return lableText + ' is required';
+            return lableText + " is required";
           }
         },
       ),

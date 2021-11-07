@@ -1,11 +1,11 @@
-part of '../main.dart';
+part of "../main.dart";
 
 class LanguagesDices extends Languages {
-  final _hold = {'English': 'HOLD'};
+  final _hold = {"English": "HOLD"};
 
   String get hold_ => getText(_hold);
 
   void languagesSetup() {
-    _hold['Swedish'] = 'HÅLL';
+    _hold["Swedish"] = "HÅLL";
   }
 }

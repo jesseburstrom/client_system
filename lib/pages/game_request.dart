@@ -1,4 +1,4 @@
-part of '../main.dart';
+part of "../main.dart";
 
 class PageGameRequest extends StatefulWidget {
   const PageGameRequest({Key? key}) : super(key: key);
@@ -21,8 +21,14 @@ class _PageGameRequestState extends State<PageGameRequest>
   void initState() {
     super.initState();
     gameRequest.state = state;
-    net.sendRequestGame(
-        gameSelect.gameType[0], int.parse(gameSelect.nrPlayers[0]));
+    Map<String, dynamic> msg = {};
+    msg["playerIds"] = [net.socketConnection.id];
+    msg["gameType"] = gameSelect.gameType[0];
+    msg["nrPlayers"] = int.parse(gameSelect.nrPlayers[0]);
+    msg["action"] = "sendRequestGame";
+    print(msg);
+    net.sendToServer(msg);
+
     WidgetsBinding.instance!.addPostFrameCallback((_) => saveContext(context));
   }
 
@@ -54,12 +60,12 @@ class GameRequest extends LanguagesGameRequest with InputItems {
   Widget widgetWaiting() {
     Widget widget = Text("");
     for (var i = 0; i < games.length; i++) {
-      if (games[i]['playerIds'].indexOf(net.socketConnection.id) != -1) {
-        widget = Text(games[i]['gameType'] +
-            ' ' +
-            games[i]['connected'].toString() +
-            '/' +
-            games[i]['nrPlayers'].toString());
+      if (games[i]["playerIds"].indexOf(net.socketConnection.id) != -1) {
+        widget = Text(games[i]["gameType"] +
+            " " +
+            games[i]["connected"].toString() +
+            "/" +
+            games[i]["nrPlayers"].toString());
         break;
       }
     }

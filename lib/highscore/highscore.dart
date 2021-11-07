@@ -1,4 +1,4 @@
-part of '../main.dart';
+part of "../main.dart";
 
 class Highscore extends LanguagesHighscore with AnimationsHighscore {
   Highscore() {
@@ -20,13 +20,13 @@ class Highscore extends LanguagesHighscore with AnimationsHighscore {
         var serverBody = jsonDecode(serverResponse.body);
         setHighscores(serverBody);
         globalSetState();
-        print('Highscores loaded from server');
+        print("Highscores loaded from server");
         await fileHandler.saveFile(serverBody, fileHighscore);
       } else {
-        print('Error getting highscores1');
+        print("Error getting highscores1");
       }
     } catch (e) {
-      print('Error getting highscores2');
+      print("Error getting highscores2");
     }
   }
 
@@ -49,17 +49,17 @@ class Highscore extends LanguagesHighscore with AnimationsHighscore {
         globalSetState();
         fileHandler.saveFile(serverBody, fileHighscore);
       } else {
-        print('Error getting highscores');
+        print("Error getting highscores");
       }
     } catch (e) {
-      print('Error getting highscores onUpdate');
+      print("Error getting highscores onUpdate");
     }
   }
 
   void setHighscores(List<dynamic> highscores) {
     for (var i = 0; i < highscores.length; i++) {
-      highscoreText[i] = highscores[i]['name'];
-      highscoreValue[i] = highscores[i]['score'];
+      highscoreText[i] = highscores[i]["name"];
+      highscoreValue[i] = highscores[i]["score"];
     }
   }
 }

@@ -1,4 +1,4 @@
-part of '../main.dart';
+part of "../main.dart";
 
 class PageAuthenticate extends StatefulWidget {
   const PageAuthenticate({Key? key}) : super(key: key);
@@ -39,19 +39,19 @@ class Authenticate extends LanguagesLogin with InputItems {
       if (serverResponse.statusCode == 200) {
         print(serverResponse.body);
         userName = loginTxtUserName.text;
-        print('User is logged in!');
+        print("User is logged in!");
         var _json = {
-          'username': loginTxtUserName.text,
-          'password': loginTxtPassword.text
+          "username": loginTxtUserName.text,
+          "password": loginTxtPassword.text
         };
         fileHandler.saveFile(_json, fileAuthenticate);
         pages.navigateToSelectPageR(context);
       } else {
         // TODO: handle not logged in case
-        print('user not logged in');
+        print("user not logged in");
       }
     } catch (e) {
-      print('error logging in!');
+      print("error logging in!");
     }
   }
 
@@ -63,27 +63,27 @@ class Authenticate extends LanguagesLogin with InputItems {
       if (serverResponse.statusCode == 200) {
         userName = signupTxtUserName.text;
 
-        print('User is created!');
-        var _json = {'username': userName, 'password': signupTxtPassword.text};
+        print("User is created!");
+        var _json = {"username": userName, "password": signupTxtPassword.text};
         fileHandler.saveFile(_json, fileAuthenticate);
         try {
           var serverResponse =
               await net.mainLogin(userName, signupTxtPassword.text);
           if (serverResponse.statusCode == 200) {
-            print('User is logged in!');
+            print("User is logged in!");
           } else {
             // TODO: handle not logged in case
-            print('user not logged in');
+            print("user not logged in");
           }
         } catch (e) {
-          print('error logging in!');
+          print("error logging in!");
         }
         pages.navigateToSelectPageR(context);
       } else {
-        print('User not created');
+        print("User not created");
       }
     } catch (e) {
-      print('error signing up!');
+      print("error signing up!");
     }
   }
 
@@ -147,7 +147,7 @@ class Authenticate extends LanguagesLogin with InputItems {
                   key: loginFormKey,
                   child: Column(
                     children: <Widget>[
-                      widgetImage(200, 150, 'assets/images/flutter_logo.png'),
+                      widgetImage(200, 150, "assets/images/flutter_logo.png"),
                       widgetTextFormField(
                           email_, enterValidEmail_, loginTxtUserName),
                       widgetTextFormField(
@@ -167,7 +167,7 @@ class Authenticate extends LanguagesLogin with InputItems {
                   key: signupFormKey,
                   child: Column(
                     children: <Widget>[
-                      widgetImage(200, 150, 'assets/images/flutter_logo.png'),
+                      widgetImage(200, 150, "assets/images/flutter_logo.png"),
                       widgetTextFormField(
                           email_, enterValidEmail_, signupTxtUserName),
                       widgetTextFormField(

@@ -1,4 +1,4 @@
-part of '../main.dart';
+part of "../main.dart";
 
 extension HighscoreWidget on Highscore {
   Widget widgetHighscore(double width, double height) {
@@ -70,7 +70,7 @@ extension HighscoreWidget on Highscore {
                                   child: FittedBox(
                                       fit: BoxFit.contain,
                                       child: Text(
-                                          "  " + (index + 1).toString() + '.',
+                                          "  " + (index + 1).toString() + ".",
                                           style: const TextStyle(
                                               fontStyle: FontStyle.italic)))),
                               Container(

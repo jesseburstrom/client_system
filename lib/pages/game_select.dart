@@ -1,4 +1,4 @@
-part of '../main.dart';
+part of "../main.dart";
 
 class PageGameSelect extends StatefulWidget {
   const PageGameSelect({Key? key}) : super(key: key);
@@ -22,7 +22,6 @@ class _PageGameSelectState extends State<PageGameSelect>
 class GameSelect extends LanguagesGameSelect with InputItems {
   GameSelect() {
     languagesSetup();
-    net.connectToServer();
   }
 
   var gameType = [application.gameType];
@@ -85,11 +84,11 @@ class GameSelect extends LanguagesGameSelect with InputItems {
                     children: <Widget>[
                       widgetStringRadioButton(
                           state,
-                          ['Mini', 'Ordinary', 'Maxi'],
+                          ["Mini", "Ordinary", "Maxi"],
                           gameType,
                           [gameTypeMini_, gameTypeOrdinary_, gameTypeMaxi_]),
-                      widgetStringRadioButton(state, ['1', '2', '3', '4'],
-                          nrPlayers, ['1', '2', '3', '4']),
+                      widgetStringRadioButton(state, ["1", "2", "3", "4"],
+                          nrPlayers, ["1", "2", "3", "4"]),
                       widgetCheckbox(state, () => {}, choseUnity_,
                           application.gameDices.unityDices),
                       widgetCheckbox(state, () => {}, colorChangeOverlay_,
@@ -110,7 +109,7 @@ class GameSelect extends LanguagesGameSelect with InputItems {
                                   widgetParagraph(misc_),
                                   widgetDropDownList(
                                       state,
-                                      ' ' + choseLanguage_,
+                                      " " + choseLanguage_,
                                       Languages.differentLanguages,
                                       Languages.chosenLanguage),
                                 ])))

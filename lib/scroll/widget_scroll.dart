@@ -1,4 +1,4 @@
-part of '../main.dart';
+part of "../main.dart";
 
 extension AnimationsScrollWidget on AnimationsScroll {
   Widget widgetEmptyContainer(double width, double height) {
@@ -9,7 +9,7 @@ extension AnimationsScrollWidget on AnimationsScroll {
     return AnimatedBuilder(
         animation: animationController,
         builder: (BuildContext context, Widget? widget) {
-          List<String> text = scrollText_.split('.');
+          List<String> text = scrollText_.split(".");
           List<AnimatedText> animatedTexts = [];
           for (String s in text) {
             animatedTexts.add(FadeAnimatedText(s));

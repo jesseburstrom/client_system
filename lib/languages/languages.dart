@@ -1,10 +1,10 @@
-part of '../main.dart';
+part of "../main.dart";
 
 class Languages {
-  static var chosenLanguage = ['English'];
-  static var standardLanguage = 'English';
+  static var chosenLanguage = ["English"];
+  static var standardLanguage = "English";
 
-  static var differentLanguages = ['English', 'Swedish'];
+  static var differentLanguages = ["English", "Swedish"];
 
   List<String> getLanguages() {
     List<String> translatedLanguages = [];

@@ -1,4 +1,4 @@
-part of '../main.dart';
+part of "../main.dart";
 
 // cannot have typedef inside class
 typedef YatzyFunctions = int Function();
@@ -10,10 +10,13 @@ class Application extends LanguagesApplication with AnimationsBoardEffect {
     languagesSetup();
     setup();
     setupAnimation(nrPlayers, maxNrPlayers, maxTotalFields);
+    net.connectToServer();
+    net.callbackOnClientMsg = callbackOnClientMsg;
+    net.callbackOnServerMsg = callbackOnServerMsg;
   }
 
-  // 'Ordinary' , 'Mini', 'Maxi'
-  var gameType = 'Ordinary';
+  // "Ordinary" , "Mini", "Maxi"
+  var gameType = "Ordinary";
 
   // Used by animation
   var maxNrPlayers = 4;
@@ -59,7 +62,60 @@ class Application extends LanguagesApplication with AnimationsBoardEffect {
 
   late List<YatzyFunctions> yatzyFunctions;
 
-  //LanguagesYatzy lang = new LanguagesYatzy();
+  callbackOnServerMsg(var data) {
+    print("onClientMsg");
+    print(data);
+    switch (data["action"]) {
+      case "onGameStart":
+        data = Map<String, dynamic>.from(data);
+        print(data);
+        application.myPlayerId =
+            data["playerIds"].indexOf(net.socketConnection.id);
+        application.gameId = data["gameId"];
+        application.playerIds = data["playerIds"];
+        print("start game");
+        gameRequest.startGame(data["gameType"], data["nrPlayers"]);
+        break;
+      case "onRequestGames":
+        data = List<dynamic>.from(data["games"]);
+        print(data);
+        print(data.length);
+        gameRequest.games = data;
+        gameRequest.state();
+        break;
+      case "onGameAborted":
+        print("onGameAborted");
+        data = Map<String, dynamic>.from(data["game"]);
+        print(data);
+        gameStarted = false;
+        pages.navigateToSelectPageR(globalContext);
+        break;
+    }
+  }
+
+  callbackOnClientMsg(var data) {
+    print("onClientMsg");
+    print(data);
+    switch (data["action"]) {
+      case "sendSelection":
+        gameDices.diceValue = data["diceValue"].cast<int>();
+        updateDiceValues();
+        calcNewSums(data["player"], data["cell"]);
+        globalSetState();
+        if (myPlayerId == playerToMove && gameDices.unityDices[0]) {
+          gameDices.sendStartToUnity();
+        }
+        break;
+      case "sendDices":
+        print("onDices");
+        print(data["diceValue"]);
+        gameDices.diceValue = data["diceValue"].cast<int>();
+        updateDiceValues();
+        gameDices.updateDiceImages();
+        globalSetState();
+        break;
+    }
+  }
 
   bool callbackDiceCheckPlayerToMove() {
     if (playerToMove == myPlayerId) {
@@ -96,7 +152,7 @@ class Application extends LanguagesApplication with AnimationsBoardEffect {
   }
 
   setAppText() {
-    if (gameType == 'Mini') {
+    if (gameType == "Mini") {
       appText[0] = [
         ones_,
         twos_,
@@ -105,7 +161,7 @@ class Application extends LanguagesApplication with AnimationsBoardEffect {
         fives_,
         sixes_,
         sum_,
-        bonus_ + ' (' + bonusAmount.toString() + ')',
+        bonus_ + " (" + bonusAmount.toString() + ")",
         pair_,
         twoPairs_,
         threeOfKind_,
@@ -116,7 +172,7 @@ class Application extends LanguagesApplication with AnimationsBoardEffect {
         yatzy_,
         totalSum_
       ];
-    } else if (gameType == 'Maxi') {
+    } else if (gameType == "Maxi") {
       appText[0] = [
         ones_,
         twos_,
@@ -125,7 +181,7 @@ class Application extends LanguagesApplication with AnimationsBoardEffect {
         fives_,
         sixes_,
         sum_,
-        bonus_ + ' (' + bonusAmount.toString() + ')',
+        bonus_ + " (" + bonusAmount.toString() + ")",
         pair_,
         twoPairs_,
         threePairs_,
@@ -151,7 +207,7 @@ class Application extends LanguagesApplication with AnimationsBoardEffect {
         fives_,
         sixes_,
         sum_,
-        bonus_ + ' (' + bonusAmount.toString() + ')',
+        bonus_ + " (" + bonusAmount.toString() + ")",
         pair_,
         twoPairs_,
         threeOfKind_,
@@ -169,7 +225,7 @@ class Application extends LanguagesApplication with AnimationsBoardEffect {
   setup() {
     playerToMove = 0;
 
-    if (gameType == 'Mini') {
+    if (gameType == "Mini") {
       totalFields = 17;
       gameDices.initDices(4);
       bonusSum = 50;
@@ -190,7 +246,7 @@ class Application extends LanguagesApplication with AnimationsBoardEffect {
                 calcYatzy,
                 zero
               ];
-    } else if (gameType == 'Maxi') {
+    } else if (gameType == "Maxi") {
       totalFields = 23;
       gameDices.initDices(6);
       bonusSum = 84;
@@ -243,11 +299,11 @@ class Application extends LanguagesApplication with AnimationsBoardEffect {
 
     appText = [];
     for (var i = 0; i < nrPlayers + 1; i++) {
-      appText.add(List.filled(6, '') +
-          List.filled(1, '0') +
+      appText.add(List.filled(6, "") +
+          List.filled(1, "0") +
           List.filled(1, (-bonusSum).toString()) +
-          List.filled(totalFields - 9, '') +
-          List.filled(1, '0'));
+          List.filled(totalFields - 9, "") +
+          List.filled(1, "0"));
     }
     setAppText();
 

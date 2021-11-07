@@ -1,4 +1,4 @@
-part of '../main.dart';
+part of "../main.dart";
 
 class Pages {
   Future navigateToAuthenticatePageR(context) async {

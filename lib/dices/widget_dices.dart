@@ -1,4 +1,4 @@
-part of '../main.dart';
+part of "../main.dart";
 
 extension DicesWidget on Dices {
   Widget widgetDices(double width, double height) {
@@ -120,7 +120,7 @@ extension DicesWidget on Dices {
               width: diceWidthHeight * (1 - sizeAnimation.value / 2),
               height: diceWidthHeight * (1 - sizeAnimation.value / 2),
               decoration: const BoxDecoration(color: Colors.red),
-              child: Image.asset('assets/images/roll.jpg',
+              child: Image.asset("assets/images/roll.jpg",
                   fit: BoxFit.cover,
                   height: double.infinity,
                   width: double.infinity),

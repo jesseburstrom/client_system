@@ -1,4 +1,4 @@
-part of '../main.dart';
+part of "../main.dart";
 
 extension ApplicationWidgets on Application {
   onVerticalDragUpdate(mainX, mainY) {
