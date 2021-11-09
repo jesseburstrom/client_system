@@ -5,7 +5,6 @@ extension ApplicationWidgets on Application {
     if (application.playerToMove != application.myPlayerId) {
       return;
     }
-
     //print(ListenerKey.currentContext.size);
     var box = listenerKey.currentContext!.findRenderObject() as RenderBox;
     var position = box.localToGlobal(Offset.zero); //this is global position
@@ -23,13 +22,51 @@ extension ApplicationWidgets on Application {
     }
   }
 
+  Widget widgetDisplayGameStatus(double width, double height) {
+    var playerName =
+        playerToMove == myPlayerId ? your_ : userNames[playerToMove] + "'s";
+    Widget widget = Container(
+        width: width,
+        height: height,
+        color: Colors.white.withOpacity(0.3),
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                  width: width,
+                  height: height * 0.2,
+                  child: FittedBox(
+                      fit: BoxFit.contain,
+                      child: Text(playerName + " " + turn_,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blueGrey)))),
+              Container(
+                  width: width,
+                  height: height * 0.2,
+                  child: FittedBox(
+                      fit: BoxFit.contain,
+                      child: Text(
+                          gameDices.rollsLeft_ +
+                              ": " +
+                              (gameDices.nrTotalRolls - gameDices.nrRolls)
+                                  .toString(),
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blueGrey))))
+            ]));
+    return widget;
+  }
+
   Widget widgetSetupGameBoard(double width, double height) {
     //var cellWidth = min(120.0, width / ((NrPlayers) / 3 + 1.5));
     var cellWidth = width / ((nrPlayers) / 3 + 1.5);
     var left = (width - cellWidth * ((nrPlayers - 1) / 3 + 1.5)) / 2;
     //var cellHeight = min(30.0, height / (TotalFields + 1));
-    var cellHeight = height / (totalFields + 1);
-    var top = (height - cellHeight * totalFields) / 2;
+
+    var cellHeight = height / (totalFields + 1.5);
+    var top = (height - cellHeight * totalFields) * 0.75;
 
     // Setup board cell positions
     for (var i = 0; i < totalFields; i++) {
@@ -66,6 +103,33 @@ extension ApplicationWidgets on Application {
 
     var listings = <Widget>[];
 
+    // Place names
+    for (var i = 0; i < nrPlayers; i++) {
+      listings.add(Positioned(
+          left: boardXPos[1 + i][0],
+          top: boardYPos[1 + i][0] - cellHeight,
+          child: Container(
+              padding: EdgeInsets.only(left: 5, right: 5, top: 0, bottom: 0),
+              width: boardWidth[1 + i][0],
+              height: cellHeight,
+              child: FittedBox(
+                  fit: BoxFit.contain,
+                  child: Text(userNames[i],
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: Colors.black.withOpacity(0.8),
+                        shadows: const [
+                          Shadow(
+                            blurRadius: 10.0,
+                            color: Colors.blueAccent,
+                            offset: Offset(5.0, 5.0),
+                          ),
+                        ],
+                      ))))));
+    }
+    // For 'live' translation reset board text
     setAppText();
     for (var i = 0; i < totalFields; i++) {
       listings.add(

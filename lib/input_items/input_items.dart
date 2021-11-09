@@ -11,6 +11,32 @@ class InputItems {
     );
   }
 
+  Widget widgetInputText(String hintText, Function onSubmitted,
+      TextEditingController controller, FocusNode focusNode) {
+    return Padding(
+        padding:
+            const EdgeInsets.only(left: 5.0, right: 5.0, top: 0, bottom: 0),
+        child: TextField(
+          onSubmitted: (value) {
+            onSubmitted(value);
+          },
+          cursorColor: Colors.black,
+          focusNode: focusNode,
+          controller: controller,
+          style: TextStyle(fontSize: 14.0, color: Colors.black),
+          decoration: InputDecoration(
+            focusedBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: Colors.black, width: 2.0),
+              //borderRadius: BorderRadius.circular(25.0),
+            ),
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0),
+            border: OutlineInputBorder(),
+            hintText: hintText,
+          ), //widgetInputText("Type message", chatTextController),
+        ));
+  }
+
   Widget widgetTextFormField(
       String lableText, String hintText, TextEditingController controller) {
     return Padding(

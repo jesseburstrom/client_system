@@ -3,6 +3,7 @@ import "dart:async";
 import "dart:convert";
 import "dart:io";
 import "dart:math";
+
 import "package:http/http.dart";
 import "package:flutter/material.dart";
 import "package:path_provider/path_provider.dart";
@@ -27,6 +28,8 @@ part "./application/application_functions_internal_calc_dice_values.dart";
 part "./application/languages_application.dart";
 
 part "./application/widget_game_setup_board.dart";
+
+part "./chat/chat.dart";
 
 part "./dices/animations_rolldice.dart";
 

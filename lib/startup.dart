@@ -6,12 +6,14 @@ var gameStarted = false;
 var platformWeb = false;
 var reloadHighscore = true; // only used ones at loadup
 var userName = "Yatzy";
+var userNames = ["Bo", "Paula", "Jessica", "Henrik"];
 var stackedWidgets = <Widget>[];
 late Function globalSetState;
 late BuildContext globalContext;
 late double screenWidth;
 late double screenHeight;
-// scrcpy --shortcut-mod=lctrl --always-on-top --stay-awake --window-title "Samsung Galaxy S21"
+var isInForeground = true;
+// scrcpy -s R3CR4037M1R --shortcut-mod=lctrl --always-on-top --stay-awake --window-title "Samsung Galaxy S21"
 // android:theme="@style/UnityThemeSelector.Translucent"
 // android/app/Src/main/AndroidManifest.xml
 
@@ -20,6 +22,7 @@ startAnimations(BuildContext context) {
   globalContext = context;
 }
 
+var chat = Chat();
 var animationsScroll = AnimationsScroll();
 var fileHandler = FileHandler();
 var net = Net();
@@ -38,7 +41,7 @@ class MainAppHandler extends StatefulWidget {
 }
 
 class _MainAppHandlerState extends State<MainAppHandler>
-    with TickerProviderStateMixin {
+    with WidgetsBindingObserver, TickerProviderStateMixin {
   void state() {
     setState(() {});
   }
@@ -49,12 +52,20 @@ class _MainAppHandlerState extends State<MainAppHandler>
     globalSetState = state;
     WidgetsBinding.instance!
         .addPostFrameCallback((_) => startAnimations(context));
+    WidgetsBinding.instance!.addObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    isInForeground = state == AppLifecycleState.resumed;
   }
 
   @override
   void dispose() {
-    super.dispose();
+    WidgetsBinding.instance!.removeObserver(this);
     animationsScroll.animationController.stop();
+    super.dispose();
   }
 
   Widget widgetWrapCCOverlay(BuildContext context, Function state) {
@@ -78,7 +89,7 @@ class _MainAppHandlerState extends State<MainAppHandler>
   Widget build(BuildContext context) {
     screenWidth = MediaQuery.of(context).size.width;
     screenHeight = MediaQuery.of(context).size.height;
-
+    print(isInForeground);
     if (reloadHighscore) {
       highscore.loadAndUpdateHighscoresFromServer();
       reloadHighscore = false;
@@ -102,13 +113,15 @@ class _MainAppHandlerState extends State<MainAppHandler>
                       width: double.infinity),
                   Stack(children: stackedWidgets),
                 ] +
-                layoutPTopToBottom4(
+                layoutPTopToBottom(
                     screenWidth,
                     screenHeight,
                     highscore.widgetHighscore,
                     application.widgetSetupGameBoard,
                     application.gameDices.widgetDices,
-                    animationsScroll.widgetEmptyContainer) +
+                    chat.widgetChat,
+                    animationsScroll.widgetEmptyContainer,
+                    application.widgetDisplayGameStatus) +
                 [widgetWrapCCOverlay(context, state)],
           ));
     } else {
@@ -130,13 +143,15 @@ class _MainAppHandlerState extends State<MainAppHandler>
                       width: double.infinity),
                   Stack(children: stackedWidgets)
                 ] +
-                layoutLLeftToRight4(
+                layoutLLeftToRight(
                     screenWidth,
                     screenHeight,
                     application.widgetSetupGameBoard,
                     application.gameDices.widgetDices,
                     highscore.widgetHighscore,
-                    animationsScroll.widgetEmptyContainer),
+                    chat.widgetChat,
+                    animationsScroll.widgetEmptyContainer,
+                    application.widgetDisplayGameStatus),
           ));
     }
   }

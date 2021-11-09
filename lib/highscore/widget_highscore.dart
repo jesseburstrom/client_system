@@ -12,24 +12,25 @@ extension HighscoreWidget on Highscore {
     listings.add(Positioned(
         left: left,
         top: top,
-        child: SizedBox(
+        child: Container(
+            padding: EdgeInsets.only(left: 20, right: 20, top: 0, bottom: 0),
             width: containerWidth,
             height: heightCaption,
-            child: Center(
-                child: FittedBox(
-                    fit: BoxFit.contain,
-                    child: Text(highscores_,
-                        style: TextStyle(
-                          fontStyle: FontStyle.italic,
-                          color: Colors.blue[800],
-                          shadows: const [
-                            Shadow(
-                              blurRadius: 10.0,
-                              color: Colors.red,
-                              offset: Offset(5.0, 5.0),
-                            ),
-                          ],
-                        )))))));
+            //child: Center(
+            child: FittedBox(
+                fit: BoxFit.contain,
+                child: Text(highscores_,
+                    style: TextStyle(
+                      fontStyle: FontStyle.italic,
+                      color: Colors.blue[800],
+                      shadows: const [
+                        Shadow(
+                          blurRadius: 10.0,
+                          color: Colors.red,
+                          offset: Offset(5.0, 5.0),
+                        ),
+                      ],
+                    ))))));
 
     listings.add(AnimatedBuilder(
         animation: animationController,
@@ -45,8 +46,8 @@ extension HighscoreWidget on Highscore {
                   borderRadius: BorderRadius.circular(10.0),
                   gradient: LinearGradient(
                     colors: [
-                      Colors.lightBlueAccent.withOpacity(0.7),
-                      Colors.indigoAccent.withOpacity(0.7)
+                      Colors.greenAccent.withOpacity(0.5),
+                      Colors.lightBlueAccent.withOpacity(0.5)
                     ],
                     stops: [0.0, loopAnimation.value],
                   )),
@@ -62,33 +63,39 @@ extension HighscoreWidget on Highscore {
                           border: Border.all(color: Colors.blueAccent),
                           borderRadius: BorderRadius.circular(10.0),
                         ),
-                        child: Stack(
-                            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Container(
-                                  alignment: Alignment.centerLeft,
+                                  width: containerWidth * 0.15,
                                   child: FittedBox(
                                       fit: BoxFit.contain,
                                       child: Text(
                                           "  " + (index + 1).toString() + ".",
                                           style: const TextStyle(
-                                              fontStyle: FontStyle.italic)))),
+                                              fontStyle: FontStyle.italic,
+                                              color: Colors.black54)))),
                               Container(
-                                  alignment: Alignment.center,
+                                  padding: EdgeInsets.only(
+                                      left: 10, right: 10, top: 0, bottom: 0),
+                                  width: containerWidth * 0.5,
                                   child: FittedBox(
                                       fit: BoxFit.contain,
                                       child: Text(highscoreText[index],
                                           style: const TextStyle(
-                                              fontWeight: FontWeight.bold)))),
+                                              //fontWeight: FontWeight.bold,
+                                              color: Colors.black)))),
                               Container(
-                                  alignment: Alignment.centerRight,
+                                  width: containerWidth * 0.25,
                                   child: FittedBox(
                                       fit: BoxFit.contain,
                                       child: Text(
                                           highscoreValue[index].toString() +
                                               "  ",
                                           style: const TextStyle(
-                                              color: Colors.yellow))))
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.redAccent))))
                             ]),
                       );
                     }),

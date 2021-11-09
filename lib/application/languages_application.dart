@@ -27,6 +27,8 @@ class LanguagesApplication extends Languages {
   final _yatzy = {"English": "Yatzy"};
   final _maxiYatzy = {"English": "Maxi Yatzy"};
   final _totalSum = {"English": "Total Sum"};
+  final _turn = {"English": "turn..."};
+  final _your = {"English": "Your"};
 
   String get ones_ => getText(_ones);
 
@@ -80,6 +82,10 @@ class LanguagesApplication extends Languages {
 
   String get totalSum_ => getText(_totalSum);
 
+  String get turn_ => getText(_turn);
+
+  String get your_ => getText(_your);
+
   void languagesSetup() {
     _ones["Swedish"] = "Ettor";
     _twos["Swedish"] = "Tvåor";
@@ -107,5 +113,7 @@ class LanguagesApplication extends Languages {
     _yatzy["Swedish"] = "Yatzy";
     _maxiYatzy["Swedish"] = "Maxi Yatzy";
     _totalSum["Swedish"] = "Total Summa";
+    _turn["Swedish"] = "tur...";
+    _your["Swedish"] = "Din";
   }
 }

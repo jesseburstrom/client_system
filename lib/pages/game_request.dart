@@ -53,19 +53,34 @@ class GameRequest extends LanguagesGameRequest with InputItems {
     application.gameType = gameType;
     application.nrPlayers = nrPlayers;
     application.setup();
+    userName = userNames[application.myPlayerId];
     gameStarted = true;
     pages.navigateToMainAppHandlerPageR(context);
   }
 
   Widget widgetWaiting() {
-    Widget widget = Text("");
+    Widget widget = const Text("");
     for (var i = 0; i < games.length; i++) {
       if (games[i]["playerIds"].indexOf(net.socketConnection.id) != -1) {
-        widget = Text(games[i]["gameType"] +
-            " " +
-            games[i]["connected"].toString() +
-            "/" +
-            games[i]["nrPlayers"].toString());
+        widget = Text(
+            games[i]["gameType"] +
+                " " +
+                games[i]["connected"].toString() +
+                "/" +
+                games[i]["nrPlayers"].toString(),
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+              color: Colors.blue[800],
+              shadows: const [
+                Shadow(
+                  blurRadius: 10.0,
+                  color: Colors.red,
+                  offset: Offset(5.0, 5.0),
+                ),
+              ],
+            ));
         break;
       }
     }

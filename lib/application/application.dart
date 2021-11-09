@@ -27,7 +27,7 @@ class Application extends LanguagesApplication with AnimationsBoardEffect {
   var playerIds = [];
 
   var totalFields = 18;
-  var nrPlayers = 2;
+  var nrPlayers = 4;
   var bonusSum = 63;
   var bonusAmount = 50;
   var myPlayerId = -1;
@@ -93,6 +93,16 @@ class Application extends LanguagesApplication with AnimationsBoardEffect {
     }
   }
 
+  updateChat(String text) async {
+    chat.messages.add(ChatMessage(text, "receiver"));
+    globalSetState();
+    await Future.delayed(const Duration(milliseconds: 100), () {});
+    chat.scrollController.animateTo(
+        chat.scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.fastOutSlowIn);
+  }
+
   callbackOnClientMsg(var data) {
     print("onClientMsg");
     print(data);
@@ -108,11 +118,18 @@ class Application extends LanguagesApplication with AnimationsBoardEffect {
         break;
       case "sendDices":
         print("onDices");
+        data = Map<String, dynamic>.from(data);
         print(data["diceValue"]);
         gameDices.diceValue = data["diceValue"].cast<int>();
         updateDiceValues();
+        gameDices.nrRolls += 1;
         gameDices.updateDiceImages();
         globalSetState();
+        break;
+      case "chatMessage":
+        print("chatMessage");
+        print(data["chatMessage"]);
+        updateChat(data["chatMessage"]);
         break;
     }
   }
@@ -133,10 +150,11 @@ class Application extends LanguagesApplication with AnimationsBoardEffect {
   callbackDiceUpdateDiceValues() {
     updateDiceValues();
     Map<String, dynamic> msg = {};
-    msg["diceValue"] = gameDices.diceValue;
+    msg["action"] = "sendDices";
     msg["gameId"] = gameId;
     msg["playerIds"] = playerIds;
-    msg["action"] = "sendDices";
+    msg["diceValue"] = gameDices.diceValue;
+
     print(msg);
     net.sendToClients(msg);
   }

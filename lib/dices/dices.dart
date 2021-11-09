@@ -56,6 +56,7 @@ class UnityMessage {
 class Dices extends LanguagesDices with AnimationsRollDices {
   Dices(Function updateDiceValues, Function unityCreated,
       Function checkPlayerToMove) {
+    languagesSetup();
     setupAnimation();
     callbackUpdateDiceValues = updateDiceValues;
     callbackUnityCreated = unityCreated;
@@ -66,6 +67,7 @@ class Dices extends LanguagesDices with AnimationsRollDices {
 
   var randomNumberGenerator = Random();
   var nrRolls = 0;
+  var nrTotalRolls = 3;
   var nrDices = 5;
   var diceValue = List.filled(5, 0);
   var diceRef = [
@@ -119,7 +121,7 @@ class Dices extends LanguagesDices with AnimationsRollDices {
   }
 
   holdDice(int dice) {
-    if (nrRolls > 0 && nrRolls < 3) {
+    if (nrRolls > 0 && nrRolls < nrTotalRolls) {
       holdDices[dice] = !holdDices[dice];
       if (holdDices[dice]) {
         holdDiceText[dice] = hold_;
@@ -142,14 +144,14 @@ class Dices extends LanguagesDices with AnimationsRollDices {
   }
 
   bool rollDices() {
-    if (nrRolls < 3) {
+    if (nrRolls < nrTotalRolls) {
       nrRolls += 1;
       for (var i = 0; i < nrDices; i++) {
         if (!holdDices[i]) {
           diceValue[i] = randomNumberGenerator.nextInt(6) + 1;
           diceRef[i] = "assets/images/" + diceFile[diceValue[i]];
         } else {
-          if (nrRolls == 3) {
+          if (nrRolls == nrTotalRolls) {
             holdDices[i] = false;
             holdDiceText[i] = "";
             holdDiceOpacity[i] = 0.0;
@@ -164,7 +166,7 @@ class Dices extends LanguagesDices with AnimationsRollDices {
   }
 
   void sendResetToUnity() {
-    UnityMessage msg = UnityMessage.reset(nrDices, 3);
+    UnityMessage msg = UnityMessage.reset(nrDices, nrTotalRolls);
 
     var json = jsonEncode(msg.toJson());
     print(json);
@@ -246,7 +248,7 @@ class Dices extends LanguagesDices with AnimationsRollDices {
         diceValue = _json["diceResult"].cast<int>();
         print(diceValue);
         callbackUpdateDiceValues();
-
+        nrRolls += 1;
         globalSetState();
       }
     } catch (e) {
