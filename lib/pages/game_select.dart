@@ -50,6 +50,7 @@ class GameSelect extends LanguagesGameSelect with InputItems {
 
   void onGameListButton(BuildContext context) {
     print("List games");
+    //pages.navigateToMainAppHandlerPageR(context);
     pages.navigateToRequestPageR(context);
 
     // if (GameStarted) {

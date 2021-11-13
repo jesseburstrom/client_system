@@ -21,11 +21,19 @@ class _PageGameRequestState extends State<PageGameRequest>
   void initState() {
     super.initState();
     gameRequest.state = state;
+    net.connectToServer();
     Map<String, dynamic> msg = {};
-    msg["playerIds"] = [net.socketConnection.id];
+    msg["action"] = "getId";
+    msg["id"] = "";
+
+    print(jsonEncode(msg));
+    net.sendToServer(msg);
+
+    msg = {};
+    var nrPlayers = int.parse(gameSelect.nrPlayers[0]);
+    msg["playerIds"] = List.filled(nrPlayers, "");
     msg["gameType"] = gameSelect.gameType[0];
-    msg["nrPlayers"] = int.parse(gameSelect.nrPlayers[0]);
-    msg["action"] = "sendRequestGame";
+    msg["nrPlayers"] = nrPlayers;
     print(msg);
     net.sendToServer(msg);
 
@@ -60,8 +68,11 @@ class GameRequest extends LanguagesGameRequest with InputItems {
 
   Widget widgetWaiting() {
     Widget widget = const Text("");
+
     for (var i = 0; i < games.length; i++) {
-      if (games[i]["playerIds"].indexOf(net.socketConnection.id) != -1) {
+      print(games[i]["playerIds"]);
+      print(net.socketConnectionId);
+      if (games[i]["playerIds"].indexOf(net.socketConnectionId) != -1) {
         widget = Text(
             games[i]["gameType"] +
                 " " +
@@ -106,7 +117,9 @@ class GameRequest extends LanguagesGameRequest with InputItems {
               controller: tabController,
               children: [
                 Scrollbar(
-                  child: ListView(children: <Widget>[widgetWaiting()]),
+                  child: ListView(children: <Widget>[
+                    widgetWaiting(),
+                  ]),
                 ),
               ],
             )));

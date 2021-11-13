@@ -8,6 +8,8 @@ import "package:http/http.dart";
 import "package:flutter/material.dart";
 import "package:path_provider/path_provider.dart";
 import "package:socket_io_client/socket_io_client.dart";
+import 'package:web_socket_channel/web_socket_channel.dart';
+import 'package:web_socket_channel/io.dart';
 
 // Animations imports
 import "package:animated_text_kit/animated_text_kit.dart";
@@ -75,7 +77,9 @@ part "./scroll/languages_animations_scroll.dart";
 
 part "./scroll/widget_scroll.dart";
 
-void main() => runApp(const MyApp());
+void main() {
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -120,11 +124,11 @@ Future attemptLogin(BuildContext context) async {
 
   Timer.run(() {
     if (!isLoggedIn && !platformWeb) {
-      pages.navigateToAuthenticatePageR(context);
+      pages.navigateToAuthenticatePage(context);
     } else if (!gameStarted) {
-      pages.navigateToSelectPageR(context);
+      pages.navigateToSelectPage(context);
     } else {
-      pages.navigateToMainAppHandlerPageR(context);
+      pages.navigateToMainAppHandlerPage(context);
     }
   });
 }

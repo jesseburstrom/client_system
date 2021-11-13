@@ -72,15 +72,16 @@ extension GameFunctionsInternal on Application {
     }
 
     clearFocus();
-    playerToMove = (playerToMove + 1) % nrPlayers;
     if (!fixedCell[playerToMove].contains(false)) {
       // Game finished
+      //gameStarted = false;
       // for (var i = 0; i < NrPlayers; i++) {
       //   highscore.Update(userName, CellValue[i][TotalFields - 1]);
       // }
       highscore.updateHighscore(
           userName, cellValue[myPlayerId][totalFields - 1]);
     }
+    playerToMove = (playerToMove + 1) % nrPlayers;
 
     for (var i = 0; i < totalFields; i++) {
       if (fixedCell[playerToMove][i]) {

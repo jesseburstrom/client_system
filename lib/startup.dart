@@ -1,7 +1,8 @@
 part of "./main.dart";
 
 var localhost = "http://192.168.0.168:3000";
-var localhostIO = "http://192.168.0.168:3001";
+var localhostIO = "wss://192.168.0.168:44357/ws";
+var localhostIOWSC = "wss://localhost:44357/ws";
 var gameStarted = false;
 var platformWeb = false;
 var reloadHighscore = true; // only used ones at loadup
@@ -17,7 +18,7 @@ var isInForeground = true;
 // android:theme="@style/UnityThemeSelector.Translucent"
 // android/app/Src/main/AndroidManifest.xml
 
-startAnimations(BuildContext context) {
+startAnimations(BuildContext context) async {
   animationsScroll.animationController.repeat(reverse: true);
   globalContext = context;
 }
@@ -40,8 +41,10 @@ class MainAppHandler extends StatefulWidget {
   _MainAppHandlerState createState() => _MainAppHandlerState();
 }
 
+var tabController = TabController(length: 1, vsync: _MainAppHandlerState());
+
 class _MainAppHandlerState extends State<MainAppHandler>
-    with WidgetsBindingObserver, TickerProviderStateMixin {
+    with TickerProviderStateMixin {
   void state() {
     setState(() {});
   }
@@ -50,20 +53,13 @@ class _MainAppHandlerState extends State<MainAppHandler>
   void initState() {
     super.initState();
     globalSetState = state;
+
     WidgetsBinding.instance!
         .addPostFrameCallback((_) => startAnimations(context));
-    WidgetsBinding.instance!.addObserver(this);
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    super.didChangeAppLifecycleState(state);
-    isInForeground = state == AppLifecycleState.resumed;
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance!.removeObserver(this);
     animationsScroll.animationController.stop();
     super.dispose();
   }

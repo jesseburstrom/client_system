@@ -10,7 +10,8 @@ class Application extends LanguagesApplication with AnimationsBoardEffect {
     languagesSetup();
     setup();
     setupAnimation(nrPlayers, maxNrPlayers, maxTotalFields);
-    net.connectToServer();
+    //net.connectToServer();
+
     net.callbackOnClientMsg = callbackOnClientMsg;
     net.callbackOnServerMsg = callbackOnServerMsg;
   }
@@ -62,31 +63,36 @@ class Application extends LanguagesApplication with AnimationsBoardEffect {
 
   late List<YatzyFunctions> yatzyFunctions;
 
+  //var games = [];
+
   callbackOnServerMsg(var data) {
-    print("onClientMsg");
+    print("onServerMsg");
     print(data);
     switch (data["action"]) {
+      case "onGetId":
+        print("onGetId");
+        data = Map<String, dynamic>.from(data);
+        net.socketConnectionId = data["id"];
+        break;
       case "onGameStart":
         data = Map<String, dynamic>.from(data);
-        print(data);
-        application.myPlayerId =
-            data["playerIds"].indexOf(net.socketConnection.id);
-        application.gameId = data["gameId"];
-        application.playerIds = data["playerIds"];
+        myPlayerId = data["playerIds"].indexOf(net.socketConnectionId);
+        gameId = data["gameId"];
+        playerIds = data["playerIds"];
         print("start game");
         gameRequest.startGame(data["gameType"], data["nrPlayers"]);
         break;
       case "onRequestGames":
-        data = List<dynamic>.from(data["games"]);
+        print("onRequestGames");
+        data = List<dynamic>.from(data["Games"]);
         print(data);
-        print(data.length);
         gameRequest.games = data;
         gameRequest.state();
+
         break;
       case "onGameAborted":
         print("onGameAborted");
         data = Map<String, dynamic>.from(data["game"]);
-        print(data);
         gameStarted = false;
         pages.navigateToSelectPageR(globalContext);
         break;

@@ -4,22 +4,34 @@ class Net {
   late Socket socketConnection;
   late Function callbackOnClientMsg;
   late Function callbackOnServerMsg;
+  late WebSocketChannel webSocketChannel;
+  var isWebSocketChannel = true;
+  var socketConnectionId = "";
 
-  // "action" : String tells server meaning of message
   sendToClients(Map<String, dynamic> msg) {
     msg["timestamp"] = DateTime.now().millisecondsSinceEpoch;
-    socketConnection.emit(
-      "sendToClients",
-      msg,
-    );
+    if (isWebSocketChannel) {
+      msg["messageType"] = "sendToClients";
+      webSocketChannel.sink.add(jsonEncode(msg));
+    } else {
+      socketConnection.emit(
+        "sendToClients",
+        msg,
+      );
+    }
   }
 
-  sendToServer(Map<String, dynamic> msg) {
+  sendToServer(Map<String, dynamic> msg) async {
     msg["timestamp"] = DateTime.now().millisecondsSinceEpoch;
-    socketConnection.emit(
-      "sendToServer",
-      msg,
-    );
+    if (isWebSocketChannel) {
+      msg["messageType"] = "sendToServer";
+      webSocketChannel.sink.add(jsonEncode(msg));
+    } else {
+      socketConnection.emit(
+        "sendToServer",
+        msg,
+      );
+    }
   }
 
   onClientMsg(var data) {
@@ -30,18 +42,42 @@ class Net {
     callbackOnServerMsg(data);
   }
 
-  connectToServer() {
-    try {
-      // Configure socket, transports must be sepecified
-      socketConnection = io(localhostIO, <String, dynamic>{
-        "transports": ["websocket"],
-      });
+  listenStream(message) {
+    var data = jsonDecode(message);
+    print(data);
+    switch (data["messageType"]) {
+      case "onServerMsg":
+        callbackOnServerMsg(data);
+        break;
+      case "onClientMsg":
+        callbackOnClientMsg(data);
+        break;
+    }
+  }
 
-      socketConnection.on("onClientMsg", onClientMsg);
-      socketConnection.on("onServerMsg", onServerMsg);
-      socketConnection.on("disconnect", (_) => print("disconnect"));
-    } catch (e) {
-      print(e.toString());
+  connectToServer() async {
+    print("connectToServer");
+    if (isWebSocketChannel) {
+      try {
+        webSocketChannel = WebSocketChannel.connect(Uri.parse(localhostIOWSC));
+        webSocketChannel.stream.listen(listenStream);
+      } catch (e) {
+        print("error");
+        print(e.toString());
+      }
+    } else {
+      try {
+        // Configure socket, transports must be sepecified
+        socketConnection = io(localhostIO, <String, dynamic>{
+          "transports": ["websocket"],
+        });
+        socketConnectionId = socketConnection.id!;
+        socketConnection.on("onClientMsg", onClientMsg);
+        socketConnection.on("onServerMsg", onServerMsg);
+        socketConnection.on("disconnect", (_) => print("disconnect"));
+      } catch (e) {
+        print(e.toString());
+      }
     }
   }
 
