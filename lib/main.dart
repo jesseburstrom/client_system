@@ -106,29 +106,18 @@ Future attemptLogin(BuildContext context) async {
   var isLoggedIn = false;
   try {
     var userData = await fileHandler.readFile(authenticate.fileAuthenticate);
-    userName = userData["username"];
-    try {
-      var serverResponse = await net.mainLogin(userName, userData["password"]);
-      if (serverResponse.statusCode == 200) {
-        print("User is logged in!");
-        isLoggedIn = true;
-      } else {
-        print("user not logged in");
-      }
-    } catch (e) {
-      print("error logging in!");
-    }
+    isLoggedIn = await authenticate.tryLogin(userData["username"], userData["password"]);
   } catch (e) {
-    print("error logging in!");
+    print(e.toString());
   }
 
   Timer.run(() {
     if (!isLoggedIn && !platformWeb) {
-      pages.navigateToAuthenticatePage(context);
+      pages.navigateToAuthenticatePageR(context);
     } else if (!gameStarted) {
-      pages.navigateToSelectPage(context);
+      pages.navigateToSelectPageR(context);
     } else {
-      pages.navigateToMainAppHandlerPage(context);
+      pages.navigateToMainAppHandlerPageR(context);
     }
   });
 }

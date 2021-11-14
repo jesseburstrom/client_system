@@ -1,5 +1,7 @@
 part of "../main.dart";
 
+class tmp {}
+
 class Net {
   late Socket socketConnection;
   late Function callbackOnClientMsg;
@@ -71,10 +73,9 @@ class Net {
         socketConnection = io(localhostIO, <String, dynamic>{
           "transports": ["websocket"],
         });
-        socketConnectionId = socketConnection.id!;
+        print("Connected!");
         socketConnection.on("onClientMsg", onClientMsg);
         socketConnection.on("onServerMsg", onServerMsg);
-        socketConnection.on("disconnect", (_) => print("disconnect"));
       } catch (e) {
         print(e.toString());
       }
@@ -82,50 +83,69 @@ class Net {
   }
 
   // Http
-  Future mainMakeGetHighscores() async {
-    var response = await post(Uri.parse(localhost + "/getTopHighscores"),
-        headers: <String, String>{
-          "Content-Type": "application/json; charset=UTF-8",
-        });
+
+  Future getDb(String route) async {
+    dynamic response;
+
+    if (isWebSocketChannel) {
+      response =
+          await get(Uri.parse(localhostNET + route), headers: <String, String>{
+        "Content-Type": "application/json; charset=UTF-8",
+        'Authorization': 'Bearer ' + authenticate.jwt,
+      });
+    } else {
+      response =
+          await get(Uri.parse(localhost + route), headers: <String, String>{
+        "Content-Type": "application/json; charset=UTF-8",
+      });
+    }
 
     return response;
   }
 
-  Future mainMakeUpdateHighscores(name, score) async {
-    var response = await post(Uri.parse(localhost + "/updateHighscores"),
+  Future postDb(String route, Map<String, dynamic> json) async {
+    dynamic response;
+
+    if (isWebSocketChannel) {
+      response = await post(Uri.parse(localhostNET + route),
+          headers: <String, String>{
+            "Content-Type": "application/json; charset=UTF-8",
+            'Authorization': 'Bearer ' + authenticate.jwt,
+          },
+          body: jsonEncode(json));
+    } else {
+      response = await post(Uri.parse(localhost + route),
+          headers: <String, String>{
+            "Content-Type": "application/json; charset=UTF-8",
+          },
+          body: jsonEncode(json));
+    }
+
+    return response;
+  }
+
+  Future login(String userName, String password) async {
+    var host = isWebSocketChannel ? localhostNET : localhost;
+    var response = await post(Uri.parse(host + "/login"),
         headers: <String, String>{
           "Content-Type": "application/json; charset=UTF-8",
         },
         body: jsonEncode(<String, String>{
-          "serverName": name,
-          "serverScore": score.toString()
-          //"Authorization": authenticate.Jwt
+          "email": userName,
+          "password": password,
         }));
 
     return response;
   }
 
-  Future mainLogin(String userName, String password) async {
-    var response = await post(Uri.parse(localhost + "/login"),
-        headers: <String, String>{
-          "Content-Type": "application/json; charset=UTF-8",
-        },
-        body: jsonEncode(<String, String>{
-          "serverUserName": userName,
-          "serverPassword": password,
-        }));
-
-    return response;
-  }
-
-  Future mainSignup(String userName, String password) async {
+  Future signup(String userName, String password) async {
     var response = await post(Uri.parse(localhost + "/signup"),
         headers: <String, String>{
           "Content-Type": "application/json; charset=UTF-8",
         },
         body: jsonEncode(<String, String>{
-          "serverUserName": userName,
-          "serverPassword": password,
+          "email": userName,
+          "password": password,
         }));
 
     return response;

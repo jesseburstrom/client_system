@@ -3,25 +3,23 @@ part of "../main.dart";
 class Highscore extends LanguagesHighscore with AnimationsHighscore {
   Highscore() {
     setupAnimation();
-    loadHighscoresFromFile();
+    loadHighscoreFromFile();
     languagesSetup();
-    //loadHighscoresFromServer();
   }
 
-  ///// Internal variables
-  var highscoreText = List.filled(10, "Yatzy", growable: true);
-  var highscoreValue = List.filled(10, 200, growable: true);
+  List<dynamic> highscores = [];
+
   var fileHighscore = "highscores.json";
 
-  Future loadAndUpdateHighscoresFromServer() async {
+  Future loadHighscoreFromServer() async {
     try {
-      var serverResponse = await net.mainMakeGetHighscores();
+      //await net.postDb("/updateHighscore", {"name": "Jesse", "score": 275});
+      var serverResponse = await net.getDb("/getTopScores");
       if (serverResponse.statusCode == 200) {
-        var serverBody = jsonDecode(serverResponse.body);
-        setHighscores(serverBody);
+        highscores = jsonDecode(serverResponse.body);
         globalSetState();
         print("Highscores loaded from server");
-        await fileHandler.saveFile(serverBody, fileHighscore);
+        await fileHandler.saveFile(highscores, fileHighscore);
       } else {
         print("Error getting highscores1");
       }
@@ -30,11 +28,10 @@ class Highscore extends LanguagesHighscore with AnimationsHighscore {
     }
   }
 
-  Future loadHighscoresFromFile() async {
+  Future loadHighscoreFromFile() async {
     try {
-      var highscores = await fileHandler.readFile(fileHighscore);
-      print("highscores loaded from file");
-      setHighscores(highscores);
+      highscores = await fileHandler.readFile(fileHighscore);
+      print("highscore loaded from file");
     } catch (e) {
       print("Cannot load highscorefile");
     }
@@ -42,12 +39,12 @@ class Highscore extends LanguagesHighscore with AnimationsHighscore {
 
   Future updateHighscore(String name, int score) async {
     try {
-      var serverResponse = await net.mainMakeUpdateHighscores(name, score);
+      var serverResponse =
+          await net.postDb("/updateHighscore", {"name": name, "score": score});
       if (serverResponse.statusCode == 200) {
-        var serverBody = jsonDecode(serverResponse.body);
-        setHighscores(serverBody);
+        highscores = jsonDecode(serverResponse.body);
         globalSetState();
-        fileHandler.saveFile(serverBody, fileHighscore);
+        fileHandler.saveFile(highscores, fileHighscore);
       } else {
         print("Error getting highscores");
       }
@@ -56,10 +53,10 @@ class Highscore extends LanguagesHighscore with AnimationsHighscore {
     }
   }
 
-  void setHighscores(List<dynamic> highscores) {
-    for (var i = 0; i < highscores.length; i++) {
-      highscoreText[i] = highscores[i]["name"];
-      highscoreValue[i] = highscores[i]["score"];
-    }
-  }
+// void setHighscores(List<dynamic> highscores) {
+//   for (var i = 0; i < highscores.length; i++) {
+//     highscoreText[i] = highscores[i]["name"];
+//     highscoreValue[i] = highscores[i]["score"];
+//   }
+// }
 }

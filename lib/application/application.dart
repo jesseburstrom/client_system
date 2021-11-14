@@ -28,7 +28,7 @@ class Application extends LanguagesApplication with AnimationsBoardEffect {
   var playerIds = [];
 
   var totalFields = 18;
-  var nrPlayers = 4;
+  var nrPlayers = 1;
   var bonusSum = 63;
   var bonusAmount = 50;
   var myPlayerId = -1;
@@ -77,6 +77,9 @@ class Application extends LanguagesApplication with AnimationsBoardEffect {
       case "onGameStart":
         data = Map<String, dynamic>.from(data);
         myPlayerId = data["playerIds"].indexOf(net.socketConnectionId);
+        print(data["playerIds"]);
+        print(net.socketConnectionId);
+        print("myPlayerID: " + myPlayerId.toString());
         gameId = data["gameId"];
         playerIds = data["playerIds"];
         print("start game");
@@ -141,10 +144,7 @@ class Application extends LanguagesApplication with AnimationsBoardEffect {
   }
 
   bool callbackDiceCheckPlayerToMove() {
-    if (playerToMove == myPlayerId) {
-      return true;
-    }
-    return false;
+    return playerToMove == myPlayerId;
   }
 
   callbackDiceUnityCreated() {

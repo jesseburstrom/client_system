@@ -55,7 +55,7 @@ extension HighscoreWidget on Highscore {
                 //showTrackOnHover: true,
                 child: ListView.builder(
                     padding: const EdgeInsets.all(4),
-                    itemCount: highscoreText.length,
+                    itemCount: highscores.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
                         height: heightCaption,
@@ -82,7 +82,7 @@ extension HighscoreWidget on Highscore {
                                   width: containerWidth * 0.5,
                                   child: FittedBox(
                                       fit: BoxFit.contain,
-                                      child: Text(highscoreText[index],
+                                      child: Text(highscores[index]["name"],
                                           style: const TextStyle(
                                               //fontWeight: FontWeight.bold,
                                               color: Colors.black)))),
@@ -91,7 +91,8 @@ extension HighscoreWidget on Highscore {
                                   child: FittedBox(
                                       fit: BoxFit.contain,
                                       child: Text(
-                                          highscoreValue[index].toString() +
+                                          highscores[index]["score"]
+                                                  .toString() +
                                               "  ",
                                           style: const TextStyle(
                                               fontWeight: FontWeight.bold,

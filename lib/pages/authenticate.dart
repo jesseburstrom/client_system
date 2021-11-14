@@ -23,67 +23,88 @@ class Authenticate extends LanguagesLogin with InputItems {
   var fileAuthenticate = "authenticate.json";
   var tabController = TabController(length: 2, vsync: _PageAuthenticate());
 
-  final loginTxtUserName = TextEditingController();
-  final loginTxtPassword = TextEditingController();
-  final signupTxtUserName = TextEditingController();
-  final signupTxtPassword = TextEditingController();
-  final signupTxtPassword2 = TextEditingController();
+  final loginUser = TextEditingController();
+  final loginPassword = TextEditingController();
+  final signupUser = TextEditingController();
+  final signupPassword = TextEditingController();
 
   var signupFormKey = GlobalKey<FormState>();
   var loginFormKey = GlobalKey<FormState>();
 
-  Future checkUser(BuildContext context) async {
+  var jwt = "";
+
+  Future<bool> tryLogin(user, password) async {
+    var isLoggedIn = false;
+    dynamic response, json;
     try {
-      var serverResponse =
-          await net.mainLogin(loginTxtUserName.text, loginTxtPassword.text);
-      if (serverResponse.statusCode == 200) {
-        print(serverResponse.body);
-        userName = loginTxtUserName.text;
-        print("User is logged in!");
-        var _json = {
-          "username": loginTxtUserName.text,
-          "password": loginTxtPassword.text
-        };
-        fileHandler.saveFile(_json, fileAuthenticate);
-        pages.navigateToSelectPageR(context);
-      } else {
-        // TODO: handle not logged in case
-        print("user not logged in");
-      }
+      response = await net.login(user, password);
     } catch (e) {
       print("error logging in!");
+      return false;
+    }
+
+    print(response.statusCode);
+    print(response.body);
+
+    // ASP.NET
+    if (net.isWebSocketChannel) {
+      try {
+        json = jsonDecode(response.body);
+      } catch (e) {
+        print(e.toString());
+        return false;
+      }
+      if (response.statusCode == 200) {
+        jwt = json["token"];
+        print(jwt);
+        isLoggedIn = true;
+      }
+    } else if (response.statusCode == 200) {
+      isLoggedIn = true;
+    }
+
+    if (isLoggedIn) {
+      print("User is logged in!");
+    } else {
+      print("Wrong email or password, try again!");
+    }
+
+    return isLoggedIn;
+  }
+
+  Future checkUser(BuildContext context) async {
+    if (await tryLogin(loginUser.text, loginPassword.text)) {
+      fileHandler.saveFile(
+          {"username": loginUser.text, "password": loginPassword.text},
+          fileAuthenticate);
+      pages.navigateToSelectPageR(context);
     }
   }
 
   Future attemptSignup(BuildContext context) async {
+    dynamic response;
     try {
-      var serverResponse =
-          await net.mainSignup(signupTxtUserName.text, signupTxtPassword.text);
-
-      if (serverResponse.statusCode == 200) {
-        userName = signupTxtUserName.text;
-
-        print("User is created!");
-        var _json = {"username": userName, "password": signupTxtPassword.text};
-        fileHandler.saveFile(_json, fileAuthenticate);
-        try {
-          var serverResponse =
-              await net.mainLogin(userName, signupTxtPassword.text);
-          if (serverResponse.statusCode == 200) {
-            print("User is logged in!");
-          } else {
-            // TODO: handle not logged in case
-            print("user not logged in");
-          }
-        } catch (e) {
-          print("error logging in!");
-        }
-        pages.navigateToSelectPageR(context);
-      } else {
-        print("User not created");
-      }
+      response = await net.signup(signupUser.text, signupPassword.text);
     } catch (e) {
       print("error signing up!");
+    }
+
+    if (response.statusCode == 200) {
+      print("User is created!");
+
+      fileHandler.saveFile(
+          {"username": signupUser.text, "password": signupPassword.text},
+          fileAuthenticate);
+      if (await tryLogin(signupUser.text, signupPassword.text)) {
+        fileHandler.saveFile(
+            {"username": loginUser.text, "password": loginPassword.text},
+            fileAuthenticate);
+        pages.navigateToSelectPageR(context);
+      } else {
+        print("error logging in user");
+      }
+    } else {
+      print("User exists or other error, try again!");
     }
   }
 
@@ -148,10 +169,9 @@ class Authenticate extends LanguagesLogin with InputItems {
                   child: Column(
                     children: <Widget>[
                       widgetImage(200, 150, "assets/images/flutter_logo.png"),
+                      widgetTextFormField(email_, enterValidEmail_, loginUser),
                       widgetTextFormField(
-                          email_, enterValidEmail_, loginTxtUserName),
-                      widgetTextFormField(
-                          password_, enterSecurePassword_, loginTxtPassword),
+                          password_, enterSecurePassword_, loginPassword),
                       widgetTextLink(
                           forgotPasswordLinkPressed, forgotPassword_),
                       widgetButton(context, loginButtonPressed, login_),
@@ -168,10 +188,9 @@ class Authenticate extends LanguagesLogin with InputItems {
                   child: Column(
                     children: <Widget>[
                       widgetImage(200, 150, "assets/images/flutter_logo.png"),
+                      widgetTextFormField(email_, enterValidEmail_, signupUser),
                       widgetTextFormField(
-                          email_, enterValidEmail_, signupTxtUserName),
-                      widgetTextFormField(
-                          password_, enterSecurePassword_, signupTxtPassword),
+                          password_, enterSecurePassword_, signupPassword),
                       widgetSizedBox(20),
                       widgetButton(context, signupButtonPressed, signup_),
                     ],

@@ -34,6 +34,7 @@ class _PageGameRequestState extends State<PageGameRequest>
     msg["playerIds"] = List.filled(nrPlayers, "");
     msg["gameType"] = gameSelect.gameType[0];
     msg["nrPlayers"] = nrPlayers;
+    msg["action"] = "requestGame";
     print(msg);
     net.sendToServer(msg);
 

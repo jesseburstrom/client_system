@@ -1,7 +1,8 @@
 part of "./main.dart";
 
 var localhost = "http://192.168.0.168:3000";
-var localhostIO = "wss://192.168.0.168:44357/ws";
+var localhostIO = "http://192.168.0.168:3001";
+var localhostNET = "https://localhost:44357/api/Values";
 var localhostIOWSC = "wss://localhost:44357/ws";
 var gameStarted = false;
 var platformWeb = false;
@@ -87,7 +88,7 @@ class _MainAppHandlerState extends State<MainAppHandler>
     screenHeight = MediaQuery.of(context).size.height;
     print(isInForeground);
     if (reloadHighscore) {
-      highscore.loadAndUpdateHighscoresFromServer();
+      highscore.loadHighscoreFromServer();
       reloadHighscore = false;
     }
 
