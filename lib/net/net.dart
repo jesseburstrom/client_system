@@ -1,14 +1,14 @@
 part of "../main.dart";
 
-class tmp {}
-
 class Net {
+  // Set to true for ASP .NET server with websocket and false for NodeJS server with socket.io
+  var isWebSocketChannel = true;
+  var socketConnectionId = "";
+
   late Socket socketConnection;
   late Function callbackOnClientMsg;
   late Function callbackOnServerMsg;
   late WebSocketChannel webSocketChannel;
-  var isWebSocketChannel = true;
-  var socketConnectionId = "";
 
   sendToClients(Map<String, dynamic> msg) {
     msg["timestamp"] = DateTime.now().millisecondsSinceEpoch;
@@ -61,7 +61,7 @@ class Net {
     print("connectToServer");
     if (isWebSocketChannel) {
       try {
-        webSocketChannel = WebSocketChannel.connect(Uri.parse(localhostIOWSC));
+        webSocketChannel = WebSocketChannel.connect(Uri.parse(localhostNETIO));
         webSocketChannel.stream.listen(listenStream);
       } catch (e) {
         print("error");
@@ -69,7 +69,7 @@ class Net {
       }
     } else {
       try {
-        // Configure socket, transports must be sepecified
+        // Configure socket, transports must be specified
         socketConnection = io(localhostIO, <String, dynamic>{
           "transports": ["websocket"],
         });
@@ -84,41 +84,65 @@ class Net {
 
   // Http
 
-  Future getDb(String route) async {
+  Future getDb(String route, int count) async {
     dynamic response;
 
     if (isWebSocketChannel) {
-      response =
-          await get(Uri.parse(localhostNET + route), headers: <String, String>{
-        "Content-Type": "application/json; charset=UTF-8",
-        'Authorization': 'Bearer ' + authenticate.jwt,
-      });
+      response = await get(
+          Uri.parse(localhostNET + route + "?count=" + count.toString()),
+          headers: <String, String>{
+            "Content-Type": "application/json; charset=UTF-8",
+            "Authorization": "Bearer " + authenticate.jwt,
+          });
     } else {
-      response =
-          await get(Uri.parse(localhost + route), headers: <String, String>{
-        "Content-Type": "application/json; charset=UTF-8",
-      });
+      response = await get(
+          Uri.parse(localhost + route + "?count=" + count.toString()),
+          headers: <String, String>{
+            "Content-Type": "application/json; charset=UTF-8",
+          });
     }
 
     return response;
   }
 
-  Future postDb(String route, Map<String, dynamic> json) async {
+  Future postDb(String route, Map<String, dynamic> json, int count) async {
     dynamic response;
 
     if (isWebSocketChannel) {
-      response = await post(Uri.parse(localhostNET + route),
+      response = await post(
+          Uri.parse(localhostNET + route + "?count=" + count.toString()),
           headers: <String, String>{
             "Content-Type": "application/json; charset=UTF-8",
-            'Authorization': 'Bearer ' + authenticate.jwt,
+            "Authorization": "Bearer " + authenticate.jwt,
           },
           body: jsonEncode(json));
     } else {
-      response = await post(Uri.parse(localhost + route),
+      response = await post(
+          Uri.parse(localhost + route + "?count=" + count.toString()),
           headers: <String, String>{
             "Content-Type": "application/json; charset=UTF-8",
           },
           body: jsonEncode(json));
+    }
+
+    return response;
+  }
+
+  Future deleteDb(String route, String email) async {
+    dynamic response;
+
+    if (isWebSocketChannel) {
+      response = await delete(
+          Uri.parse(localhostNET + route + "?email=" + email),
+          headers: <String, String>{
+            "Content-Type": "application/json; charset=UTF-8",
+            "Authorization": "Bearer " + authenticate.jwt,
+          });
+    } else {
+      response = await delete(Uri.parse(localhost + route + "?email=" + email),
+          headers: <String, String>{
+            "Content-Type": "application/json; charset=UTF-8",
+          });
     }
 
     return response;
@@ -139,7 +163,8 @@ class Net {
   }
 
   Future signup(String userName, String password) async {
-    var response = await post(Uri.parse(localhost + "/signup"),
+    var host = isWebSocketChannel ? localhostNET : localhost;
+    var response = await post(Uri.parse(host + "/signup"),
         headers: <String, String>{
           "Content-Type": "application/json; charset=UTF-8",
         },

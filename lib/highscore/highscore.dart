@@ -13,8 +13,10 @@ class Highscore extends LanguagesHighscore with AnimationsHighscore {
 
   Future loadHighscoreFromServer() async {
     try {
-      //await net.postDb("/updateHighscore", {"name": "Jesse", "score": 275});
-      var serverResponse = await net.getDb("/getTopScores");
+      //await net.postDb("/updateHighscore", {"name": "Jesse", "score": 281}, 20);
+      //var result = await net.deleteDb("/Delete", "eric.burstrom@gmail.com");
+      //print(result.body);
+      var serverResponse = await net.getDb("/getTopScores", 20);
       if (serverResponse.statusCode == 200) {
         highscores = jsonDecode(serverResponse.body);
         globalSetState();
@@ -39,8 +41,8 @@ class Highscore extends LanguagesHighscore with AnimationsHighscore {
 
   Future updateHighscore(String name, int score) async {
     try {
-      var serverResponse =
-          await net.postDb("/updateHighscore", {"name": name, "score": score});
+      var serverResponse = await net.postDb(
+          "/updateHighscore", {"name": name, "score": score}, 20);
       if (serverResponse.statusCode == 200) {
         highscores = jsonDecode(serverResponse.body);
         globalSetState();

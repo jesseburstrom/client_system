@@ -12,18 +12,24 @@ class Pages {
   }
 
   Future navigateToRequestPageR(context) async {
-    await Navigator.pushReplacement(context,
-        MaterialPageRoute(builder: (context) => const PageGameRequest()));
+    await Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => const PageApplicationConnect()));
   }
 
   Future navigateToSelectPageR(context) async {
-    await Navigator.pushReplacement(context,
-        MaterialPageRoute(builder: (context) => const PageGameSelect()));
+    await Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => const PageApplicationSettings()));
   }
 
   Future navigateToSelectPage(context) async {
-    await Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const PageGameSelect()));
+    await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => const PageApplicationSettings()));
   }
 
   Future navigateToMainAppHandlerPage(context) async {

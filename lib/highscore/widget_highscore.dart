@@ -13,7 +13,7 @@ extension HighscoreWidget on Highscore {
         left: left,
         top: top,
         child: Container(
-            padding: EdgeInsets.only(left: 20, right: 20, top: 0, bottom: 0),
+            padding: const EdgeInsets.only(left: 20, right: 20, top: 0, bottom: 0),
             width: containerWidth,
             height: heightCaption,
             //child: Center(
@@ -67,7 +67,7 @@ extension HighscoreWidget on Highscore {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Container(
+                              SizedBox(
                                   width: containerWidth * 0.15,
                                   child: FittedBox(
                                       fit: BoxFit.contain,
@@ -77,7 +77,7 @@ extension HighscoreWidget on Highscore {
                                               fontStyle: FontStyle.italic,
                                               color: Colors.black54)))),
                               Container(
-                                  padding: EdgeInsets.only(
+                                  padding: const EdgeInsets.only(
                                       left: 10, right: 10, top: 0, bottom: 0),
                                   width: containerWidth * 0.5,
                                   child: FittedBox(
@@ -86,7 +86,7 @@ extension HighscoreWidget on Highscore {
                                           style: const TextStyle(
                                               //fontWeight: FontWeight.bold,
                                               color: Colors.black)))),
-                              Container(
+                              SizedBox(
                                   width: containerWidth * 0.25,
                                   child: FittedBox(
                                       fit: BoxFit.contain,

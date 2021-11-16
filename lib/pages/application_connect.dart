@@ -1,26 +1,26 @@
 part of "../main.dart";
 
-class PageGameRequest extends StatefulWidget {
-  const PageGameRequest({Key? key}) : super(key: key);
+class PageApplicationConnect extends StatefulWidget {
+  const PageApplicationConnect({Key? key}) : super(key: key);
 
   @override
-  _PageGameRequestState createState() => _PageGameRequestState();
+  _PageApplicationConnectState createState() => _PageApplicationConnectState();
 }
 
-class _PageGameRequestState extends State<PageGameRequest>
+class _PageApplicationConnectState extends State<PageApplicationConnect>
     with TickerProviderStateMixin {
   void state() {
     setState(() {});
   }
 
   saveContext(BuildContext context) {
-    gameRequest.context = context;
+    applicationConnect.context = context;
   }
 
   @override
   void initState() {
     super.initState();
-    gameRequest.state = state;
+    applicationConnect.state = state;
     net.connectToServer();
     Map<String, dynamic> msg = {};
     msg["action"] = "getId";
@@ -30,9 +30,9 @@ class _PageGameRequestState extends State<PageGameRequest>
     net.sendToServer(msg);
 
     msg = {};
-    var nrPlayers = int.parse(gameSelect.nrPlayers[0]);
+    var nrPlayers = int.parse(applicationSettings.nrPlayers[0]);
     msg["playerIds"] = List.filled(nrPlayers, "");
-    msg["gameType"] = gameSelect.gameType[0];
+    msg["gameType"] = applicationSettings.gameType[0];
     msg["nrPlayers"] = nrPlayers;
     msg["action"] = "requestGame";
     print(msg);
@@ -43,16 +43,17 @@ class _PageGameRequestState extends State<PageGameRequest>
 
   @override
   Widget build(BuildContext context) {
-    return gameRequest.widgetScaffoldGameRequest(context, state);
+    return applicationConnect.widgetScaffoldGameRequest(context, state);
   }
 }
 
-class GameRequest extends LanguagesGameRequest with InputItems {
-  GameRequest() {
+class ApplicationConnect extends LanguagesApplicationConnect with InputItems {
+  ApplicationConnect() {
     languagesSetup();
   }
 
-  var tabController = TabController(length: 1, vsync: _PageGameRequestState());
+  var tabController =
+      TabController(length: 1, vsync: _PageApplicationConnectState());
 
   late BuildContext context;
   late Function state;

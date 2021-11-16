@@ -9,7 +9,6 @@ import "package:flutter/material.dart";
 import "package:path_provider/path_provider.dart";
 import "package:socket_io_client/socket_io_client.dart";
 import 'package:web_socket_channel/web_socket_channel.dart';
-import 'package:web_socket_channel/io.dart';
 
 // Animations imports
 import "package:animated_text_kit/animated_text_kit.dart";
@@ -29,9 +28,13 @@ part "./application/application_functions_internal_calc_dice_values.dart";
 
 part "./application/languages_application.dart";
 
-part "./application/widget_game_setup_board.dart";
+part "./application/widget_application.dart";
 
 part "./chat/chat.dart";
+
+part "./chat/languages_chat.dart";
+
+part "./chat/widget_chat.dart";
 
 part "./dices/animations_rolldice.dart";
 
@@ -57,17 +60,17 @@ part "./languages/languages.dart";
 
 part "./net/net.dart";
 
-part "./pages/languages_game_request.dart";
+part "./pages/languages_application_connect.dart";
 
-part "./pages/languages_game_select.dart";
+part "./pages/languages_application_settings.dart";
 
 part "./pages/languages_login.dart";
 
 part "./pages/authenticate.dart";
 
-part "./pages/game_request.dart";
+part "./pages/application_connect.dart";
 
-part "./pages/game_select.dart";
+part "./pages/application_settings.dart";
 
 part "./pages/pages.dart";
 
@@ -106,13 +109,14 @@ Future attemptLogin(BuildContext context) async {
   var isLoggedIn = false;
   try {
     var userData = await fileHandler.readFile(authenticate.fileAuthenticate);
-    isLoggedIn = await authenticate.tryLogin(userData["username"], userData["password"]);
+    isLoggedIn =
+        await authenticate.tryLogin(userData["username"], userData["password"]);
   } catch (e) {
     print(e.toString());
   }
 
   Timer.run(() {
-    if (!isLoggedIn && !platformWeb) {
+    if (!isLoggedIn) {
       pages.navigateToAuthenticatePageR(context);
     } else if (!gameStarted) {
       pages.navigateToSelectPageR(context);

@@ -23,15 +23,15 @@ class InputItems {
           cursorColor: Colors.black,
           focusNode: focusNode,
           controller: controller,
-          style: TextStyle(fontSize: 14.0, color: Colors.black),
+          style: const TextStyle(fontSize: 14.0, color: Colors.black),
           decoration: InputDecoration(
-            focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: Colors.black, width: 2.0),
+            focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.black, width: 2.0),
               //borderRadius: BorderRadius.circular(25.0),
             ),
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0),
-            border: OutlineInputBorder(),
+            border: const OutlineInputBorder(),
             hintText: hintText,
           ), //widgetInputText("Type message", chatTextController),
         ));

@@ -1,6 +1,6 @@
 part of "../main.dart";
 
-class LanguagesGameRequest extends Languages {
+class LanguagesApplicationConnect extends Languages {
   final _gameRequest = {"English": "Game Request"};
 
   String get gameRequest_ => getText(_gameRequest);

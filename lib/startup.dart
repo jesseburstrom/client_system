@@ -3,10 +3,9 @@ part of "./main.dart";
 var localhost = "http://192.168.0.168:3000";
 var localhostIO = "http://192.168.0.168:3001";
 var localhostNET = "https://localhost:44357/api/Values";
-var localhostIOWSC = "wss://localhost:44357/ws";
+var localhostNETIO = "wss://localhost:44357/ws";
 var gameStarted = false;
-var platformWeb = false;
-var reloadHighscore = true; // only used ones at loadup
+var reloadHighscore = true; // only used ones at startup
 var userName = "Yatzy";
 var userNames = ["Bo", "Paula", "Jessica", "Henrik"];
 var stackedWidgets = <Widget>[];
@@ -14,7 +13,6 @@ late Function globalSetState;
 late BuildContext globalContext;
 late double screenWidth;
 late double screenHeight;
-var isInForeground = true;
 // scrcpy -s R3CR4037M1R --shortcut-mod=lctrl --always-on-top --stay-awake --window-title "Samsung Galaxy S21"
 // android:theme="@style/UnityThemeSelector.Translucent"
 // android/app/Src/main/AndroidManifest.xml
@@ -24,16 +22,18 @@ startAnimations(BuildContext context) async {
   globalContext = context;
 }
 
-var chat = Chat();
-var animationsScroll = AnimationsScroll();
+var pages = Pages();
 var fileHandler = FileHandler();
 var net = Net();
-var highscore = Highscore();
-var pages = Pages();
-var application = Application();
 var authenticate = Authenticate();
-var gameSelect = GameSelect();
-var gameRequest = GameRequest();
+
+var animationsScroll = AnimationsScroll();
+var chat = Chat();
+var highscore = Highscore();
+
+var applicationSettings = ApplicationSettings();
+var applicationConnect = ApplicationConnect();
+var application = Application();
 
 class MainAppHandler extends StatefulWidget {
   const MainAppHandler({Key? key}) : super(key: key);
@@ -41,8 +41,6 @@ class MainAppHandler extends StatefulWidget {
   @override
   _MainAppHandlerState createState() => _MainAppHandlerState();
 }
-
-var tabController = TabController(length: 1, vsync: _MainAppHandlerState());
 
 class _MainAppHandlerState extends State<MainAppHandler>
     with TickerProviderStateMixin {
@@ -75,8 +73,8 @@ class _MainAppHandlerState extends State<MainAppHandler>
               width: 250,
               height: 150,
               child: ListView(
-                  children:
-                      gameSelect.widgetColorChangeOverlay(context, state))));
+                  children: applicationSettings.widgetColorChangeOverlay(
+                      context, state))));
     } else {
       return Container();
     }
@@ -86,7 +84,6 @@ class _MainAppHandlerState extends State<MainAppHandler>
   Widget build(BuildContext context) {
     screenWidth = MediaQuery.of(context).size.width;
     screenHeight = MediaQuery.of(context).size.height;
-    print(isInForeground);
     if (reloadHighscore) {
       highscore.loadHighscoreFromServer();
       reloadHighscore = false;

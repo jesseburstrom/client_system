@@ -1,13 +1,14 @@
 part of "../main.dart";
 
-class PageGameSelect extends StatefulWidget {
-  const PageGameSelect({Key? key}) : super(key: key);
+class PageApplicationSettings extends StatefulWidget {
+  const PageApplicationSettings({Key? key}) : super(key: key);
 
   @override
-  _PageGameSelectState createState() => _PageGameSelectState();
+  _PageApplicationSettingsState createState() =>
+      _PageApplicationSettingsState();
 }
 
-class _PageGameSelectState extends State<PageGameSelect>
+class _PageApplicationSettingsState extends State<PageApplicationSettings>
     with TickerProviderStateMixin {
   void state() {
     setState(() {});
@@ -15,18 +16,19 @@ class _PageGameSelectState extends State<PageGameSelect>
 
   @override
   Widget build(BuildContext context) {
-    return gameSelect.widgetScaffoldGameSelect(context, state);
+    return applicationSettings.widgetScaffoldGameSelect(context, state);
   }
 }
 
-class GameSelect extends LanguagesGameSelect with InputItems {
-  GameSelect() {
+class ApplicationSettings extends LanguagesGameSelect with InputItems {
+  ApplicationSettings() {
     languagesSetup();
   }
 
   var gameType = [application.gameType];
   var nrPlayers = [application.nrPlayers.toString()];
-  var tabController = TabController(length: 2, vsync: _PageGameSelectState());
+  var tabController =
+      TabController(length: 2, vsync: _PageApplicationSettingsState());
 
   List<Widget> widgetColorChangeOverlay(BuildContext context, Function state) {
     return <Widget>[

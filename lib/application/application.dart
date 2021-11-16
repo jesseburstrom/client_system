@@ -83,14 +83,14 @@ class Application extends LanguagesApplication with AnimationsBoardEffect {
         gameId = data["gameId"];
         playerIds = data["playerIds"];
         print("start game");
-        gameRequest.startGame(data["gameType"], data["nrPlayers"]);
+        applicationConnect.startGame(data["gameType"], data["nrPlayers"]);
         break;
       case "onRequestGames":
         print("onRequestGames");
         data = List<dynamic>.from(data["Games"]);
         print(data);
-        gameRequest.games = data;
-        gameRequest.state();
+        applicationConnect.games = data;
+        applicationConnect.state();
 
         break;
       case "onGameAborted":
