@@ -179,7 +179,7 @@ extension ApplicationWidgets on Application {
         key: listenerKey,
         onVerticalDragUpdate: (d) {
           onVerticalDragUpdate(d.globalPosition.dx, d.globalPosition.dy);
-          globalSetState();
+          pages._stateMain();
         },
         child: SizedBox(width: width, height: height, child: const Text(""))));
 
@@ -197,7 +197,7 @@ extension ApplicationWidgets on Application {
                 child: GestureDetector(
                     onTap: () {
                       cellClick(i, j);
-                      globalSetState();
+                      pages._stateMain();
                     },
                     child: Container(
                         width: boardWidth[i + 1][j],

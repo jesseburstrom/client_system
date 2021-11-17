@@ -16,10 +16,10 @@ class Highscore extends LanguagesHighscore with AnimationsHighscore {
       //await net.postDb("/updateHighscore", {"name": "Jesse", "score": 281}, 20);
       //var result = await net.deleteDb("/Delete", "eric.burstrom@gmail.com");
       //print(result.body);
-      var serverResponse = await net.getDb("/getTopScores", 20);
+      var serverResponse = await net.getDB("/GetTopScores", 20);
       if (serverResponse.statusCode == 200) {
         highscores = jsonDecode(serverResponse.body);
-        globalSetState();
+        pages._stateMain();
         print("Highscores loaded from server");
         await fileHandler.saveFile(highscores, fileHighscore);
       } else {
@@ -41,11 +41,11 @@ class Highscore extends LanguagesHighscore with AnimationsHighscore {
 
   Future updateHighscore(String name, int score) async {
     try {
-      var serverResponse = await net.postDb(
-          "/updateHighscore", {"name": name, "score": score}, 20);
+      var serverResponse = await net.postDB(
+          "/UpdateAndReturnHighscore", {"name": name, "score": score}, 20);
       if (serverResponse.statusCode == 200) {
         highscores = jsonDecode(serverResponse.body);
-        globalSetState();
+        pages._stateMain();
         fileHandler.saveFile(highscores, fileHighscore);
       } else {
         print("Error getting highscores");

@@ -3,7 +3,7 @@ part of "../main.dart";
 // cannot have typedef inside class
 typedef YatzyFunctions = int Function();
 
-class Application extends LanguagesApplication with AnimationsBoardEffect {
+class Application extends LanguagesApplication with AnimationsApplication {
   Application() {
     gameDices = Dices(callbackDiceUpdateDiceValues, callbackDiceUnityCreated,
         callbackDiceCheckPlayerToMove);
@@ -63,7 +63,16 @@ class Application extends LanguagesApplication with AnimationsBoardEffect {
 
   late List<YatzyFunctions> yatzyFunctions;
 
-  //var games = [];
+  navigateToPage(BuildContext context, [bool replace = true]) {
+    pages.navigateToMainPage(
+        context,
+        {
+          "page": widgetScaffold,
+          "postFrameCallback": startAnimations,
+          "dispose": animationsScroll.animationController.stop
+        },
+        replace);
+  }
 
   callbackOnServerMsg(var data) {
     print("onServerMsg");
@@ -83,28 +92,28 @@ class Application extends LanguagesApplication with AnimationsBoardEffect {
         gameId = data["gameId"];
         playerIds = data["playerIds"];
         print("start game");
-        applicationConnect.startGame(data["gameType"], data["nrPlayers"]);
+        applicationSettings.startGame(data["gameType"], data["nrPlayers"]);
         break;
       case "onRequestGames":
         print("onRequestGames");
         data = List<dynamic>.from(data["Games"]);
         print(data);
-        applicationConnect.games = data;
-        applicationConnect.state();
+        applicationSettings.games = data;
+        pages._state();
 
         break;
       case "onGameAborted":
         print("onGameAborted");
         data = Map<String, dynamic>.from(data["game"]);
-        gameStarted = false;
-        pages.navigateToSelectPageR(globalContext);
+        applicationStarted = false;
+        applicationSettings.navigateToPage(pages._contextMain);
         break;
     }
   }
 
   updateChat(String text) async {
     chat.messages.add(ChatMessage(text, "receiver"));
-    globalSetState();
+    pages._stateMain();
     await Future.delayed(const Duration(milliseconds: 100), () {});
     chat.scrollController.animateTo(
         chat.scrollController.position.maxScrollExtent,
@@ -120,7 +129,7 @@ class Application extends LanguagesApplication with AnimationsBoardEffect {
         gameDices.diceValue = data["diceValue"].cast<int>();
         updateDiceValues();
         calcNewSums(data["player"], data["cell"]);
-        globalSetState();
+        pages._stateMain();
         if (myPlayerId == playerToMove && gameDices.unityDices[0]) {
           gameDices.sendStartToUnity();
         }
@@ -133,7 +142,7 @@ class Application extends LanguagesApplication with AnimationsBoardEffect {
         updateDiceValues();
         gameDices.nrRolls += 1;
         gameDices.updateDiceImages();
-        globalSetState();
+        pages._stateMain();
         break;
       case "chatMessage":
         print("chatMessage");

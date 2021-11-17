@@ -84,7 +84,7 @@ class Net {
 
   // Http
 
-  Future getDb(String route, int count) async {
+  Future getDB(String route, int count) async {
     dynamic response;
 
     if (isWebSocketChannel) {
@@ -105,7 +105,7 @@ class Net {
     return response;
   }
 
-  Future postDb(String route, Map<String, dynamic> json, int count) async {
+  Future postDB(String route, Map<String, dynamic> json, int count) async {
     dynamic response;
 
     if (isWebSocketChannel) {
@@ -128,7 +128,28 @@ class Net {
     return response;
   }
 
-  Future deleteDb(String route, String email) async {
+  Future deleteDB(String route, int id) async {
+    dynamic response;
+
+    if (isWebSocketChannel) {
+      response = await delete(
+          Uri.parse(localhostNET + route + "?id=" + id.toString()),
+          headers: <String, String>{
+            "Content-Type": "application/json; charset=UTF-8",
+            "Authorization": "Bearer " + authenticate.jwt,
+          });
+    } else {
+      response = await delete(
+          Uri.parse(localhost + route + "?id=" + id.toString()),
+          headers: <String, String>{
+            "Content-Type": "application/json; charset=UTF-8",
+          });
+    }
+
+    return response;
+  }
+
+  Future deleteUser(String route, String email) async {
     dynamic response;
 
     if (isWebSocketChannel) {
@@ -150,7 +171,7 @@ class Net {
 
   Future login(String userName, String password) async {
     var host = isWebSocketChannel ? localhostNET : localhost;
-    var response = await post(Uri.parse(host + "/login"),
+    var response = await post(Uri.parse(host + "/Login"),
         headers: <String, String>{
           "Content-Type": "application/json; charset=UTF-8",
         },
@@ -164,7 +185,7 @@ class Net {
 
   Future signup(String userName, String password) async {
     var host = isWebSocketChannel ? localhostNET : localhost;
-    var response = await post(Uri.parse(host + "/signup"),
+    var response = await post(Uri.parse(host + "/Signup"),
         headers: <String, String>{
           "Content-Type": "application/json; charset=UTF-8",
         },

@@ -1,4 +1,4 @@
-part of "../main.dart";
+part of '../main.dart';
 
 class LanguagesGameSelect extends Languages {
   final _gameTypeOrdinary = {"English": "Ordinary"};
@@ -19,6 +19,7 @@ class LanguagesGameSelect extends Languages {
   final _blue = {"English": "Blue"};
   final _appearance = {"English": "Appearance"};
   final _misc = {"English": "Misc"};
+  final _gameRequest = {"English": "Game Request"};
 
   String get gameTypeOrdinary_ => getText(_gameTypeOrdinary);
 
@@ -55,6 +56,7 @@ class LanguagesGameSelect extends Languages {
   String get appearance_ => getText(_appearance);
 
   String get misc_ => getText(_misc);
+  String get gameRequest_ => getText(_gameRequest);
 
   languagesSetup() {
     _gameTypeOrdinary["Swedish"] = "Standard";
@@ -73,5 +75,6 @@ class LanguagesGameSelect extends Languages {
     _blue["Swedish"] = "Blå";
     _appearance["Swedish"] = "Utseende";
     _misc["Swedish"] = "Diverse";
+    _gameRequest["Swedish"] = "Spel Inbjudan";
   }
 }

@@ -1,4 +1,4 @@
-part of "../main.dart";
+part of '../main.dart';
 
 class LanguagesLogin extends Languages {
   final _required = {"English": "* Required"};

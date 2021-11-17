@@ -1,19 +1,4 @@
-part of "../main.dart";
-
-class PageAuthenticate extends StatefulWidget {
-  const PageAuthenticate({Key? key}) : super(key: key);
-
-  @override
-  _PageAuthenticate createState() => _PageAuthenticate();
-}
-
-class _PageAuthenticate extends State<PageAuthenticate>
-    with TickerProviderStateMixin {
-  @override
-  Widget build(BuildContext context) {
-    return authenticate.widgetScaffoldLogin(context);
-  }
-}
+part of '../main.dart';
 
 class Authenticate extends LanguagesLogin with InputItems {
   Authenticate() {
@@ -21,7 +6,7 @@ class Authenticate extends LanguagesLogin with InputItems {
   }
 
   var fileAuthenticate = "authenticate.json";
-  var tabController = TabController(length: 2, vsync: _PageAuthenticate());
+  var tabController = TabController(length: 2, vsync: _PageDynamicState());
 
   final loginUser = TextEditingController();
   final loginPassword = TextEditingController();
@@ -32,6 +17,10 @@ class Authenticate extends LanguagesLogin with InputItems {
   var loginFormKey = GlobalKey<FormState>();
 
   var jwt = "";
+
+  navigateToPage(BuildContext context, [bool replace = true]) {
+    pages.navigateToDynamicPage(context, {"page": widgetScaffold}, replace);
+  }
 
   Future<bool> tryLogin(user, password) async {
     var isLoggedIn = false;
@@ -77,7 +66,7 @@ class Authenticate extends LanguagesLogin with InputItems {
       fileHandler.saveFile(
           {"username": loginUser.text, "password": loginPassword.text},
           fileAuthenticate);
-      pages.navigateToSelectPageR(context);
+      applicationSettings.navigateToPage(context);
     }
   }
 
@@ -86,7 +75,8 @@ class Authenticate extends LanguagesLogin with InputItems {
     try {
       response = await net.signup(signupUser.text, signupPassword.text);
     } catch (e) {
-      print("error signing up!");
+      print(e.toString());
+      return;
     }
 
     if (response.statusCode == 200) {
@@ -99,7 +89,7 @@ class Authenticate extends LanguagesLogin with InputItems {
         fileHandler.saveFile(
             {"username": loginUser.text, "password": loginPassword.text},
             fileAuthenticate);
-        pages.navigateToSelectPageR(context);
+        applicationSettings.navigateToPage(context);
       } else {
         print("error logging in user");
       }
@@ -144,59 +134,5 @@ class Authenticate extends LanguagesLogin with InputItems {
     } else {
       print("Not Validated format");
     }
-  }
-
-  Widget widgetScaffoldLogin(BuildContext context) {
-    return DefaultTabController(
-        length: tabController.length,
-        child: Scaffold(
-            backgroundColor: Colors.white,
-            appBar: AppBar(
-              bottom: TabBar(
-                controller: tabController,
-                isScrollable: false,
-                tabs: [
-                  Tab(text: login_),
-                  Tab(text: signup_),
-                ],
-              ),
-            ),
-            body: TabBarView(controller: tabController, children: [
-              SingleChildScrollView(
-                child: Form(
-                  autovalidateMode: AutovalidateMode.always,
-                  key: loginFormKey,
-                  child: Column(
-                    children: <Widget>[
-                      widgetImage(200, 150, "assets/images/flutter_logo.png"),
-                      widgetTextFormField(email_, enterValidEmail_, loginUser),
-                      widgetTextFormField(
-                          password_, enterSecurePassword_, loginPassword),
-                      widgetTextLink(
-                          forgotPasswordLinkPressed, forgotPassword_),
-                      widgetButton(context, loginButtonPressed, login_),
-                      widgetSizedBox(100),
-                      widgetTextLink(newUserLinkPressed, newUser_),
-                    ],
-                  ),
-                ),
-              ),
-              SingleChildScrollView(
-                child: Form(
-                  autovalidateMode: AutovalidateMode.always,
-                  key: signupFormKey,
-                  child: Column(
-                    children: <Widget>[
-                      widgetImage(200, 150, "assets/images/flutter_logo.png"),
-                      widgetTextFormField(email_, enterValidEmail_, signupUser),
-                      widgetTextFormField(
-                          password_, enterSecurePassword_, signupPassword),
-                      widgetSizedBox(20),
-                      widgetButton(context, signupButtonPressed, signup_),
-                    ],
-                  ),
-                ),
-              ),
-            ])));
   }
 }

@@ -2,6 +2,7 @@ part of "../main.dart";
 
 class AnimationsScroll extends LanguagesAnimationsScroll {
   AnimationsScroll() {
+    languagesSetup();
     setup();
   }
 
@@ -12,7 +13,7 @@ class AnimationsScroll extends LanguagesAnimationsScroll {
   var emptyContainerKey = GlobalKey();
 
   var animationController = AnimationController(
-      vsync: _MainAppHandlerState(), duration: const Duration(seconds: 1));
+      vsync: _PageMainState(), duration: const Duration(seconds: 1));
 
   late Animation<double> positionAnimation;
 

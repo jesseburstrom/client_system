@@ -53,7 +53,7 @@ class UnityMessage {
   var nrThrows = 3;
 }
 
-class Dices extends LanguagesDices with AnimationsRollDices {
+class Dices extends LanguagesDices with AnimationsRollDices, InputItems {
   Dices(Function updateDiceValues, Function unityCreated,
       Function checkPlayerToMove) {
     languagesSetup();
@@ -249,7 +249,7 @@ class Dices extends LanguagesDices with AnimationsRollDices {
         print(diceValue);
         callbackUpdateDiceValues();
         nrRolls += 1;
-        globalSetState();
+        pages._stateMain();
       }
     } catch (e) {
       print("Error decoding Unity message");

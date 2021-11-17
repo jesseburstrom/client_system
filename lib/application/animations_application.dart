@@ -1,6 +1,6 @@
 part of "../main.dart";
 
-class AnimationsBoardEffect {
+class AnimationsApplication {
   final animationControllers = <AnimationController>[];
 
   var animationDurations = List.filled(2, const Duration(seconds: 1));
@@ -16,7 +16,7 @@ class AnimationsBoardEffect {
   setupAnimation(int nrPlayers, int maxNrPlayers, int maxTotalFields) {
     for (Duration d in animationDurations) {
       animationControllers.add(AnimationController(
-        vsync: _MainAppHandlerState(),
+        vsync: _PageMainState(),
         duration: d,
       ));
     }
@@ -31,7 +31,7 @@ class AnimationsBoardEffect {
       var tmp = <AnimationController>[];
       for (var j = 0; j < maxTotalFields; j++) {
         tmp.add(AnimationController(
-          vsync: _MainAppHandlerState(),
+          vsync: _PageMainState(),
           duration: const Duration(milliseconds: 500),
         ));
       }
@@ -67,5 +67,9 @@ class AnimationsBoardEffect {
         });
       }
     }
+  }
+
+  startAnimations(BuildContext context) async {
+    animationsScroll.animationController.repeat(reverse: true);
   }
 }

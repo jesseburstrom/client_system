@@ -18,7 +18,7 @@ part "layouts.dart";
 
 part "startup.dart";
 
-part "./application/animations_board_effect.dart";
+part "./application/animations_application.dart";
 
 part "./application/application.dart";
 
@@ -29,6 +29,8 @@ part "./application/application_functions_internal_calc_dice_values.dart";
 part "./application/languages_application.dart";
 
 part "./application/widget_application.dart";
+
+part "./application/widget_scaffold_application.dart";
 
 part "./chat/chat.dart";
 
@@ -60,17 +62,15 @@ part "./languages/languages.dart";
 
 part "./net/net.dart";
 
-part "./pages/languages_application_connect.dart";
+part 'application/languages_application_settings.dart';
 
-part "./pages/languages_application_settings.dart";
+part 'authenticate/languages_authenticate.dart';
 
-part "./pages/languages_login.dart";
+part 'authenticate/authenticate.dart';
 
-part "./pages/authenticate.dart";
+part 'authenticate/widget_authenticate.dart';
 
-part "./pages/application_connect.dart";
-
-part "./pages/application_settings.dart";
+part 'application/application_settings.dart';
 
 part "./pages/pages.dart";
 
@@ -90,19 +90,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const MyHomePage(),
+      home: const PageMain(),
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
     );
   }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
 }
 
 Future attemptLogin(BuildContext context) async {
@@ -117,24 +110,11 @@ Future attemptLogin(BuildContext context) async {
 
   Timer.run(() {
     if (!isLoggedIn) {
-      pages.navigateToAuthenticatePageR(context);
-    } else if (!gameStarted) {
-      pages.navigateToSelectPageR(context);
+      authenticate.navigateToPage(context);
+    } else if (!applicationStarted) {
+      applicationSettings.navigateToPage(context);
     } else {
-      pages.navigateToMainAppHandlerPageR(context);
+      application.navigateToPage(context);
     }
   });
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  void initState() {
-    super.initState();
-    attemptLogin(context);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(body: Center(child: CircularProgressIndicator()));
-  }
 }

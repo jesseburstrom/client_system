@@ -42,7 +42,7 @@ class Chat extends LanguagesChat with InputItems {
     chatTextController.clear();
 
     messages.add(ChatMessage(text, "sender"));
-    globalSetState();
+    pages._stateMain();
     Map<String, dynamic> msg = {};
     msg["chatMessage"] = userName + ": " + text;
     msg["action"] = "chatMessage";

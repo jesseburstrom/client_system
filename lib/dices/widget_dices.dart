@@ -79,7 +79,7 @@ extension DicesWidget on Dices {
         child: GestureDetector(
             onTap: () {
               holdDice(i);
-              globalSetState();
+              pages._stateMain();
             },
             child: Container(
               width: diceWidthHeight,
@@ -113,7 +113,7 @@ extension DicesWidget on Dices {
               }
               if (rollDices()) {
                 animationController.forward();
-                globalSetState();
+                pages._stateMain();
               }
             },
             child: Container(
@@ -141,5 +141,35 @@ extension DicesWidget on Dices {
 
     return SizedBox(
         width: width, height: height, child: Stack(children: listings));
+  }
+
+  List<Widget> widgetColorChangeOverlay(BuildContext context, Function state) {
+    return <Widget>[
+      widgetCheckbox(state, sendTransparencyChangedToUnity, transparency_,
+          unityTransparent),
+      widgetCheckbox(
+          state, sendLightMotionChangedToUnity, lightMotion_, unityLightMotion),
+      widgetSlider(context, state, sendColorsToUnity, red_, unityColors, 0),
+      widgetSlider(context, state, sendColorsToUnity, green_, unityColors, 1),
+      widgetSlider(context, state, sendColorsToUnity, blue_, unityColors, 2),
+      widgetSlider(
+          context, state, sendColorsToUnity, transparency_, unityColors, 3)
+    ];
+  }
+
+  Widget widgetWrapCCOverlay(BuildContext context, Function state) {
+    if (unityColorChangeOverlay[0]) {
+      return Positioned(
+          left: 0,
+          top: 380,
+          child: Container(
+              color: Colors.white,
+              width: 250,
+              height: 150,
+              child: ListView(
+                  children: widgetColorChangeOverlay(context, state))));
+    } else {
+      return Container();
+    }
   }
 }

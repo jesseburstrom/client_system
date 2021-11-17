@@ -38,7 +38,7 @@ class InputItems {
   }
 
   Widget widgetTextFormField(
-      String lableText, String hintText, TextEditingController controller) {
+      String labelText, String hintText, TextEditingController controller) {
     return Padding(
       padding:
           const EdgeInsets.only(left: 15.0, right: 15.0, top: 15, bottom: 0),
@@ -47,11 +47,11 @@ class InputItems {
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
             border: const OutlineInputBorder(),
-            labelText: lableText,
+            labelText: labelText,
             hintText: hintText),
         validator: (value) {
           if (value!.isEmpty) {
-            return lableText + " is required";
+            return labelText + " is required";
           }
         },
       ),

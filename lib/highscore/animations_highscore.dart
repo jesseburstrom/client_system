@@ -2,7 +2,7 @@ part of "../main.dart";
 
 class AnimationsHighscore {
   var animationController = AnimationController(
-      vsync: _MainAppHandlerState(),
+      vsync: _PageMainState(),
       duration: const Duration(milliseconds: 3000));
   late Animation<double> loopAnimation;
 

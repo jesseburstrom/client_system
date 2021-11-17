@@ -1,24 +1,4 @@
-part of "../main.dart";
-
-class PageApplicationSettings extends StatefulWidget {
-  const PageApplicationSettings({Key? key}) : super(key: key);
-
-  @override
-  _PageApplicationSettingsState createState() =>
-      _PageApplicationSettingsState();
-}
-
-class _PageApplicationSettingsState extends State<PageApplicationSettings>
-    with TickerProviderStateMixin {
-  void state() {
-    setState(() {});
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return applicationSettings.widgetScaffoldGameSelect(context, state);
-  }
-}
+part of '../main.dart';
 
 class ApplicationSettings extends LanguagesGameSelect with InputItems {
   ApplicationSettings() {
@@ -27,43 +7,79 @@ class ApplicationSettings extends LanguagesGameSelect with InputItems {
 
   var gameType = [application.gameType];
   var nrPlayers = [application.nrPlayers.toString()];
-  var tabController =
-      TabController(length: 2, vsync: _PageApplicationSettingsState());
+  var tabController = TabController(length: 2, vsync: _PageDynamicState());
 
-  List<Widget> widgetColorChangeOverlay(BuildContext context, Function state) {
-    return <Widget>[
-      widgetCheckbox(
-          state,
-          application.gameDices.sendTransparencyChangedToUnity,
-          transparency_,
-          application.gameDices.unityTransparent),
-      widgetCheckbox(state, application.gameDices.sendLightMotionChangedToUnity,
-          lightMotion_, application.gameDices.unityLightMotion),
-      widgetSlider(context, state, application.gameDices.sendColorsToUnity,
-          red_, application.gameDices.unityColors, 0),
-      widgetSlider(context, state, application.gameDices.sendColorsToUnity,
-          green_, application.gameDices.unityColors, 1),
-      widgetSlider(context, state, application.gameDices.sendColorsToUnity,
-          blue_, application.gameDices.unityColors, 2),
-      widgetSlider(context, state, application.gameDices.sendColorsToUnity,
-          transparency_, application.gameDices.unityColors, 3)
-    ];
+  var games = [];
+  var onSettingsPage = true;
+
+  navigateToPage(BuildContext context, [bool replace = true]) {
+    pages.navigateToDynamicPage(context, {"page": widgetScaffold}, replace);
+  }
+
+  startGame(String gameType, int nrPlayers) {
+    application.gameType = gameType;
+    application.nrPlayers = nrPlayers;
+    application.setup();
+    userName = userNames[application.myPlayerId];
+    applicationStarted = true;
+    onSettingsPage = true;
+    application.navigateToPage(pages._context);
+  }
+
+  Widget widgetWaiting() {
+    Widget widget = const Text("");
+
+    for (var i = 0; i < games.length; i++) {
+      print(games[i]["playerIds"]);
+      print(net.socketConnectionId);
+      if (games[i]["playerIds"].indexOf(net.socketConnectionId) != -1) {
+        widget = Text(
+            games[i]["gameType"] +
+                " " +
+                games[i]["connected"].toString() +
+                "/" +
+                games[i]["nrPlayers"].toString(),
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+              color: Colors.blue[800],
+              shadows: const [
+                Shadow(
+                  blurRadius: 10.0,
+                  color: Colors.red,
+                  offset: Offset(5.0, 5.0),
+                ),
+              ],
+            ));
+        break;
+      }
+    }
+    return widget;
   }
 
   void onGameListButton(BuildContext context) {
     print("List games");
-    //pages.navigateToMainAppHandlerPageR(context);
-    pages.navigateToRequestPageR(context);
+    net.connectToServer();
+    Map<String, dynamic> msg = {};
+    msg["action"] = "getId";
+    msg["id"] = "";
 
-    // if (GameStarted) {
-    //   Navigator.pop(context);
-    // } else {
-    //   GameStarted = true;
-    //   pages.NavigateToMainAppHandlerPageR(context);
-    // }
+    net.sendToServer(msg);
+
+    msg = {};
+    var nrPlayers = int.parse(applicationSettings.nrPlayers[0]);
+    msg["playerIds"] = List.filled(nrPlayers, "");
+    msg["gameType"] = applicationSettings.gameType[0];
+    msg["nrPlayers"] = nrPlayers;
+    msg["action"] = "requestGame";
+    net.sendToServer(msg);
+    onSettingsPage = false;
+    pages._state();
   }
 
-  Widget widgetScaffoldGameSelect(BuildContext context, Function state) {
+  Widget widgetScaffold(BuildContext context) {
+    Function state = pages._state;
     return DefaultTabController(
         length: tabController.length,
         child: Scaffold(
@@ -97,7 +113,10 @@ class ApplicationSettings extends LanguagesGameSelect with InputItems {
                       widgetCheckbox(state, () => {}, colorChangeOverlay_,
                           application.gameDices.unityColorChangeOverlay),
                       widgetSizedBox(15),
-                      widgetButton(context, onGameListButton, gameList_),
+                      if (onSettingsPage)
+                        widgetButton(context, onGameListButton, gameList_)
+                      else
+                        widgetWaiting(),
                     ],
                   ),
                 ),
@@ -106,7 +125,8 @@ class ApplicationSettings extends LanguagesGameSelect with InputItems {
                         padding: const EdgeInsets.all(10.0),
                         child: ListView(
                             children: [widgetParagraph(appearance_)] +
-                                widgetColorChangeOverlay(context, state) +
+                                application.gameDices
+                                    .widgetColorChangeOverlay(context, state) +
                                 [
                                   widgetSizedBox(15),
                                   widgetParagraph(misc_),
