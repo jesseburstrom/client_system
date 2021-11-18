@@ -12,8 +12,7 @@ class Application extends LanguagesApplication with AnimationsApplication {
     setupAnimation(nrPlayers, maxNrPlayers, maxTotalFields);
     //net.connectToServer();
 
-    net.callbackOnClientMsg = callbackOnClientMsg;
-    net.callbackOnServerMsg = callbackOnServerMsg;
+    net.setCallbacks(callbackOnClientMsg, callbackOnServerMsg);
   }
 
   // "Ordinary" , "Mini", "Maxi"
@@ -63,12 +62,17 @@ class Application extends LanguagesApplication with AnimationsApplication {
 
   late List<YatzyFunctions> yatzyFunctions;
 
+  postFrameCallback(BuildContext context) async {
+    await highscore.loadHighscoreFromServer();
+    startAnimations(context);
+  }
+
   navigateToPage(BuildContext context, [bool replace = true]) {
     pages.navigateToMainPage(
         context,
         {
           "page": widgetScaffold,
-          "postFrameCallback": startAnimations,
+          "postFrameCallback": postFrameCallback,
           "dispose": animationsScroll.animationController.stop
         },
         replace);

@@ -5,7 +5,6 @@ var localhostIO = "http://192.168.0.168:3001";
 var localhostNET = "https://localhost:44357/api/Values";
 var localhostNETIO = "wss://localhost:44357/ws";
 var applicationStarted = false;
-var reloadHighscore = true; // only used ones at startup
 var userName = "Yatzy";
 var userNames = ["Bo", "Paula", "Jessica", "Henrik"];
 var stackedWidgets = <Widget>[];

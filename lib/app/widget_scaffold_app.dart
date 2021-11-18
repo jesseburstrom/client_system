@@ -1,6 +1,6 @@
 part of "../main.dart";
 
-extension WidgetScaffoldApplication on Application {
+extension WidgetScaffoldApp on App {
   Widget widgetScaffold(BuildContext context) {
     screenWidth = MediaQuery.of(context).size.width;
     screenHeight = MediaQuery.of(context).size.height;
@@ -23,15 +23,11 @@ extension WidgetScaffoldApplication on Application {
                       width: double.infinity),
                   Stack(children: stackedWidgets),
                 ] +
-                layoutPTopToBottom(screenWidth, screenHeight, [
-                  highscore.widgetHighscore,
-                  widgetSetupGameBoard,
-                  gameDices.widgetDices,
-                  chat.widgetChat,
-                  animationsScroll.widgetEmptyContainer,
-                  widgetDisplayGameStatus
-                ]) +
-                [gameDices.widgetWrapCCOverlay(context, pages._stateMain)],
+                layoutTopToBottom(
+                  screenWidth,
+                  screenHeight,
+                  [chat.widgetChat, animationsScroll.widgetEmptyContainer],
+                ),
           ));
     } else {
       // landscape
@@ -52,14 +48,11 @@ extension WidgetScaffoldApplication on Application {
                       width: double.infinity),
                   Stack(children: stackedWidgets)
                 ] +
-                layoutLLeftToRight(screenWidth, screenHeight, [
-                  widgetSetupGameBoard,
-                  gameDices.widgetDices,
-                  highscore.widgetHighscore,
-                  chat.widgetChat,
-                  animationsScroll.widgetEmptyContainer,
-                  widgetDisplayGameStatus
-                ]),
+                layoutLeftToRight(
+                  screenWidth,
+                  screenHeight,
+                  [chat.widgetChat, animationsScroll.widgetEmptyContainer],
+                ),
           ));
     }
   }

@@ -10,6 +10,11 @@ class Net {
   late Function callbackOnServerMsg;
   late WebSocketChannel webSocketChannel;
 
+  setCallbacks(Function callbackClient, Function callbackServer) {
+    callbackOnClientMsg = callbackClient;
+    callbackOnServerMsg = callbackServer;
+  }
+
   sendToClients(Map<String, dynamic> msg) {
     msg["timestamp"] = DateTime.now().millisecondsSinceEpoch;
     if (isWebSocketChannel) {

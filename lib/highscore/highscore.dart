@@ -8,7 +8,6 @@ class Highscore extends LanguagesHighscore with AnimationsHighscore {
   }
 
   List<dynamic> highscores = [];
-
   var fileHighscore = "highscores.json";
 
   Future loadHighscoreFromServer() async {
@@ -35,7 +34,7 @@ class Highscore extends LanguagesHighscore with AnimationsHighscore {
       highscores = await fileHandler.readFile(fileHighscore);
       print("highscore loaded from file");
     } catch (e) {
-      print("Cannot load highscorefile");
+      print("Cannot load highscore file");
     }
   }
 

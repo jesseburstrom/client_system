@@ -1,90 +1,75 @@
 part of "./main.dart";
 
 // Test Pull request
-List<Widget> layoutPTopToBottom(double w, double h, Function fA, Function fB,
-    Function fC, Function fD, Function fE, Function fF) {
-  double widthA,
-      heightA,
-      widthB,
-      heightB,
-      widthC,
-      heightC,
-      widthD,
-      heightD,
-      widthE,
-      heightE,
-      widthF,
-      heightF;
-
-  widthA = w * 0.45;
-  heightA = h * 0.20;
-  widthD = w * 0.45;
-  heightD = h * 0.16;
-  widthF = w * 0.35;
-  heightF = h * 0.11;
-  widthB = w;
-  heightB = h * 0.45;
-  widthC = w;
-  heightC = h * 0.25;
-  widthE = w * 0.6;
-  heightE = h - heightA - heightB - heightC;
+List<Widget> layoutPTopToBottom(double w, double h, List<Function> widgets) {
+  var pos = List<Pos>.filled(widgets.length, Pos(w, h, 0, 0));
+  pos[0] = Pos(w * 0.45, h * 0.20, w * 0.025, 0);
+  pos[1] = Pos(w, h * 0.45, 0, pos[0].h);
+  pos[2] = Pos(w, h * 0.25, 0, pos[0].h + pos[1].h);
+  pos[3] = Pos(w * 0.45, h * 0.16, w * 0.525, h * 0.04);
+  pos[4] = Pos(w * 0.6, h - pos[0].h - pos[1].h - pos[2].h, w * 0.4,
+      pos[0].h + pos[1].h + pos[2].h);
+  pos[5] = Pos(w * 0.35, h * 0.11, w * 0.03, h * 0.885);
 
   return [
-    Positioned(left: 0, top: heightA + heightB, child: fC(widthC, heightC)),
+    Positioned(
+        left: pos[0].l, top: pos[0].t, child: widgets[0](pos[0].w, pos[0].h)),
     Stack(children: [
-      Positioned(left: w * 0.025, top: 0, child: fA(widthA, heightA)),
-      Positioned(left: 0, top: heightA, child: fB(widthB, heightB)),
-      Positioned(left: w * 0.525, top: h * 0.04, child: fD(widthD, heightD)),
-      Positioned(left: w * 0.03, top: h * 0.885, child: fF(widthF, heightF)),
       Positioned(
-          left: w * 0.4,
-          top: heightA + heightB + heightC,
-          child: fE(widthE, heightE))
+          left: pos[1].l, top: pos[1].t, child: widgets[1](pos[1].w, pos[1].h)),
+      Positioned(
+          left: pos[3].l, top: pos[3].t, child: widgets[3](pos[3].w, pos[3].h)),
+      Positioned(
+          left: pos[5].l, top: pos[5].t, child: widgets[5](pos[5].w, pos[5].h)),
+      Positioned(
+          left: pos[4].l, top: pos[4].t, child: widgets[4](pos[4].w, pos[4].h)),
+      Positioned(
+          left: pos[2].l, top: pos[2].t, child: widgets[2](pos[2].w, pos[2].h)),
     ])
   ];
 }
 
-List<Widget> layoutLLeftToRight(double w, double h, Function fA, Function fB,
-    Function fC, Function fD, Function fE, Function fF) {
-  double widthA,
-      heightA,
-      widthB,
-      heightB,
-      widthC,
-      heightC,
-      widthD,
-      heightD,
-      widthE,
-      heightE,
-      widthF,
-      heightF;
+class Pos {
+  Pos(double initWidth, double initHeight, double initLeft, double initTop) {
+    w = initWidth;
+    h = initHeight;
+    l = initLeft;
+    t = initTop;
+  }
 
-  widthA = w * 0.35;
-  heightA = h;
-  widthB = w * 0.45;
-  heightB = application.gameDices.unityDices[0] ? widthB * 9 / 16 : h;
-  widthC = w * 0.18;
-  heightC = h * 0.8;
-  widthD = w * 0.19;
-  heightD = h * 0.3;
-  widthF = w * 0.15;
-  heightF = h * 0.3;
-  widthE = w * 0.37;
-  heightE = h - heightC;
+  double w = 0;
+  double h = 0;
+  double l = 0;
+  double t = 0;
+}
+
+List<Widget> layoutLLeftToRight(double w, double h, List<Function> widgets) {
+  var pos = List<Pos>.filled(widgets.length, Pos(w, h, 0, 0));
+  pos[0] = Pos(w * 0.35, h, 0, 0);
+  pos[1] = Pos(
+      w * 0.45,
+      application.gameDices.unityDices[0] ? pos[1].w * 9 / 16 : h,
+      pos[0].w,
+      application.gameDices.unityDices[0] ? h - pos[1].h : 0);
+  pos[2] = Pos(w * 0.18, h * 0.8, w * 0.81, 0);
+  pos[3] = Pos(w * 0.19, h * 0.3, w * 0.61, h * 0.05);
+  pos[4] = Pos(w * 0.37, h - pos[2].h, pos[0].w + w * 0.085, -h * 0.08);
+  pos[5] = Pos(w * 0.15, h * 0.3, pos[0].w + w * 0.1, h * 0.05);
 
   return [
     Positioned(
-        left: widthA,
-        top: application.gameDices.unityDices[0] ? h - heightB : 0,
-        child: fB(widthB, heightB)),
+        left: pos[1].l, top: pos[1].t, child: widgets[1](pos[1].w, pos[1].h)),
     Stack(children: [
       Positioned(
-          left: widthA + w * 0.085, top: -h * 0.08, child: fE(widthE, heightE)),
-      Positioned(left: 0, top: 0, child: fA(widthA, heightA)),
-      Positioned(left: w * 0.81, top: 0, child: fC(widthC, heightC)),
-      Positioned(left: w * 0.61, top: h * 0.05, child: fD(widthD, heightD)),
+          left: pos[4].l, top: pos[4].t, child: widgets[4](pos[4].w, pos[4].h)),
       Positioned(
-          left: widthA + w * 0.1, top: h * 0.05, child: fF(widthF, heightF)),
+          left: pos[0].l, top: pos[0].t, child: widgets[0](pos[0].w, pos[0].h)),
+      Positioned(
+          left: pos[2].l, top: pos[2].t, child: widgets[2](pos[2].w, pos[2].h)),
+      Positioned(
+          left: pos[3].l, top: pos[3].t, child: widgets[3](pos[3].w, pos[3].h)),
+      Positioned(
+          left: pos[5].l, top: pos[5].t, child: widgets[5](pos[5].w, pos[5].h)),
     ])
   ];
 }

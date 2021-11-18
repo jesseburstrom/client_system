@@ -18,67 +18,77 @@ part "layouts.dart";
 
 part "startup.dart";
 
-part "./application/animations_application.dart";
+part "app/animations_app.dart";
 
-part "./application/application.dart";
+part "app/app.dart";
 
-part "./application/application_functions_internal.dart";
+part "app/languages_app.dart";
 
-part "./application/application_functions_internal_calc_dice_values.dart";
+part "app/layout_app.dart";
 
-part "./application/languages_application.dart";
-
-part "./application/widget_application.dart";
-
-part "./application/widget_scaffold_application.dart";
-
-part "./chat/chat.dart";
-
-part "./chat/languages_chat.dart";
-
-part "./chat/widget_chat.dart";
-
-part "./dices/animations_rolldice.dart";
-
-part "./dices/dices.dart";
-
-part "./dices/languages_dices.dart";
-
-part "./dices/widget_dices.dart";
-
-part "./file_handler/file_handler.dart";
-
-part "./highscore/animations_highscore.dart";
-
-part "./highscore/highscore.dart";
-
-part "./highscore/languages_highscore.dart";
-
-part "./highscore/widget_highscore.dart";
-
-part "./input_items/input_items.dart";
-
-part "./languages/languages.dart";
-
-part "./net/net.dart";
+part "app/widget_scaffold_app.dart";
 
 part 'application/languages_application_settings.dart';
 
-part 'authenticate/languages_authenticate.dart';
+part "application/animations_application.dart";
 
-part 'authenticate/authenticate.dart';
+part "application/application.dart";
 
-part 'authenticate/widget_authenticate.dart';
+part "application/application_functions_internal.dart";
+
+part "application/application_functions_internal_calc_dice_values.dart";
 
 part 'application/application_settings.dart';
 
-part "./pages/pages.dart";
+part "application/languages_application.dart";
 
-part "./scroll/animations_scroll.dart";
+part "application/widget_application.dart";
 
-part "./scroll/languages_animations_scroll.dart";
+part "application/widget_scaffold_application.dart";
 
-part "./scroll/widget_scroll.dart";
+part 'authenticate/authenticate.dart';
+
+part 'authenticate/languages_authenticate.dart';
+
+part 'authenticate/widget_authenticate.dart';
+
+part "chat/chat.dart";
+
+part "chat/languages_chat.dart";
+
+part "chat/widget_chat.dart";
+
+part "dices/animations_rolldice.dart";
+
+part "dices/dices.dart";
+
+part "dices/languages_dices.dart";
+
+part "dices/widget_dices.dart";
+
+part "file_handler/file_handler.dart";
+
+part "highscore/animations_highscore.dart";
+
+part "highscore/highscore.dart";
+
+part "highscore/languages_highscore.dart";
+
+part "highscore/widget_highscore.dart";
+
+part "input_items/input_items.dart";
+
+part "languages/languages.dart";
+
+part "net/net.dart";
+
+part "pages/pages.dart";
+
+part "scroll/animations_scroll.dart";
+
+part "scroll/languages_animations_scroll.dart";
+
+part "scroll/widget_scroll.dart";
 
 void main() {
   runApp(const MyApp());
