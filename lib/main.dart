@@ -14,7 +14,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 import "package:animated_text_kit/animated_text_kit.dart";
 import "package:flutter_unity_widget/flutter_unity_widget.dart";
 
-part "layouts.dart";
+part 'application/layouts_application.dart';
 
 part "startup.dart";
 
@@ -24,7 +24,11 @@ part "app/app.dart";
 
 part "app/languages_app.dart";
 
+part "app/languages_app_settings.dart";
+
 part "app/layout_app.dart";
+
+part "app/app_settings.dart";
 
 part "app/widget_scaffold_app.dart";
 
@@ -64,6 +68,8 @@ part "dices/dices.dart";
 
 part "dices/languages_dices.dart";
 
+part "dices/unity_message.dart";
+
 part "dices/widget_dices.dart";
 
 part "file_handler/file_handler.dart";
@@ -79,6 +85,8 @@ part "highscore/widget_highscore.dart";
 part "input_items/input_items.dart";
 
 part "languages/languages.dart";
+
+part "layout/pos.dart";
 
 part "net/net.dart";
 
@@ -100,7 +108,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const PageMain(),
+      home: const PageDynamic(),
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -108,23 +116,3 @@ class MyApp extends StatelessWidget {
   }
 }
 
-Future attemptLogin(BuildContext context) async {
-  var isLoggedIn = false;
-  try {
-    var userData = await fileHandler.readFile(authenticate.fileAuthenticate);
-    isLoggedIn =
-        await authenticate.tryLogin(userData["username"], userData["password"]);
-  } catch (e) {
-    print(e.toString());
-  }
-
-  Timer.run(() {
-    if (!isLoggedIn) {
-      authenticate.navigateToPage(context);
-    } else if (!applicationStarted) {
-      applicationSettings.navigateToPage(context);
-    } else {
-      application.navigateToPage(context);
-    }
-  });
-}

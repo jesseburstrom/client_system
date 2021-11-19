@@ -1,29 +1,97 @@
 part of '../main.dart';
 
-class ApplicationSettings extends LanguagesGameSelect with InputItems {
+class ApplicationSettings extends Application {
+  //LanguagesApplicationSettings with InputItems {
   ApplicationSettings() {
     languagesSetup();
+    net.setCallbacks(callbackOnClientMsg, callbackOnServerMsg);
+    appInit(navigateToSettings);
+    gameTypeS = [gameType];
+    nrPlayersS = [nrPlayers];
   }
 
-  var gameType = [application.gameType];
-  var nrPlayers = [application.nrPlayers.toString()];
-  var tabController = TabController(length: 2, vsync: _PageDynamicState());
-
+  var gameTypeS = <String>[];
+  var nrPlayersS = <int>[];
   var games = [];
   var onSettingsPage = true;
+  var tabController = TabController(length: 2, vsync: _PageDynamicState());
 
-  navigateToPage(BuildContext context, [bool replace = true]) {
-    pages.navigateToDynamicPage(context, {"page": widgetScaffold}, replace);
+  navigateToSettings(BuildContext context, [bool replace = true]) {
+    pages.navigateToDynamicPage(
+        context, {"page": widgetScaffoldSettings}, replace);
   }
 
-  startGame(String gameType, int nrPlayers) {
-    application.gameType = gameType;
-    application.nrPlayers = nrPlayers;
-    application.setup();
-    userName = userNames[application.myPlayerId];
-    applicationStarted = true;
-    onSettingsPage = true;
-    application.navigateToPage(pages._context);
+  callbackOnServerMsg(var data) {
+    print("onServerMsg");
+    print(data);
+    switch (data["action"]) {
+      case "onGetId":
+        data = Map<String, dynamic>.from(data);
+        net.socketConnectionId = data["id"];
+        break;
+      case "onGameStart":
+        data = Map<String, dynamic>.from(data);
+        myPlayerId = data["playerIds"].indexOf(net.socketConnectionId);
+        print(net.socketConnectionId);
+        print("myPlayerID: " + myPlayerId.toString());
+        gameId = data["gameId"];
+        playerIds = data["playerIds"];
+        setup();
+        userName = userNames[myPlayerId];
+        applicationStarted = true;
+        onSettingsPage = true;
+        navigateToApp(pages._context);
+        break;
+      case "onRequestGames":
+        print("onRequestGames");
+        data = List<dynamic>.from(data["Games"]);
+        games = data;
+        pages._state();
+        break;
+      case "onGameAborted":
+        print("onGameAborted");
+        data = Map<String, dynamic>.from(data["game"]);
+        applicationStarted = false;
+        navigateToSettings(pages._contextMain);
+        break;
+    }
+  }
+
+  updateChat(String text) async {
+    chat.messages.add(ChatMessage(text, "receiver"));
+    pages._stateMain();
+    await Future.delayed(const Duration(milliseconds: 100), () {});
+    chat.scrollController.animateTo(
+        chat.scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.fastOutSlowIn);
+  }
+
+  callbackOnClientMsg(var data) {
+    print("onClientMsg");
+    print(data);
+    switch (data["action"]) {
+      case "sendSelection":
+        gameDices.diceValue = data["diceValue"].cast<int>();
+        updateDiceValues();
+        calcNewSums(data["player"], data["cell"]);
+        pages._stateMain();
+        if (myPlayerId == playerToMove && gameDices.unityDices[0]) {
+          gameDices.sendStartToUnity();
+        }
+        break;
+      case "sendDices":
+        data = Map<String, dynamic>.from(data);
+        gameDices.diceValue = data["diceValue"].cast<int>();
+        updateDiceValues();
+        gameDices.nrRolls += 1;
+        gameDices.updateDiceImages();
+        pages._stateMain();
+        break;
+      case "chatMessage":
+        updateChat(data["chatMessage"]);
+        break;
+    }
   }
 
   Widget widgetWaiting() {
@@ -59,8 +127,6 @@ class ApplicationSettings extends LanguagesGameSelect with InputItems {
   }
 
   void onGameListButton(BuildContext context) {
-    print("List games");
-    net.connectToServer();
     Map<String, dynamic> msg = {};
     msg["action"] = "getId";
     msg["id"] = "";
@@ -68,17 +134,16 @@ class ApplicationSettings extends LanguagesGameSelect with InputItems {
     net.sendToServer(msg);
 
     msg = {};
-    var nrPlayers = int.parse(applicationSettings.nrPlayers[0]);
-    msg["playerIds"] = List.filled(nrPlayers, "");
-    msg["gameType"] = applicationSettings.gameType[0];
-    msg["nrPlayers"] = nrPlayers;
+    msg["playerIds"] = List.filled(nrPlayersS[0], "");
+    msg["gameType"] = gameTypeS[0];
+    msg["nrPlayers"] = nrPlayersS[0];
     msg["action"] = "requestGame";
     net.sendToServer(msg);
     onSettingsPage = false;
     pages._state();
   }
 
-  Widget widgetScaffold(BuildContext context) {
+  Widget widgetScaffoldSettings(BuildContext context) {
     Function state = pages._state;
     return DefaultTabController(
         length: tabController.length,
@@ -101,41 +166,44 @@ class ApplicationSettings extends LanguagesGameSelect with InputItems {
                 Scrollbar(
                   child: ListView(
                     children: <Widget>[
-                      widgetStringRadioButton(
-                          state,
-                          ["Mini", "Ordinary", "Maxi"],
-                          gameType,
-                          [gameTypeMini_, gameTypeOrdinary_, gameTypeMaxi_]),
-                      widgetStringRadioButton(state, ["1", "2", "3", "4"],
-                          nrPlayers, ["1", "2", "3", "4"]),
-                      widgetCheckbox(state, () => {}, choseUnity_,
-                          application.gameDices.unityDices),
-                      widgetCheckbox(state, () => {}, colorChangeOverlay_,
-                          application.gameDices.unityColorChangeOverlay),
-                      widgetSizedBox(15),
-                      if (onSettingsPage)
-                        widgetButton(context, onGameListButton, gameList_)
-                      else
-                        widgetWaiting(),
-                    ],
+                          widgetStringRadioButton(
+                              state,
+                              ["Mini", "Ordinary", "Maxi"],
+                              gameTypeS,
+                              [
+                                gameTypeMini_,
+                                gameTypeOrdinary_,
+                                gameTypeMaxi_
+                              ]),
+                          widgetIntRadioButton(
+                              state, ["1", "2", "3", "4"], nrPlayersS),
+                          widgetCheckbox(state, () => {}, choseUnity_,
+                              gameDices.unityDices),
+                          widgetCheckbox(state, () => {}, colorChangeOverlay_,
+                              gameDices.unityColorChangeOverlay)
+                        ] +
+                        gameDices.widgetColorChangeOverlay(context, state) +
+                        [
+                          widgetSizedBox(15),
+                          if (onSettingsPage)
+                            widgetButton(context, onGameListButton, gameList_)
+                          else
+                            widgetWaiting(),
+                        ],
                   ),
                 ),
                 Scrollbar(
                     child: Padding(
                         padding: const EdgeInsets.all(10.0),
-                        child: ListView(
-                            children: [widgetParagraph(appearance_)] +
-                                application.gameDices
-                                    .widgetColorChangeOverlay(context, state) +
-                                [
-                                  widgetSizedBox(15),
-                                  widgetParagraph(misc_),
-                                  widgetDropDownList(
-                                      state,
-                                      " " + choseLanguage_,
-                                      Languages.differentLanguages,
-                                      Languages.chosenLanguage),
-                                ])))
+                        child: ListView(children: [
+                          widgetSizedBox(15),
+                          widgetParagraph(misc_),
+                          widgetDropDownList(
+                              state,
+                              " " + choseLanguage_,
+                              Languages.differentLanguages,
+                              Languages.chosenLanguage),
+                        ])))
               ],
             )));
   }

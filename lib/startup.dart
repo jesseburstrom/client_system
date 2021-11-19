@@ -17,11 +17,34 @@ late double screenHeight;
 var pages = Pages();
 var fileHandler = FileHandler();
 var net = Net();
-var authenticate = Authenticate();
 
 var animationsScroll = AnimationsScroll();
-var chat = Chat();
 var highscore = Highscore();
 
-var applicationSettings = ApplicationSettings();
-var application = Application();
+//var app = AppSettings();
+var app = ApplicationSettings();
+var authenticate = Authenticate(app.navigateToSettings);
+var chat = Chat(app.chatCallbackOnSubmitted);
+
+//var application = Application();
+
+Future attemptLogin(BuildContext context) async {
+  var isLoggedIn = false;
+  try {
+    var userData = await fileHandler.readFile(authenticate.fileAuthenticate);
+    isLoggedIn =
+        await authenticate.tryLogin(userData["username"], userData["password"]);
+  } catch (e) {
+    print(e.toString());
+  }
+
+  Timer.run(() {
+    if (!isLoggedIn) {
+      authenticate.navigateToPage(context);
+    } else if (!applicationStarted) {
+      app.navigateToSettings(context);
+    } else {
+      app.navigateToApp(context);
+    }
+  });
+}

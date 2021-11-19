@@ -1,10 +1,13 @@
 part of '../main.dart';
 
 class Authenticate extends LanguagesLogin with InputItems {
-  Authenticate() {
+  Authenticate(Function navigate) {
     languagesSetup();
+    navigateToSettings = navigate;
   }
 
+  // Function with BuildContext input
+  late Function navigateToSettings;
   var fileAuthenticate = "authenticate.json";
   var tabController = TabController(length: 2, vsync: _PageDynamicState());
 
@@ -66,7 +69,7 @@ class Authenticate extends LanguagesLogin with InputItems {
       fileHandler.saveFile(
           {"username": loginUser.text, "password": loginPassword.text},
           fileAuthenticate);
-      applicationSettings.navigateToPage(context);
+      navigateToSettings(context);
     }
   }
 
@@ -89,7 +92,7 @@ class Authenticate extends LanguagesLogin with InputItems {
         fileHandler.saveFile(
             {"username": loginUser.text, "password": loginPassword.text},
             fileAuthenticate);
-        applicationSettings.navigateToPage(context);
+        navigateToSettings(context);
       } else {
         print("error logging in user");
       }

@@ -9,7 +9,7 @@ extension WidgetScaffoldApp on App {
       return Scaffold(
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              applicationSettings.navigateToPage(context, false);
+              callbackNavigateSettings(context, false);
             },
             tooltip: "Settings",
             child: const Icon(Icons.settings_applications),
@@ -34,7 +34,7 @@ extension WidgetScaffoldApp on App {
       return Scaffold(
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              applicationSettings.navigateToPage(context, false);
+              callbackNavigateSettings(context, false);
             },
             tooltip: "Settings",
             child: const Icon(Icons.settings_applications),

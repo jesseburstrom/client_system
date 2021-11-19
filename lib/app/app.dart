@@ -1,59 +1,40 @@
 part of "../main.dart";
 
-class App extends LanguagesApp {
-  App() {
+class App extends LanguagesApp with InputItems {
+  appInit(Function callback) {
+    callbackNavigateSettings = callback;
     languagesSetup();
     setup();
-    net.setCallbacks(callbackOnClientMsg, callbackOnServerMsg);
+
     net.connectToServer();
   }
 
-  setup() {}
+  late Function callbackNavigateSettings;
 
   postFrameCallback(BuildContext context) async {
     //startAnimations(context);
   }
 
-  navigateToPage(BuildContext context, [bool replace = true]) {
+  navigateToApp(BuildContext context, [bool replace = true]) {
     pages.navigateToMainPage(
         context,
         {
           "page": widgetScaffold,
-          //"postFrameCallback": startAnimations,
+          "postFrameCallback": postFrameCallback,
           "dispose": animationsScroll.animationController.stop
         },
         replace);
   }
 
-  updateChat(String text) async {
-    chat.messages.add(ChatMessage(text, "receiver"));
+  chatCallbackOnSubmitted(String text) {
     pages._stateMain();
-    await Future.delayed(const Duration(milliseconds: 100), () {});
-    chat.scrollController.animateTo(
-        chat.scrollController.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 400),
-        curve: Curves.fastOutSlowIn);
+    Map<String, dynamic> msg = {};
+    msg["chatMessage"] = userName + ": " + text;
+    msg["action"] = "chatMessage";
+    //msg["playerIds"] = playerIds;
+    print(msg);
+    net.sendToClients(msg);
   }
 
-  callbackOnClientMsg(var data) {
-    print("onClientMsg");
-    print(data);
-    switch (data["action"]) {
-      case "chatMessage":
-        print("chatMessage");
-        updateChat(data["chatMessage"]);
-        break;
-    }
-  }
-
-  callbackOnServerMsg(var data) {
-    print("onServerMsg");
-    print(data);
-    switch (data["action"]) {
-      case "onGetId":
-        data = Map<String, dynamic>.from(data);
-        net.socketConnectionId = data["id"];
-        break;
-    }
-  }
+  setup() {}
 }

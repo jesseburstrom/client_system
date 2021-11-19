@@ -3,20 +3,32 @@ part of "../main.dart";
 // cannot have typedef inside class
 typedef YatzyFunctions = int Function();
 
-class Application extends LanguagesApplication with AnimationsApplication {
-  Application() {
-    gameDices = Dices(callbackDiceUpdateDiceValues, callbackDiceUnityCreated,
-        callbackDiceCheckPlayerToMove);
+class Application extends LanguagesApplication with InputItems {
+  appInit(Function callback) {
+    callbackNavigateSettings = callback;
+    gameDices = Dices(callbackUpdateDiceValues, callbackUnityCreated,
+        callbackCheckPlayerToMove);
     languagesSetup();
     setup();
     setupAnimation(nrPlayers, maxNrPlayers, maxTotalFields);
-    //net.connectToServer();
-
-    net.setCallbacks(callbackOnClientMsg, callbackOnServerMsg);
+    net.connectToServer();
   }
 
+  late Function callbackNavigateSettings;
+
+  final animationControllers = <AnimationController>[];
+
+  var animationDurations = List.filled(2, const Duration(seconds: 1));
+  var cellAnimationControllers = [];
+  var cellAnimation = [];
+  var players = 0;
+  var boardXAnimationPos = [];
+  var boardYAnimationPos = [];
+
+  // Application properties
   // "Ordinary" , "Mini", "Maxi"
   var gameType = "Ordinary";
+  var nrPlayers = 1;
 
   // Used by animation
   var maxNrPlayers = 4;
@@ -27,7 +39,6 @@ class Application extends LanguagesApplication with AnimationsApplication {
   var playerIds = [];
 
   var totalFields = 18;
-  var nrPlayers = 1;
   var bonusSum = 63;
   var bonusAmount = 50;
   var myPlayerId = -1;
@@ -37,8 +48,6 @@ class Application extends LanguagesApplication with AnimationsApplication {
       boardYPos = [],
       boardWidth = [],
       boardHeight = [],
-      boardXAnimationPos = [],
-      boardYAnimationPos = [],
       cellValue = [],
       fixedCell = [],
       appText = [],
@@ -62,12 +71,23 @@ class Application extends LanguagesApplication with AnimationsApplication {
 
   late List<YatzyFunctions> yatzyFunctions;
 
-  postFrameCallback(BuildContext context) async {
-    await highscore.loadHighscoreFromServer();
-    startAnimations(context);
+  chatCallbackOnSubmitted(String text) {
+    pages._stateMain();
+    Map<String, dynamic> msg = {};
+    msg["chatMessage"] = userName + ": " + text;
+    msg["action"] = "chatMessage";
+    msg["playerIds"] = playerIds;
+    print(msg);
+    net.sendToClients(msg);
   }
 
-  navigateToPage(BuildContext context, [bool replace = true]) {
+  postFrameCallback(BuildContext context) async {
+    await highscore.loadHighscoreFromServer();
+    pages._stateMain();
+    animationsScroll.animationController.repeat(reverse: true);
+  }
+
+  navigateToApp(BuildContext context, [bool replace = true]) {
     pages.navigateToMainPage(
         context,
         {
@@ -78,95 +98,17 @@ class Application extends LanguagesApplication with AnimationsApplication {
         replace);
   }
 
-  callbackOnServerMsg(var data) {
-    print("onServerMsg");
-    print(data);
-    switch (data["action"]) {
-      case "onGetId":
-        print("onGetId");
-        data = Map<String, dynamic>.from(data);
-        net.socketConnectionId = data["id"];
-        break;
-      case "onGameStart":
-        data = Map<String, dynamic>.from(data);
-        myPlayerId = data["playerIds"].indexOf(net.socketConnectionId);
-        print(data["playerIds"]);
-        print(net.socketConnectionId);
-        print("myPlayerID: " + myPlayerId.toString());
-        gameId = data["gameId"];
-        playerIds = data["playerIds"];
-        print("start game");
-        applicationSettings.startGame(data["gameType"], data["nrPlayers"]);
-        break;
-      case "onRequestGames":
-        print("onRequestGames");
-        data = List<dynamic>.from(data["Games"]);
-        print(data);
-        applicationSettings.games = data;
-        pages._state();
-
-        break;
-      case "onGameAborted":
-        print("onGameAborted");
-        data = Map<String, dynamic>.from(data["game"]);
-        applicationStarted = false;
-        applicationSettings.navigateToPage(pages._contextMain);
-        break;
-    }
-  }
-
-  updateChat(String text) async {
-    chat.messages.add(ChatMessage(text, "receiver"));
-    pages._stateMain();
-    await Future.delayed(const Duration(milliseconds: 100), () {});
-    chat.scrollController.animateTo(
-        chat.scrollController.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 400),
-        curve: Curves.fastOutSlowIn);
-  }
-
-  callbackOnClientMsg(var data) {
-    print("onClientMsg");
-    print(data);
-    switch (data["action"]) {
-      case "sendSelection":
-        gameDices.diceValue = data["diceValue"].cast<int>();
-        updateDiceValues();
-        calcNewSums(data["player"], data["cell"]);
-        pages._stateMain();
-        if (myPlayerId == playerToMove && gameDices.unityDices[0]) {
-          gameDices.sendStartToUnity();
-        }
-        break;
-      case "sendDices":
-        print("onDices");
-        data = Map<String, dynamic>.from(data);
-        print(data["diceValue"]);
-        gameDices.diceValue = data["diceValue"].cast<int>();
-        updateDiceValues();
-        gameDices.nrRolls += 1;
-        gameDices.updateDiceImages();
-        pages._stateMain();
-        break;
-      case "chatMessage":
-        print("chatMessage");
-        print(data["chatMessage"]);
-        updateChat(data["chatMessage"]);
-        break;
-    }
-  }
-
-  bool callbackDiceCheckPlayerToMove() {
+  bool callbackCheckPlayerToMove() {
     return playerToMove == myPlayerId;
   }
 
-  callbackDiceUnityCreated() {
+  callbackUnityCreated() {
     if (myPlayerId == playerToMove) {
       gameDices.sendStartToUnity();
     }
   }
 
-  callbackDiceUpdateDiceValues() {
+  callbackUpdateDiceValues() {
     updateDiceValues();
     Map<String, dynamic> msg = {};
     msg["action"] = "sendDices";
@@ -186,6 +128,7 @@ class Application extends LanguagesApplication with AnimationsApplication {
         appText[playerToMove + 1][i] = cellValue[playerToMove][i].toString();
       }
     }
+    pages._stateMain();
   }
 
   setAppText() {
@@ -387,8 +330,8 @@ class Application extends LanguagesApplication with AnimationsApplication {
     }
     if (gameDices.unityCreated) {
       gameDices.sendResetToUnity();
-      if (application.myPlayerId == application.playerToMove) {
-        application.gameDices.sendStartToUnity();
+      if (myPlayerId == playerToMove) {
+        gameDices.sendStartToUnity();
       }
     }
   }

@@ -113,6 +113,26 @@ class InputItems {
     );
   }
 
+  Widget widgetIntRadioButton(
+      Function state, List<String> values, List<int> radioValue) {
+    Widget radioButton(String name) {
+      return Radio(
+          value: name,
+          groupValue: radioValue[0].toString(),
+          onChanged: (s) {
+            radioValue[0] = int.parse(s as String);
+            state();
+          });
+    }
+
+    var radioWidgets = <Widget>[];
+    for (var i = 0; i < values.length; i++) {
+      radioWidgets.add(radioButton(values[i]));
+      radioWidgets.add(Text(values[i]));
+    }
+    return Row(children: radioWidgets);
+  }
+
   Widget widgetStringRadioButton(Function state, List<String> values,
       List<String> radioValue, List<String> translations) {
     Widget radioButton(String name) {

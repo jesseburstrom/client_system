@@ -81,7 +81,7 @@ class Pages {
   Pages() {
     zeroCallbacks();
     zeroCallbacksMain();
-    _postFrameCallbackMain = attemptLogin;
+    _postFrameCallback = attemptLogin;
   }
 
   late Function _page,

@@ -1,6 +1,6 @@
 part of '../main.dart';
 
-class LanguagesGameSelect extends Languages {
+class LanguagesApplicationSettings extends Languages {
   final _gameTypeOrdinary = {"English": "Ordinary"};
   final _gameTypeMini = {"English": "Mini"};
   final _gameTypeMaxi = {"English": "Maxi"};
@@ -56,6 +56,7 @@ class LanguagesGameSelect extends Languages {
   String get appearance_ => getText(_appearance);
 
   String get misc_ => getText(_misc);
+
   String get gameRequest_ => getText(_gameRequest);
 
   languagesSetup() {

@@ -1,19 +1,16 @@
 part of "../main.dart";
 
-class AnimationsApplication {
-  final animationControllers = <AnimationController>[];
-
-  var animationDurations = List.filled(2, const Duration(seconds: 1));
-  var cellAnimationControllers = [];
-  var cellAnimation = [];
+extension AnimationsApplication on Application {
+  // Animation properties
 
   animateBoard() {
-    for (var i = 0; i < application.nrPlayers + 1; i++) {
+    for (var i = 0; i < players + 1; i++) {
       cellAnimationControllers[i][0].forward();
     }
   }
 
   setupAnimation(int nrPlayers, int maxNrPlayers, int maxTotalFields) {
+    players = nrPlayers;
     for (Duration d in animationDurations) {
       animationControllers.add(AnimationController(
         vsync: _PageMainState(),
@@ -50,10 +47,8 @@ class AnimationsApplication {
     for (var i = 0; i < maxNrPlayers + 1; i++) {
       for (var j = 0; j < maxTotalFields; j++) {
         cellAnimationControllers[i][j].addListener(() {
-          application.boardXAnimationPos[i][j] =
-              cellAnimation[i][j].value * 100.0;
-          if ((j < application.maxTotalFields - 1) &&
-              cellAnimation[i][j].value > 0.02) {
+          boardXAnimationPos[i][j] = cellAnimation[i][j].value * 100.0;
+          if ((j < maxTotalFields - 1) && cellAnimation[i][j].value > 0.02) {
             if (!cellAnimationControllers[i][j + 1].isAnimating) {
               cellAnimationControllers[i][j + 1].forward();
             }
@@ -67,9 +62,5 @@ class AnimationsApplication {
         });
       }
     }
-  }
-
-  startAnimations(BuildContext context) async {
-    animationsScroll.animationController.repeat(reverse: true);
   }
 }

@@ -18,7 +18,6 @@ class Highscore extends LanguagesHighscore with AnimationsHighscore {
       var serverResponse = await net.getDB("/GetTopScores", 20);
       if (serverResponse.statusCode == 200) {
         highscores = jsonDecode(serverResponse.body);
-        pages._stateMain();
         print("Highscores loaded from server");
         await fileHandler.saveFile(highscores, fileHighscore);
       } else {
@@ -44,7 +43,6 @@ class Highscore extends LanguagesHighscore with AnimationsHighscore {
           "/UpdateAndReturnHighscore", {"name": name, "score": score}, 20);
       if (serverResponse.statusCode == 200) {
         highscores = jsonDecode(serverResponse.body);
-        pages._stateMain();
         fileHandler.saveFile(highscores, fileHighscore);
       } else {
         print("Error getting highscores");

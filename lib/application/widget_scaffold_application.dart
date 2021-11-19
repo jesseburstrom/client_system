@@ -9,7 +9,7 @@ extension WidgetScaffoldApplication on Application {
       return Scaffold(
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              applicationSettings.navigateToPage(context, false);
+              callbackNavigateSettings(context, false);
             },
             tooltip: "Settings",
             child: const Icon(Icons.settings_applications),
@@ -23,7 +23,7 @@ extension WidgetScaffoldApplication on Application {
                       width: double.infinity),
                   Stack(children: stackedWidgets),
                 ] +
-                layoutPTopToBottom(screenWidth, screenHeight, [
+                layoutTopToBottom(screenWidth, screenHeight, [
                   highscore.widgetHighscore,
                   widgetSetupGameBoard,
                   gameDices.widgetDices,
@@ -38,7 +38,7 @@ extension WidgetScaffoldApplication on Application {
       return Scaffold(
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              applicationSettings.navigateToPage(context, false);
+              callbackNavigateSettings(context, false);
             },
             tooltip: "Settings",
             child: const Icon(Icons.settings_applications),
@@ -52,7 +52,7 @@ extension WidgetScaffoldApplication on Application {
                       width: double.infinity),
                   Stack(children: stackedWidgets)
                 ] +
-                layoutLLeftToRight(screenWidth, screenHeight, [
+                layoutLeftToRight(screenWidth, screenHeight, [
                   widgetSetupGameBoard,
                   gameDices.widgetDices,
                   highscore.widgetHighscore,

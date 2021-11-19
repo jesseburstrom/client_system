@@ -2,7 +2,7 @@ part of "../main.dart";
 
 extension ApplicationWidgets on Application {
   onVerticalDragUpdate(mainX, mainY) {
-    if (application.playerToMove != application.myPlayerId) {
+    if (playerToMove != myPlayerId) {
       return;
     }
     //print(ListenerKey.currentContext.size);
@@ -109,7 +109,8 @@ extension ApplicationWidgets on Application {
           left: boardXPos[1 + i][0],
           top: boardYPos[1 + i][0] - cellHeight,
           child: Container(
-              padding: const EdgeInsets.only(left: 5, right: 5, top: 0, bottom: 0),
+              padding:
+                  const EdgeInsets.only(left: 5, right: 5, top: 0, bottom: 0),
               width: boardWidth[1 + i][0],
               height: cellHeight,
               child: FittedBox(

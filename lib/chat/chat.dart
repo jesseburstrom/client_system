@@ -8,12 +8,14 @@ class ChatMessage {
 }
 
 class Chat extends LanguagesChat with InputItems {
-  Chat() {
+  Chat(Function callback) {
     languagesSetup();
+    callbackOnSubmitted = callback;
     //chatTextController.addListener(onTextChanged);
     //scrollController.addListener(onScrollChanged);
   }
 
+  late Function callbackOnSubmitted;
   final chatTextController = TextEditingController();
   final scrollController = ScrollController();
   var focusNode = FocusNode();
@@ -42,13 +44,8 @@ class Chat extends LanguagesChat with InputItems {
     chatTextController.clear();
 
     messages.add(ChatMessage(text, "sender"));
-    pages._stateMain();
-    Map<String, dynamic> msg = {};
-    msg["chatMessage"] = userName + ": " + text;
-    msg["action"] = "chatMessage";
-    msg["playerIds"] = application.playerIds;
-    print(msg);
-    net.sendToClients(msg);
+    callbackOnSubmitted(text);
+
     await Future.delayed(const Duration(milliseconds: 100), () {});
     scrollController.animateTo(scrollController.position.maxScrollExtent,
         duration: const Duration(milliseconds: 400),

@@ -1,6 +1,6 @@
 part of "../main.dart";
 
-class LanguagesApplication extends Languages {
+class LanguagesApplication extends LanguagesApplicationSettings {
   final _ones = {"English": "Ones"};
   final _twos = {"English": "Twos"};
   final _threes = {"English": "Threes"};
@@ -86,7 +86,9 @@ class LanguagesApplication extends Languages {
 
   String get your_ => getText(_your);
 
-  void languagesSetup() {
+  @override
+  languagesSetup() {
+    super.languagesSetup();
     _ones["Swedish"] = "Ettor";
     _twos["Swedish"] = "Tvåor";
     _threes["Swedish"] = "Treor";
