@@ -1,6 +1,6 @@
 part of "../main.dart";
 
-extension GameFunctionsInternal on Application {
+extension ApplicationFunctionsInternal on Application {
   clearFocus() {
     focusStatus = [];
     for (var i = 0; i < nrPlayers; i++) {
@@ -102,6 +102,6 @@ extension GameFunctionsInternal on Application {
       }
     }
     gameDices.clearDices();
-    animateBoard();
+    animation.animateBoard();
   }
 }

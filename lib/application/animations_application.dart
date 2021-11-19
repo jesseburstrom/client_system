@@ -1,7 +1,16 @@
 part of "../main.dart";
 
-extension AnimationsApplication on Application {
+// extension AnimationsApplication on Application {
+class AnimationsApplication {
   // Animation properties
+  final animationControllers = <AnimationController>[];
+
+  var animationDurations = List.filled(2, const Duration(seconds: 1));
+  var cellAnimationControllers = [];
+  var cellAnimation = [];
+  var players = 0;
+  var boardXAnimationPos = [];
+  var boardYAnimationPos = [];
 
   animateBoard() {
     for (var i = 0; i < players + 1; i++) {

@@ -1,6 +1,6 @@
 part of "../main.dart";
 
-extension WidgetScaffoldApplication on Application {
+extension WidgetAppScaffold on App {
   Widget widgetScaffold(BuildContext context) {
     screenWidth = MediaQuery.of(context).size.width;
     screenHeight = MediaQuery.of(context).size.height;
@@ -9,7 +9,7 @@ extension WidgetScaffoldApplication on Application {
       return Scaffold(
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              callbackNavigateSettings(context, false);
+              navigateToSettings(context, false);
             },
             tooltip: "Settings",
             child: const Icon(Icons.settings_applications),
@@ -23,22 +23,18 @@ extension WidgetScaffoldApplication on Application {
                       width: double.infinity),
                   Stack(children: stackedWidgets),
                 ] +
-                layoutTopToBottom(screenWidth, screenHeight, [
-                  highscore.widgetHighscore,
-                  widgetSetupGameBoard,
-                  gameDices.widgetDices,
-                  chat.widgetChat,
-                  animationsScroll.widgetEmptyContainer,
-                  widgetDisplayGameStatus
-                ]) +
-                [gameDices.widgetWrapCCOverlay(context, pages._stateMain)],
+                layoutTopToBottom(
+                  screenWidth,
+                  screenHeight,
+                  [chat.widgetChat, animationsScroll.widgetEmptyContainer],
+                ),
           ));
     } else {
       // landscape
       return Scaffold(
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              callbackNavigateSettings(context, false);
+              navigateToSettings(context, false);
             },
             tooltip: "Settings",
             child: const Icon(Icons.settings_applications),
@@ -52,14 +48,11 @@ extension WidgetScaffoldApplication on Application {
                       width: double.infinity),
                   Stack(children: stackedWidgets)
                 ] +
-                layoutLeftToRight(screenWidth, screenHeight, [
-                  widgetSetupGameBoard,
-                  gameDices.widgetDices,
-                  highscore.widgetHighscore,
-                  chat.widgetChat,
-                  animationsScroll.widgetEmptyContainer,
-                  widgetDisplayGameStatus
-                ]),
+                layoutLeftToRight(
+                  screenWidth,
+                  screenHeight,
+                  [chat.widgetChat, animationsScroll.widgetEmptyContainer],
+                ),
           ));
     }
   }

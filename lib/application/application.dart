@@ -4,26 +4,25 @@ part of "../main.dart";
 typedef YatzyFunctions = int Function();
 
 class Application extends LanguagesApplication with InputItems {
-  appInit(Function callback) {
-    callbackNavigateSettings = callback;
+  Application() {
     gameDices = Dices(callbackUpdateDiceValues, callbackUnityCreated,
         callbackCheckPlayerToMove);
     languagesSetup();
     setup();
-    setupAnimation(nrPlayers, maxNrPlayers, maxTotalFields);
+    animation.setupAnimation(nrPlayers, maxNrPlayers, maxTotalFields);
+    net.setCallbacks(callbackOnClientMsg, callbackOnServerMsg);
     net.connectToServer();
+    gameTypeS = [gameType];
+    nrPlayersS = [nrPlayers];
   }
 
-  late Function callbackNavigateSettings;
+  var gameTypeS = <String>[];
+  var nrPlayersS = <int>[];
+  var games = [];
+  var onSettingsPage = true;
+  var tabController = TabController(length: 2, vsync: _PageDynamicState());
 
-  final animationControllers = <AnimationController>[];
-
-  var animationDurations = List.filled(2, const Duration(seconds: 1));
-  var cellAnimationControllers = [];
-  var cellAnimation = [];
-  var players = 0;
-  var boardXAnimationPos = [];
-  var boardYAnimationPos = [];
+  var animation = AnimationsApplication();
 
   // Application properties
   // "Ordinary" , "Mini", "Maxi"
@@ -55,6 +54,8 @@ class Application extends LanguagesApplication with InputItems {
       focusStatus = [];
 
   var listenerKey = GlobalKey();
+  late Dices gameDices;
+  late List<YatzyFunctions> yatzyFunctions;
 
   /*
   var _cellKeys = [];
@@ -67,9 +68,46 @@ class Application extends LanguagesApplication with InputItems {
   }
    */
 
-  late Dices gameDices;
+  navigateToSettings(BuildContext context, [bool replace = true]) {
+    pages.navigateToDynamicPage(
+        context, {"page": widgetScaffoldSettings}, replace);
+  }
 
-  late List<YatzyFunctions> yatzyFunctions;
+  callbackOnServerMsg(var data) {
+    print("onServerMsg");
+    print(data);
+    switch (data["action"]) {
+      case "onGetId":
+        data = Map<String, dynamic>.from(data);
+        net.socketConnectionId = data["id"];
+        break;
+      case "onGameStart":
+        data = Map<String, dynamic>.from(data);
+        myPlayerId = data["playerIds"].indexOf(net.socketConnectionId);
+        print(net.socketConnectionId);
+        print("myPlayerID: " + myPlayerId.toString());
+        gameId = data["gameId"];
+        playerIds = data["playerIds"];
+        setup();
+        userName = userNames[myPlayerId];
+        applicationStarted = true;
+        onSettingsPage = true;
+        navigateToApp(pages._context);
+        break;
+      case "onRequestGames":
+        print("onRequestGames");
+        data = List<dynamic>.from(data["Games"]);
+        games = data;
+        pages._state();
+        break;
+      case "onGameAborted":
+        print("onGameAborted");
+        data = Map<String, dynamic>.from(data["game"]);
+        applicationStarted = false;
+        navigateToSettings(pages._contextMain);
+        break;
+    }
+  }
 
   chatCallbackOnSubmitted(String text) {
     pages._stateMain();
@@ -79,6 +117,43 @@ class Application extends LanguagesApplication with InputItems {
     msg["playerIds"] = playerIds;
     print(msg);
     net.sendToClients(msg);
+  }
+
+  updateChat(String text) async {
+    chat.messages.add(ChatMessage(text, "receiver"));
+    pages._stateMain();
+    await Future.delayed(const Duration(milliseconds: 100), () {});
+    chat.scrollController.animateTo(
+        chat.scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.fastOutSlowIn);
+  }
+
+  callbackOnClientMsg(var data) {
+    print("onClientMsg");
+    print(data);
+    switch (data["action"]) {
+      case "sendSelection":
+        gameDices.diceValue = data["diceValue"].cast<int>();
+        updateDiceValues();
+        calcNewSums(data["player"], data["cell"]);
+        pages._stateMain();
+        if (myPlayerId == playerToMove && gameDices.unityDices[0]) {
+          gameDices.sendStartToUnity();
+        }
+        break;
+      case "sendDices":
+        data = Map<String, dynamic>.from(data);
+        gameDices.diceValue = data["diceValue"].cast<int>();
+        updateDiceValues();
+        gameDices.nrRolls += 1;
+        gameDices.updateDiceImages();
+        pages._stateMain();
+        break;
+      case "chatMessage":
+        updateChat(data["chatMessage"]);
+        break;
+    }
   }
 
   postFrameCallback(BuildContext context) async {
@@ -291,15 +366,15 @@ class Application extends LanguagesApplication with InputItems {
     boardYPos = [List.filled(maxTotalFields, 0.0)];
     boardWidth = [List.filled(maxTotalFields, 0.0)];
     boardHeight = [List.filled(maxTotalFields, 0.0)];
-    boardXAnimationPos = [List.filled(maxTotalFields, 0.0)];
-    boardYAnimationPos = [List.filled(maxTotalFields, 0.0)];
+    animation.boardXAnimationPos = [List.filled(maxTotalFields, 0.0)];
+    animation.boardYAnimationPos = [List.filled(maxTotalFields, 0.0)];
     for (var i = 0; i < maxNrPlayers; i++) {
       boardXPos.add(List.filled(maxTotalFields, 0.0));
       boardYPos.add(List.filled(maxTotalFields, 0.0));
       boardWidth.add(List.filled(maxTotalFields, 0.0));
       boardHeight.add(List.filled(maxTotalFields, 0.0));
-      boardXAnimationPos.add(List.filled(maxTotalFields, 0.0));
-      boardYAnimationPos.add(List.filled(maxTotalFields, 0.0));
+      animation.boardXAnimationPos.add(List.filled(maxTotalFields, 0.0));
+      animation.boardYAnimationPos.add(List.filled(maxTotalFields, 0.0));
     }
     clearFocus();
     fixedCell = [];

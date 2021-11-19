@@ -1,15 +1,15 @@
 part of "../main.dart";
 
 class App extends LanguagesApp with InputItems {
-  appInit(Function callback) {
-    callbackNavigateSettings = callback;
+  App() {
     languagesSetup();
     setup();
-
+    net.setCallbacks(callbackOnClientMsg, callbackOnServerMsg);
     net.connectToServer();
   }
 
-  late Function callbackNavigateSettings;
+  var animation = AnimationsApp();
+  var tabController = TabController(length: 2, vsync: _PageDynamicState());
 
   postFrameCallback(BuildContext context) async {
     //startAnimations(context);
@@ -24,6 +24,42 @@ class App extends LanguagesApp with InputItems {
           "dispose": animationsScroll.animationController.stop
         },
         replace);
+  }
+
+  navigateToSettings(BuildContext context, [bool replace = true]) {
+    pages.navigateToDynamicPage(
+        context, {"page": widgetScaffoldSettings}, replace);
+  }
+
+  updateChat(String text) async {
+    chat.messages.add(ChatMessage(text, "receiver"));
+    pages._stateMain();
+    await Future.delayed(const Duration(milliseconds: 100), () {});
+    chat.scrollController.animateTo(
+        chat.scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.fastOutSlowIn);
+  }
+
+  callbackOnClientMsg(var data) {
+    print("onClientMsg");
+    print(data);
+    switch (data["action"]) {
+      case "chatMessage":
+        updateChat(data["chatMessage"]);
+        break;
+    }
+  }
+
+  callbackOnServerMsg(var data) {
+    print("onServerMsg");
+    print(data);
+    switch (data["action"]) {
+      case "onGetId":
+        data = Map<String, dynamic>.from(data);
+        net.socketConnectionId = data["id"];
+        break;
+    }
   }
 
   chatCallbackOnSubmitted(String text) {

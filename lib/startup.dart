@@ -22,11 +22,10 @@ var animationsScroll = AnimationsScroll();
 var highscore = Highscore();
 
 //var app = AppSettings();
-var app = ApplicationSettings();
+//var app = ApplicationSettings();
+var app = Application();
 var authenticate = Authenticate(app.navigateToSettings);
 var chat = Chat(app.chatCallbackOnSubmitted);
-
-//var application = Application();
 
 Future attemptLogin(BuildContext context) async {
   var isLoggedIn = false;

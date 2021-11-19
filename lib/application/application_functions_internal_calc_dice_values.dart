@@ -1,6 +1,6 @@
 part of "../main.dart";
 
-extension GameCalcDiceValues on Application {
+extension ApplicationCalcDiceValues on Application {
   int zero() {
     return 0;
   }

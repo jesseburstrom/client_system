@@ -135,12 +135,12 @@ extension ApplicationWidgets on Application {
     for (var i = 0; i < totalFields; i++) {
       listings.add(
         AnimatedBuilder(
-            animation: cellAnimationControllers[0][i],
+            animation: animation.cellAnimationControllers[0][i],
             builder: (BuildContext context, Widget? widget) {
               return Positioned(
                   //key: _cellKeys[0][i],
-                  left: boardXPos[0][i] + boardXAnimationPos[0][i],
-                  top: boardYPos[0][i] + boardYAnimationPos[0][i],
+                  left: boardXPos[0][i] + animation.boardXAnimationPos[0][i],
+                  top: boardYPos[0][i] + animation.boardYAnimationPos[0][i],
                   child: Container(
                     width: boardWidth[0][i],
                     height: boardHeight[0][i],
@@ -189,12 +189,14 @@ extension ApplicationWidgets on Application {
     for (var i = 0; i < nrPlayers; i++) {
       for (var j = 0; j < totalFields; j++) {
         tmpWidget = AnimatedBuilder(
-            animation: cellAnimationControllers[i][j],
+            animation: animation.cellAnimationControllers[i][j],
             builder: (BuildContext context, Widget? widget) {
               return Positioned(
                 //key: _cellKeys[i + 1][j],
-                left: boardXPos[i + 1][j] + boardXAnimationPos[i + 1][j],
-                top: boardYPos[i + 1][j] + boardYAnimationPos[i + 1][j],
+                left: boardXPos[i + 1][j] +
+                    animation.boardXAnimationPos[i + 1][j],
+                top: boardYPos[i + 1][j] +
+                    animation.boardYAnimationPos[i + 1][j],
                 child: GestureDetector(
                     onTap: () {
                       cellClick(i, j);
