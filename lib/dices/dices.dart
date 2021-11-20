@@ -40,10 +40,10 @@ class Dices extends LanguagesDices with AnimationsRollDices, InputItems {
   late UnityWidgetController unityWidgetController;
   var unityCreated = false;
   var unityColors = [0.6, 0.7, 0.8, 0.1];
-  var unityDices = [false];
-  var unityTransparent = [true];
-  var unityLightMotion = [true];
-  var unityColorChangeOverlay = [false];
+  var unityDices = false;
+  var unityTransparent = true;
+  var unityLightMotion = true;
+  var unityColorChangeOverlay = false;
 
   clearDices() {
     diceValue = List.filled(nrDices, 0);
@@ -54,11 +54,11 @@ class Dices extends LanguagesDices with AnimationsRollDices, InputItems {
     nrRolls = 0;
   }
 
-  initDices(int nrDices) {
+  initDices(int nrdices) {
     if (unityCreated) {
       sendResetToUnity();
     }
-    nrDices = nrDices;
+    nrDices = nrdices;
     diceValue = List.filled(nrDices, 0);
     holdDices = List.filled(nrDices, false);
     holdDiceText = List.filled(nrDices, "");
@@ -81,7 +81,7 @@ class Dices extends LanguagesDices with AnimationsRollDices, InputItems {
   }
 
   updateDiceImages() {
-    if (unityDices[0]) {
+    if (unityDices) {
       sendDicesToUnity();
     } else {
       for (var i = 0; i < nrDices; i++) {
@@ -161,7 +161,7 @@ class Dices extends LanguagesDices with AnimationsRollDices, InputItems {
   }
 
   void sendTransparencyChangedToUnity() {
-    var msg = UnityMessage.changeBool("Transparency", unityTransparent[0]);
+    var msg = UnityMessage.changeBool("Transparency", unityTransparent);
 
     var json = jsonEncode(msg.toJson());
     print(json);
@@ -173,7 +173,7 @@ class Dices extends LanguagesDices with AnimationsRollDices, InputItems {
   }
 
   void sendLightMotionChangedToUnity() {
-    var msg = UnityMessage.changeBool("LightMotion", unityLightMotion[0]);
+    var msg = UnityMessage.changeBool("LightMotion", unityLightMotion);
 
     var json = jsonEncode(msg.toJson());
     print(json);

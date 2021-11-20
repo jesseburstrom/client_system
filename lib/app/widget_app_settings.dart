@@ -1,13 +1,14 @@
 part of "../main.dart";
 
 extension WidgetAppSettings on App {
-
-
   // List of widgets for the application specific settings
   List<Widget> settings() {
     return <Widget>[];
   }
 
+  onButton(BuildContext context) {
+    navigateToApp(context);
+  }
 
   Widget widgetScaffoldSettings(BuildContext context) {
     Function state = pages._state;
@@ -31,7 +32,7 @@ extension WidgetAppSettings on App {
               children: [
                 Scrollbar(
                   child: ListView(
-                    children: settings(),
+                    children: [widgetButton(context, onButton, "Start")],
                   ),
                 ),
                 Scrollbar(
@@ -44,6 +45,7 @@ extension WidgetAppSettings on App {
                               pages._state,
                               " " + choseLanguage_,
                               Languages.differentLanguages,
+                              (x) => {Languages.chosenLanguage = x},
                               Languages.chosenLanguage),
                         ])))
               ],

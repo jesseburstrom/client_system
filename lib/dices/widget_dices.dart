@@ -12,12 +12,12 @@ extension DicesWidget on Dices {
       w = height * ratio;
       left = (width - w) / 2;
     }
-    if (!unityDices[0]) {
+    if (!unityDices) {
       left = screenWidth;
       top = screenHeight;
     }
 
-    if (unityDices[0]) {
+    if (unityDices) {
       Widget widgetUnity = Positioned(
           left: left,
           top: top,
@@ -145,20 +145,29 @@ extension DicesWidget on Dices {
 
   List<Widget> widgetColorChangeOverlay(BuildContext context, Function state) {
     return <Widget>[
-      widgetCheckbox(state, sendTransparencyChangedToUnity, transparency_,
+      widgetCheckbox(
+          state,
+          (x) => {unityTransparent = x, sendTransparencyChangedToUnity()},
+          transparency_,
           unityTransparent),
       widgetCheckbox(
-          state, sendLightMotionChangedToUnity, lightMotion_, unityLightMotion),
-      widgetSlider(context, state, sendColorsToUnity, red_, unityColors, 0),
-      widgetSlider(context, state, sendColorsToUnity, green_, unityColors, 1),
-      widgetSlider(context, state, sendColorsToUnity, blue_, unityColors, 2),
-      widgetSlider(
-          context, state, sendColorsToUnity, transparency_, unityColors, 3)
+          state,
+          (x) => {unityLightMotion = x, sendLightMotionChangedToUnity()},
+          lightMotion_,
+          unityLightMotion),
+      widgetSlider(context, state, red_,
+          (x) => {unityColors[0] = x, sendColorsToUnity()}, unityColors[0]),
+      widgetSlider(context, state, green_,
+          (x) => {unityColors[1] = x, sendColorsToUnity()}, unityColors[1]),
+      widgetSlider(context, state, blue_,
+          (x) => {unityColors[2] = x, sendColorsToUnity()}, unityColors[2]),
+      widgetSlider(context, state, transparency_,
+          (x) => {unityColors[3] = x, sendColorsToUnity()}, unityColors[3]),
     ];
   }
 
   Widget widgetWrapCCOverlay(BuildContext context, Function state) {
-    if (unityColorChangeOverlay[0]) {
+    if (unityColorChangeOverlay) {
       return Positioned(
           left: 0,
           top: 380,

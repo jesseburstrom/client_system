@@ -1,7 +1,7 @@
 part of "../main.dart";
 
 class Languages {
-  static var chosenLanguage = ["English"];
+  static var chosenLanguage = "English";
   static var standardLanguage = "English";
 
   static var differentLanguages = ["English", "Swedish"];
@@ -13,7 +13,7 @@ class Languages {
   }
 
   String getText(var textVariable) {
-    var text = textVariable[chosenLanguage[0]];
+    var text = textVariable[chosenLanguage];
     if (text != null) {
       return text;
     } else {

@@ -60,8 +60,8 @@ extension LayoutApplication on Application {
   List<Widget> layoutLeftToRight(double w, double h, List<Function> widgets) {
     var pos = List<Pos>.filled(widgets.length, Pos(w, h, 0, 0));
     pos[0] = Pos(w * 0.35, h, 0, 0);
-    pos[1] = Pos(w * 0.45, gameDices.unityDices[0] ? pos[1].w * 9 / 16 : h,
-        pos[0].w, gameDices.unityDices[0] ? h - pos[1].h : 0);
+    pos[1] = Pos(w * 0.45, gameDices.unityDices ? pos[1].w * 9 / 16 : h,
+        pos[0].w, gameDices.unityDices ? h - pos[1].h : 0);
     pos[2] = Pos(w * 0.18, h * 0.8, w * 0.81, 0);
     pos[3] = Pos(w * 0.19, h * 0.3, w * 0.61, h * 0.05);
     pos[4] = Pos(w * 0.37, h - pos[2].h, pos[0].w + w * 0.085, -h * 0.08);

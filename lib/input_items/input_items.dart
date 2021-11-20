@@ -88,25 +88,6 @@ class InputItems {
     );
   }
 
-  Widget widgetDynamicButton(
-      BuildContext context, Function onPressed, var args, String text) {
-    return Container(
-      alignment: Alignment.center,
-      child: ElevatedButton(
-        onPressed: () {
-          onPressed(context, args);
-        },
-        child: Text(
-          text,
-          style: const TextStyle(
-              color: Colors.white,
-              backgroundColor: Colors.blueAccent,
-              fontSize: 25),
-        ),
-      ),
-    );
-  }
-
   Widget widgetSizedBox(double height) {
     return SizedBox(
       height: height,
@@ -114,13 +95,13 @@ class InputItems {
   }
 
   Widget widgetIntRadioButton(
-      Function state, List<String> values, List<int> radioValue) {
+      Function state, List<String> values, Function onChanged, int radioValue) {
     Widget radioButton(String name) {
       return Radio(
           value: name,
-          groupValue: radioValue[0].toString(),
+          groupValue: radioValue.toString(),
           onChanged: (s) {
-            radioValue[0] = int.parse(s as String);
+            onChanged(int.parse(s as String));
             state();
           });
     }
@@ -134,13 +115,13 @@ class InputItems {
   }
 
   Widget widgetStringRadioButton(Function state, List<String> values,
-      List<String> radioValue, List<String> translations) {
+      List<String> translations, Function onChanged, String radioValue) {
     Widget radioButton(String name) {
       return Radio(
           value: name,
-          groupValue: radioValue[0],
+          groupValue: radioValue,
           onChanged: (s) {
-            radioValue[0] = s as String;
+            onChanged(s as String);
             state();
           });
     }
@@ -166,7 +147,7 @@ class InputItems {
   }
 
   Widget widgetCheckbox(
-      Function state, Function onChanged, String text, List<bool> toggles) {
+      Function state, Function onChanged, String text, bool toggles) {
     List<Widget> checkWidgets = [];
 
     checkWidgets.add(SizedBox(
@@ -174,18 +155,17 @@ class InputItems {
         child: Checkbox(
             checkColor: Colors.white,
             fillColor: MaterialStateProperty.resolveWith(getColor),
-            value: toggles[0],
+            value: toggles,
             onChanged: (bool? value) {
-              toggles[0] = value!;
-              onChanged();
+              onChanged(value);
               state();
             })));
     checkWidgets.add(Text(text));
     return Row(children: checkWidgets);
   }
 
-  Widget widgetSlider(BuildContext context, Function state, Function onChanged,
-      String text, List<double> slider, int offset) {
+  Widget widgetSlider(BuildContext context, Function state, String text,
+      Function onChanged, double slider) {
     var sliderWidgets = <Widget>[];
 
     sliderWidgets.add(SliderTheme(
@@ -203,10 +183,9 @@ class InputItems {
             //width: 150,
             height: 15,
             child: Slider(
-              value: slider[offset],
+              value: slider,
               onChanged: (value) {
-                slider[offset] = value;
-                onChanged();
+                onChanged(value);
                 state();
               },
             ))));
@@ -214,14 +193,14 @@ class InputItems {
     return Row(children: sliderWidgets);
   }
 
-  Widget widgetDropDownList(
-      Function state, String text, List<String> items, List<String> choice) {
+  Widget widgetDropDownList(Function state, String text, List<String> items,
+      Function onChanged, String choice) {
     var dropWidgets = <Widget>[];
 
     dropWidgets.add(Padding(
         padding: const EdgeInsets.all(4.0),
         child: DropdownButton<String>(
-          value: choice[0],
+          value: choice,
           icon: const Icon(Icons.arrow_downward),
           iconSize: 12,
           elevation: 8,
@@ -230,8 +209,8 @@ class InputItems {
             height: 2,
             color: Colors.deepPurpleAccent,
           ),
-          onChanged: (String? newValue) {
-            choice[0] = newValue!;
+          onChanged: (String? value) {
+            onChanged(value);
             state();
           },
           items: items.map<DropdownMenuItem<String>>((String value) {

@@ -22,11 +22,15 @@ part "app/animations_app.dart";
 
 part "app/app.dart";
 
+part "app/communication_app.dart";
+
 part "app/languages_app.dart";
 
 part "app/languages_app_settings.dart";
 
 part "app/layout_app.dart";
+
+part "app/widget_app.dart";
 
 part "app/widget_app_settings.dart";
 
@@ -41,6 +45,8 @@ part "application/application.dart";
 part "application/application_functions_internal.dart";
 
 part "application/application_functions_internal_calc_dice_values.dart";
+
+part "application/communication_application.dart";
 
 part 'application/widget_application_settings.dart';
 
@@ -115,4 +121,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

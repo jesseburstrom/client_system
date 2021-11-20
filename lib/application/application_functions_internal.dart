@@ -27,7 +27,7 @@ extension ApplicationFunctionsInternal on Application {
   }
 
   calcNewSums(int player, int cell) {
-    if (gameDices.unityDices[0]) {
+    if (gameDices.unityDices) {
       gameDices.sendResetToUnity();
     }
 

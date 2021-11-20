@@ -21,8 +21,7 @@ var net = Net();
 var animationsScroll = AnimationsScroll();
 var highscore = Highscore();
 
-//var app = AppSettings();
-//var app = ApplicationSettings();
+//var app = App();
 var app = Application();
 var authenticate = Authenticate(app.navigateToSettings);
 var chat = Chat(app.chatCallbackOnSubmitted);
@@ -31,6 +30,7 @@ Future attemptLogin(BuildContext context) async {
   var isLoggedIn = false;
   try {
     var userData = await fileHandler.readFile(authenticate.fileAuthenticate);
+    print(userData);
     isLoggedIn =
         await authenticate.tryLogin(userData["username"], userData["password"]);
   } catch (e) {

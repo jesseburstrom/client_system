@@ -34,7 +34,7 @@ extension WidgetApplicationSettings on Application {
     return widget;
   }
 
-  void onGameListButton(BuildContext context) {
+  onGameListButton(BuildContext context) {
     Map<String, dynamic> msg = {};
     msg["action"] = "getId";
     msg["id"] = "";
@@ -42,9 +42,9 @@ extension WidgetApplicationSettings on Application {
     net.sendToServer(msg);
 
     msg = {};
-    msg["playerIds"] = List.filled(nrPlayersS[0], "");
-    msg["gameType"] = gameTypeS[0];
-    msg["nrPlayers"] = nrPlayersS[0];
+    msg["playerIds"] = List.filled(nrPlayersS, "");
+    msg["gameType"] = gameTypeS;
+    msg["nrPlayers"] = nrPlayersS;
     msg["action"] = "requestGame";
     net.sendToServer(msg);
     onSettingsPage = false;
@@ -77,17 +77,20 @@ extension WidgetApplicationSettings on Application {
                           widgetStringRadioButton(
                               state,
                               ["Mini", "Ordinary", "Maxi"],
-                              gameTypeS,
-                              [
-                                gameTypeMini_,
-                                gameTypeOrdinary_,
-                                gameTypeMaxi_
-                              ]),
-                          widgetIntRadioButton(
-                              state, ["1", "2", "3", "4"], nrPlayersS),
-                          widgetCheckbox(state, () => {}, choseUnity_,
+                              [gameTypeMini_, gameTypeOrdinary_, gameTypeMaxi_],
+                              (x) => {gameTypeS = x},
+                              gameTypeS),
+                          widgetIntRadioButton(state, ["1", "2", "3", "4"],
+                              (x) => {nrPlayersS = x}, nrPlayersS),
+                          widgetCheckbox(
+                              state,
+                              (x) => {gameDices.unityDices = x},
+                              choseUnity_,
                               gameDices.unityDices),
-                          widgetCheckbox(state, () => {}, colorChangeOverlay_,
+                          widgetCheckbox(
+                              state,
+                              (x) => {gameDices.unityColorChangeOverlay = x},
+                              colorChangeOverlay_,
                               gameDices.unityColorChangeOverlay)
                         ] +
                         gameDices.widgetColorChangeOverlay(context, state) +
@@ -110,6 +113,7 @@ extension WidgetApplicationSettings on Application {
                               state,
                               " " + choseLanguage_,
                               Languages.differentLanguages,
+                              (x) => {Languages.chosenLanguage = x},
                               Languages.chosenLanguage),
                         ])))
               ],
