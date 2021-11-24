@@ -11,6 +11,26 @@ class InputItems {
     );
   }
 
+  Widget widgetInputDBEntry(String hintText, TextEditingController controller) {
+    return Padding(
+        padding:
+            const EdgeInsets.only(left: 5.0, right: 5.0, top: 0, bottom: 0),
+        child: TextField(
+          cursorColor: Colors.black,
+          controller: controller,
+          style: const TextStyle(fontSize: 14.0, color: Colors.black),
+          decoration: InputDecoration(
+            focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.black, width: 2.0),
+            ),
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0),
+            border: const OutlineInputBorder(),
+            hintText: hintText,
+          ),
+        ));
+  }
+
   Widget widgetInputText(String hintText, Function onSubmitted,
       TextEditingController controller, FocusNode focusNode) {
     return Padding(
@@ -33,11 +53,11 @@ class InputItems {
                 const EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0),
             border: const OutlineInputBorder(),
             hintText: hintText,
-          ), //widgetInputText("Type message", chatTextController),
+          ),
         ));
   }
 
-  Widget widgetTextFormField(
+  Widget widgetInputEmail(
       String labelText, String hintText, TextEditingController controller) {
     return Padding(
       padding:
@@ -70,7 +90,8 @@ class InputItems {
     );
   }
 
-  Widget widgetButton(BuildContext context, Function onPressed, String text) {
+  Widget widgetButton(BuildContext context, Function onPressed, String text,
+      [double fontSize = 25]) {
     return Container(
       alignment: Alignment.center,
       child: ElevatedButton(
@@ -79,10 +100,10 @@ class InputItems {
         },
         child: Text(
           text,
-          style: const TextStyle(
+          style: TextStyle(
               color: Colors.white,
               backgroundColor: Colors.blueAccent,
-              fontSize: 25),
+              fontSize: fontSize),
         ),
       ),
     );

@@ -37,6 +37,7 @@ class Dices extends LanguagesDices with AnimationsRollDices, InputItems {
   late Function callbackUpdateDiceValues;
   late Function callbackUnityCreated;
   late Function callbackCheckPlayerToMove;
+
   late UnityWidgetController unityWidgetController;
   var unityCreated = false;
   var unityColors = [0.6, 0.7, 0.8, 0.1];
@@ -110,112 +111,5 @@ class Dices extends LanguagesDices with AnimationsRollDices, InputItems {
       return true;
     }
     return false;
-  }
-
-  void sendResetToUnity() {
-    UnityMessage msg = UnityMessage.reset(nrDices, nrTotalRolls);
-
-    var json = jsonEncode(msg.toJson());
-    print(json);
-    unityWidgetController.postMessage(
-      "GameManager",
-      "flutterMessage",
-      json,
-    );
-  }
-
-  void sendStartToUnity() {
-    UnityMessage msg = UnityMessage.start();
-
-    var json = jsonEncode(msg.toJson());
-    print(json);
-    unityWidgetController.postMessage(
-      "GameManager",
-      "flutterMessage",
-      json,
-    );
-  }
-
-  void sendDicesToUnity() {
-    var msg = UnityMessage.updateDices(diceValue);
-
-    var json = jsonEncode(msg.toJson());
-    print(json);
-    unityWidgetController.postMessage(
-      "GameManager",
-      "flutterMessage",
-      json,
-    );
-  }
-
-  void sendColorsToUnity() {
-    var msg = UnityMessage.updateColors(unityColors);
-
-    var json = jsonEncode(msg.toJson());
-    print(json);
-    unityWidgetController.postMessage(
-      "GameManager",
-      "flutterMessage",
-      json,
-    );
-  }
-
-  void sendTransparencyChangedToUnity() {
-    var msg = UnityMessage.changeBool("Transparency", unityTransparent);
-
-    var json = jsonEncode(msg.toJson());
-    print(json);
-    unityWidgetController.postMessage(
-      "GameManager",
-      "flutterMessage",
-      json,
-    );
-  }
-
-  void sendLightMotionChangedToUnity() {
-    var msg = UnityMessage.changeBool("LightMotion", unityLightMotion);
-
-    var json = jsonEncode(msg.toJson());
-    print(json);
-    unityWidgetController.postMessage(
-      "GameManager",
-      "flutterMessage",
-      json,
-    );
-  }
-
-  // Communication from Unity to Flutter
-  void onUnityMessage(message) {
-    var msg = message.toString();
-    print("Received message from unity: $msg");
-    try {
-      var _json = jsonDecode(msg);
-      print(_json);
-      if (_json["action"] == "results") {
-        diceValue = _json["diceResult"].cast<int>();
-        print(diceValue);
-        callbackUpdateDiceValues();
-        nrRolls += 1;
-      }
-    } catch (e) {
-      print("Error decoding Unity message");
-    }
-  }
-
-  // Callback that connects the created controller to the unity controller
-  void onUnityCreated(controller) {
-    unityWidgetController = controller;
-    unityCreated = true;
-    sendResetToUnity();
-    callbackUnityCreated();
-
-    print("Unity Created");
-  }
-
-  // Communication from Unity when new scene is loaded to Flutter
-  void onUnitySceneLoaded(SceneLoaded sceneInfo) {
-    print("Received scene loaded from unity: ${sceneInfo.name}");
-    print(
-        "Received scene loaded from unity buildIndex: ${sceneInfo.buildIndex}");
   }
 }

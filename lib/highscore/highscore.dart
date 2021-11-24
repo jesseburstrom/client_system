@@ -15,7 +15,7 @@ class Highscore extends LanguagesHighscore with AnimationsHighscore {
       //await net.postDb("/updateHighscore", {"name": "Jesse", "score": 281}, 20);
       //var result = await net.deleteDb("/Delete", "eric.burstrom@gmail.com");
       //print(result.body);
-      var serverResponse = await net.getDB("/GetTopScores", 20);
+      var serverResponse = await net.getDB("/GetTopScores?count=20");
       if (serverResponse.statusCode == 200) {
         highscores = jsonDecode(serverResponse.body);
         print("Highscores loaded from server");
@@ -24,7 +24,7 @@ class Highscore extends LanguagesHighscore with AnimationsHighscore {
         print("Error getting highscores1");
       }
     } catch (e) {
-      print("Error getting highscores2");
+      print(e.toString());
     }
   }
 
@@ -33,14 +33,15 @@ class Highscore extends LanguagesHighscore with AnimationsHighscore {
       highscores = await fileHandler.readFile(fileHighscore);
       print("highscore loaded from file");
     } catch (e) {
-      print("Cannot load highscore file");
+      print(e.toString());
     }
   }
 
   Future updateHighscore(String name, int score) async {
     try {
-      var serverResponse = await net.postDB(
-          "/UpdateAndReturnHighscore", {"name": name, "score": score}, 20);
+      await net
+          .postDB("/UpdateAndReturnHighscore", {"name": name, "score": score});
+      var serverResponse = await net.getDB("/GetTopScores?count=20");
       if (serverResponse.statusCode == 200) {
         highscores = jsonDecode(serverResponse.body);
         fileHandler.saveFile(highscores, fileHighscore);
@@ -48,14 +49,7 @@ class Highscore extends LanguagesHighscore with AnimationsHighscore {
         print("Error getting highscores");
       }
     } catch (e) {
-      print("Error getting highscores onUpdate");
+      print(e.toString());
     }
   }
-
-// void setHighscores(List<dynamic> highscores) {
-//   for (var i = 0; i < highscores.length; i++) {
-//     highscoreText[i] = highscores[i]["name"];
-//     highscoreValue[i] = highscores[i]["score"];
-//   }
-// }
 }

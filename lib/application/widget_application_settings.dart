@@ -51,6 +51,11 @@ extension WidgetApplicationSettings on Application {
     pages._state();
   }
 
+  onUpdateUserName(value) {
+    userName = textEditingController.text;
+    pages._state();
+  }
+
   Widget widgetScaffoldSettings(BuildContext context) {
     Function state = pages._state;
     return DefaultTabController(
@@ -109,6 +114,17 @@ extension WidgetApplicationSettings on Application {
                         child: ListView(children: [
                           widgetSizedBox(15),
                           widgetParagraph(misc_),
+                          Text("Current UserName: " + userName.toString()),
+                          Row(children: [
+                            SizedBox(
+                                width: 150,
+                                height: 30,
+                                child: widgetInputText(
+                                    "Enter username",
+                                    onUpdateUserName,
+                                    textEditingController,
+                                    focusNode))
+                          ]),
                           widgetDropDownList(
                               state,
                               " " + choseLanguage_,

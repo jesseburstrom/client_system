@@ -17,16 +17,22 @@ extension WidgetAppScaffold on App {
           ),
           body: Stack(
             children: <Widget>[
-                  Image.asset("assets/images/yatzy_portrait.jpg",
+                  Image.asset("assets/images/img3.jpg",
                       fit: BoxFit.cover,
                       height: double.infinity,
                       width: double.infinity),
                   Stack(children: stackedWidgets),
                 ] +
                 layoutTopToBottom(
+                  context,
                   screenWidth,
                   screenHeight,
-                  [chat.widgetChat, animationsScroll.widgetEmptyContainer],
+                  [
+                    chat.widgetChat,
+                    animationsScroll.widgetEmptyContainer,
+                    widgetCRUD,
+                    widgetShopping
+                  ],
                 ),
           ));
     } else {
@@ -42,16 +48,22 @@ extension WidgetAppScaffold on App {
           ),
           body: Stack(
             children: <Widget>[
-                  Image.asset("assets/images/yatzy_landscape2.jpg",
+                  Image.asset("assets/images/neutral.jpg",
                       fit: BoxFit.cover,
                       height: double.infinity,
                       width: double.infinity),
                   Stack(children: stackedWidgets)
                 ] +
                 layoutLeftToRight(
+                  context,
                   screenWidth,
                   screenHeight,
-                  [chat.widgetChat, animationsScroll.widgetEmptyContainer],
+                  [
+                    chat.widgetChat,
+                    animationsScroll.widgetEmptyContainer,
+                    widgetCRUD,
+                    widgetShopping
+                  ],
                 ),
           ));
     }

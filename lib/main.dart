@@ -3,6 +3,7 @@ import "dart:async";
 import "dart:convert";
 import "dart:io";
 import "dart:math";
+import 'dart:typed_data';
 
 import "package:http/http.dart";
 import "package:flutter/material.dart";
@@ -24,6 +25,14 @@ part "app/app.dart";
 
 part "app/communication_app.dart";
 
+part "app/crud_products.dart";
+
+part "app/crud_category.dart";
+
+part "app/crud_categorycategory.dart";
+
+part "app/crud_categoryproduct.dart";
+
 part "app/languages_app.dart";
 
 part "app/languages_app_settings.dart";
@@ -35,6 +44,8 @@ part "app/widget_app.dart";
 part "app/widget_app_settings.dart";
 
 part "app/widget_app_scaffold.dart";
+
+part "app/widget_shopping.dart";
 
 part 'application/languages_application_settings.dart';
 
@@ -73,6 +84,8 @@ part "dices/animations_rolldice.dart";
 part "dices/dices.dart";
 
 part "dices/languages_dices.dart";
+
+part "dices/unity_communication.dart";
 
 part "dices/unity_message.dart";
 

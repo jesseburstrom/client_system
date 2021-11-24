@@ -12,11 +12,34 @@ class FileHandler {
     return File("$path/" + fileName);
   }
 
-//Future<Map<String, dynamic>> readFile(String fileName) async {
+  Future readFileAsString(String fileName) async {
+    try {
+      final file = await localFile(fileName);
+
+      var contents = await file.readAsBytes();
+      print(contents.runtimeType);
+      print(contents.length);
+      // final file2 = await localFile("test4.jpg");
+      var tmp = jsonEncode(contents);
+      print(tmp.length);
+      // var tmp2 = jsonDecode(tmp).cast<int>();
+      // //print(tmp2);
+      // print(tmp2.runtimeType);
+      // print(tmp2.length);
+      //
+      // await file2.writeAsBytes(tmp2);
+
+      return tmp;
+    } catch (e) {
+      // If encountering an error, return 0
+      print("no file");
+      rethrow;
+    }
+  }
+
   Future readFile(String fileName) async {
     try {
       final file = await localFile(fileName);
-      // Read the file
       var contents = await file.readAsString();
       return jsonDecode(contents);
     } catch (e) {

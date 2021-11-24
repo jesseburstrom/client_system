@@ -7,6 +7,8 @@ extension WidgetAppSettings on App {
   }
 
   onButton(BuildContext context) {
+    initIds(true);
+
     navigateToApp(context);
   }
 

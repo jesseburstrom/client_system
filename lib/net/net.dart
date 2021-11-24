@@ -89,41 +89,36 @@ class Net {
 
   // Http
 
-  Future getDB(String route, int count) async {
+  Future getDB(String route) async {
     dynamic response;
+    var url = isWebSocketChannel ? localhostNET + route : localhost + route;
 
     if (isWebSocketChannel) {
-      response = await get(
-          Uri.parse(localhostNET + route + "?count=" + count.toString()),
-          headers: <String, String>{
-            "Content-Type": "application/json; charset=UTF-8",
-            "Authorization": "Bearer " + authenticate.jwt,
-          });
+      response = await get(Uri.parse(url), headers: <String, String>{
+        "Content-Type": "application/json; charset=UTF-8",
+        "Authorization": "Bearer " + authenticate.jwt,
+      });
     } else {
-      response = await get(
-          Uri.parse(localhost + route + "?count=" + count.toString()),
-          headers: <String, String>{
-            "Content-Type": "application/json; charset=UTF-8",
-          });
+      response = await get(Uri.parse(url), headers: <String, String>{
+        "Content-Type": "application/json; charset=UTF-8",
+      });
     }
 
     return response;
   }
 
-  Future postDB(String route, Map<String, dynamic> json, int count) async {
+  Future postDB(String route, Map<String, dynamic> json) async {
     dynamic response;
 
     if (isWebSocketChannel) {
-      response = await post(
-          Uri.parse(localhostNET + route + "?count=" + count.toString()),
+      response = await post(Uri.parse(localhostNET + route),
           headers: <String, String>{
             "Content-Type": "application/json; charset=UTF-8",
             "Authorization": "Bearer " + authenticate.jwt,
           },
           body: jsonEncode(json));
     } else {
-      response = await post(
-          Uri.parse(localhost + route + "?count=" + count.toString()),
+      response = await post(Uri.parse(localhost + route),
           headers: <String, String>{
             "Content-Type": "application/json; charset=UTF-8",
           },
@@ -133,22 +128,40 @@ class Net {
     return response;
   }
 
-  Future deleteDB(String route, int id) async {
+  Future updateDB(String route, Map<String, dynamic> json) async {
     dynamic response;
 
     if (isWebSocketChannel) {
-      response = await delete(
-          Uri.parse(localhostNET + route + "?id=" + id.toString()),
+      response = await put(Uri.parse(localhostNET + route),
           headers: <String, String>{
             "Content-Type": "application/json; charset=UTF-8",
             "Authorization": "Bearer " + authenticate.jwt,
-          });
+          },
+          body: jsonEncode(json));
     } else {
-      response = await delete(
-          Uri.parse(localhost + route + "?id=" + id.toString()),
+      response = await post(Uri.parse(localhost + route),
           headers: <String, String>{
             "Content-Type": "application/json; charset=UTF-8",
-          });
+          },
+          body: jsonEncode(json));
+    }
+
+    return response;
+  }
+
+  Future deleteDB(String route) async {
+    dynamic response;
+    var url = isWebSocketChannel ? localhostNET + route : localhost + route;
+
+    if (isWebSocketChannel) {
+      response = await delete(Uri.parse(url), headers: <String, String>{
+        "Content-Type": "application/json; charset=UTF-8",
+        "Authorization": "Bearer " + authenticate.jwt,
+      });
+    } else {
+      response = await delete(Uri.parse(url), headers: <String, String>{
+        "Content-Type": "application/json; charset=UTF-8",
+      });
     }
 
     return response;

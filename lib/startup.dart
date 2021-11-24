@@ -21,8 +21,8 @@ var net = Net();
 var animationsScroll = AnimationsScroll();
 var highscore = Highscore();
 
-//var app = App();
-var app = Application();
+var app = App();
+//var app = Application();
 var authenticate = Authenticate(app.navigateToSettings);
 var chat = Chat(app.chatCallbackOnSubmitted);
 

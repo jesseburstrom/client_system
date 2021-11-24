@@ -24,8 +24,8 @@ extension WidgetAuthenticate on Authenticate {
                   child: Column(
                     children: <Widget>[
                       widgetImage(200, 150, "assets/images/flutter_logo.png"),
-                      widgetTextFormField(email_, enterValidEmail_, loginUser),
-                      widgetTextFormField(
+                      widgetInputEmail(email_, enterValidEmail_, loginUser),
+                      widgetInputEmail(
                           password_, enterSecurePassword_, loginPassword),
                       widgetTextLink(
                           forgotPasswordLinkPressed, forgotPassword_),
@@ -43,8 +43,8 @@ extension WidgetAuthenticate on Authenticate {
                   child: Column(
                     children: <Widget>[
                       widgetImage(200, 150, "assets/images/flutter_logo.png"),
-                      widgetTextFormField(email_, enterValidEmail_, signupUser),
-                      widgetTextFormField(
+                      widgetInputEmail(email_, enterValidEmail_, signupUser),
+                      widgetInputEmail(
                           password_, enterSecurePassword_, signupPassword),
                       widgetSizedBox(20),
                       widgetButton(context, signupButtonPressed, signup_),

@@ -16,13 +16,16 @@ class Application extends LanguagesApplication with InputItems {
     nrPlayersS = nrPlayers;
   }
 
-  var games = [];
+  // Settings properties
   var onSettingsPage = true;
   var tabController = TabController(length: 2, vsync: _PageDynamicState());
-
+  var textEditingController = TextEditingController();
+  var focusNode = FocusNode();
   var animation = AnimationsApplication();
+  var games = [];
 
   // Application properties
+
   // "Ordinary" , "Mini", "Maxi"
   var gameType = "Ordinary";
   var nrPlayers = 1;

@@ -35,14 +35,14 @@ class UnityMessage {
         dices = json["Dices"];
 
   Map<String, dynamic> toJson() => {
-    "action": action,
-    "nrDices": nrDices,
-    "nrThrows": nrThrows,
-    "property": property,
-    "colors": unityColors,
-    "bool": flag,
-    "Dices": dices,
-  };
+        "action": action,
+        "nrDices": nrDices,
+        "nrThrows": nrThrows,
+        "property": property,
+        "colors": unityColors,
+        "bool": flag,
+        "Dices": dices,
+      };
 
   var action = "";
   var property = "";
