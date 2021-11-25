@@ -3,7 +3,6 @@ import "dart:async";
 import "dart:convert";
 import "dart:io";
 import "dart:math";
-import 'dart:typed_data';
 
 import "package:http/http.dart";
 import "package:flutter/material.dart";
@@ -34,8 +33,6 @@ part "app/crud_categorycategory.dart";
 part "app/crud_categoryproduct.dart";
 
 part "app/languages_app.dart";
-
-part "app/languages_app_settings.dart";
 
 part "app/layout_app.dart";
 

@@ -121,17 +121,19 @@ class InputItems {
     return Container(
       alignment: Alignment.center,
       child: ElevatedButton(
-        onPressed: () {
-          onPressed(context);
-        },
-        child: Text(
-          text,
-          style: TextStyle(
-              color: Colors.white,
-              backgroundColor: Colors.blueAccent,
-              fontSize: fontSize),
-        ),
-      ),
+          onPressed: () {
+            onPressed(context);
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 7),
+            child: Text(
+              text,
+              style: TextStyle(
+                  color: Colors.white,
+                  backgroundColor: Colors.blueAccent,
+                  fontSize: fontSize),
+            ),
+          )),
     );
   }
 

@@ -13,7 +13,6 @@ extension WidgetAppSettings on App {
   }
 
   Widget widgetScaffoldSettings(BuildContext context) {
-    Function state = pages._state;
     return DefaultTabController(
         length: tabController.length,
         child: Scaffold(
