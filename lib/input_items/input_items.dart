@@ -62,19 +62,45 @@ class InputItems {
     return Padding(
       padding:
           const EdgeInsets.only(left: 15.0, right: 15.0, top: 15, bottom: 0),
-      child: TextFormField(
-        controller: controller,
-        keyboardType: TextInputType.emailAddress,
-        decoration: InputDecoration(
-            border: const OutlineInputBorder(),
-            labelText: labelText,
-            hintText: hintText),
-        validator: (value) {
-          if (value!.isEmpty) {
-            return labelText + " is required";
-          }
-        },
-      ),
+      child: SizedBox(
+          width: 300,
+          child: TextFormField(
+            controller: controller,
+            keyboardType: TextInputType.text,
+            decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                labelText: labelText,
+                hintText: hintText),
+            validator: (value) {
+              if (value!.isEmpty) {
+                return labelText + languagesGlobal.isRequired_;
+              }
+            },
+          )),
+    );
+  }
+
+  Widget widgetInputPassword(
+      String labelText, String hintText, TextEditingController controller) {
+    return Padding(
+      padding:
+          const EdgeInsets.only(left: 15.0, right: 15.0, top: 15, bottom: 0),
+      child: SizedBox(
+          width: 300,
+          child: TextFormField(
+            obscureText: true,
+            controller: controller,
+            keyboardType: TextInputType.text,
+            decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                labelText: labelText,
+                hintText: hintText),
+            validator: (value) {
+              if (value!.isEmpty) {
+                return labelText + languagesGlobal.isRequired_;
+              }
+            },
+          )),
     );
   }
 

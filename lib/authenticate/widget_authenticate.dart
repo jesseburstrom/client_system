@@ -25,7 +25,7 @@ extension WidgetAuthenticate on Authenticate {
                     children: <Widget>[
                       widgetImage(200, 150, "assets/images/flutter_logo.png"),
                       widgetInputEmail(email_, enterValidEmail_, loginUser),
-                      widgetInputEmail(
+                      widgetInputPassword(
                           password_, enterSecurePassword_, loginPassword),
                       widgetTextLink(
                           forgotPasswordLinkPressed, forgotPassword_),

@@ -103,6 +103,8 @@ part "highscore/widget_highscore.dart";
 
 part "input_items/input_items.dart";
 
+part 'languages/languages_global.dart';
+
 part "languages/languages.dart";
 
 part "layout/pos.dart";

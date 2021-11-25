@@ -1,7 +1,7 @@
 part of "../main.dart";
 
 class Languages {
-  static var chosenLanguage = "English";
+  static var chosenLanguage = "Swedish";
   static var standardLanguage = "English";
 
   static var differentLanguages = ["English", "Swedish"];

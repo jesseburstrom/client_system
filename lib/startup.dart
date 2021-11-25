@@ -14,6 +14,7 @@ late double screenHeight;
 // android:theme="@style/UnityThemeSelector.Translucent"
 // android/app/Src/main/AndroidManifest.xml
 
+var languagesGlobal = LanguagesGlobal();
 var pages = Pages();
 var fileHandler = FileHandler();
 var net = Net();
