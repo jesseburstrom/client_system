@@ -1,6 +1,6 @@
 
 <img  src="https://github.com/jesseburstrom/client_system/tree/master/assets/images/yatzy_landscape2.jpg"  alt="Twilio"  width="250"  />
-[alt text](assets/images/yatzy_landscape2.jpg?raw=true "hello")
+![Alt Text](assets/images/yatzy_landscape2.jpg?raw=true "hello")
 
 # client_system
 
