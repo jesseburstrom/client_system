@@ -1,6 +1,6 @@
-<a  href="https://www.twilio.com">
-<img  src="https://static0.twilio.com/marketing/bundles/marketing/img/logos/wordmark-red.svg"  alt="Twilio"  width="250"  />
-</a>
+
+<img  src="https://github.com/jesseburstrom/client_system/tree/master/assets/images/yatzy_landscape2.jpg"  alt="Twilio"  width="250"  />
+
 # client_system
 
 Generalized Frontend Client System
