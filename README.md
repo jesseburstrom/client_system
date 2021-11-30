@@ -1,4 +1,13 @@
 
+## Demonstration of the project with a multiplayer board game.
+
+The system can handle web platform (CHrome), desktop (Windows), emulator (Android) and real phone (Android).
+
+It can also handle iOs both mobile as well as desktop and Linux desktop.
+
+The mobile versions (phone/tablet) can also have Unity 3D plugin with realtime animations and light effects!
+
+The players communicate through socket connections and there is chat enabled.
 
 ![Alt Text](DemoMultiplayer.jpg?raw=true "Demo Multiplayer")
 
@@ -27,7 +36,9 @@ as well as language definitions. This also includes the widgets and language def
 
 I chose to let the settings page be part of the main class to avoid circular class call problems (the settings need access to project attributes and the project need access to the settings).
 
-THe animations I found could very well be class by themself and then be imported into the main class. THe gain is to keep the attributes in the animation class itself but there is still need to communicate into animations.Also somewhat more verbose to have to reference instance of class.
+## Animations
+
+The animations I found could very well be class by themself and then be imported into the main class. THe gain is to keep the attributes in the animation class itself but there is still need to communicate into animations.Also somewhat more verbose to have to reference instance of class.
 
 But this is due to limitations of override for the main class. It can only override one full class with constructor and or attributes and that I chose to give to the language handling.
 
