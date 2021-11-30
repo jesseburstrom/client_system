@@ -99,11 +99,11 @@ It uses all parts even in it's simplest form and is very easy to change and inte
 I want to thank all great people around the world who shared their ideas upon which this project is built, hundreds of them at least maybe more.
 
 The whole project started as a reaction to the pandemic, fine now I have time (in isolation) to build that system I have been thinking of all these years.
-Then it graduall grew to become the idea of the system anyone can use to quickly get application up and running.
+Then it gradually grew to become the idea of the system anyone can use to quickly get application up and running.
 
 The only requiriment I had initially was something open source, full stack, some database and works on mobile devices.
 
-Now I have just that but it works aon all platforms and is just so much better than I could ever dream of.
+Now I have just that but it works on all platforms and is just so much better than I could ever dream of.
 
 Special thanks to Lexicon education company withouth which the content of this project would have been less than half of what it is today!
 
