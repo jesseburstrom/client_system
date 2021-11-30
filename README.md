@@ -53,10 +53,9 @@ String get hello_ => getText(_hello);
 void languagesSetup() {
     _hello["Swedish"] = "Hej";
  
-    ... more translations
 }
 
-In the widget that displays the word it is clearly seen it translated text by the _ ending : hello_
+In the widget that displays the word it is clearly seen it is translated text by the _ ending : hello_
 
 ## Page handling
 
@@ -68,6 +67,11 @@ One main application page and one for settings or extra pages.
 Though the construct is to explore ways of organizing page handling over the full application (also after recieving message from server) it certainly allows for personal page additions as usual.
 
 It has the benefit of simplifying the layout of main.dart and the startup.dart file.
+
+## Layout
+
+Each module has a layout file that defines the various widgets position on the screen and the relative order of display.
+The definition of display takes into account portrait and landscape mode and can be conditionally set much like in razor pages :NET
 
 ## Empty project template
 
@@ -90,6 +94,8 @@ Then it graduall grew to become the idea of the system anyone can use to quickly
 The only requiriment I had initially was something open source, full stack, some database and works on mobile devices.
 
 Now I have just that but it works aon all platforms and is just so much better than I could ever dream of.
+
+Special thanks to Lexicon education company withouth which the content of this project would have been less than half of what it is today!
 
 ## Open source
 
