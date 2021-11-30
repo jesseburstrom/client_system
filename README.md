@@ -109,7 +109,7 @@ Special thanks to Lexicon education company withouth which the content of this p
 
 ## Open source
 
-THe last part would to make this open source and for that I have first made sure the project can handle multiple applications without conflict.
+The next step would to make this open source and for that I have first made sure the project can handle multiple applications without conflict.
 With my second project, building a rest api for database management (under construction) I can see it works well.
 
 Changing the main class from: app = App() to app = Application() works fine.
