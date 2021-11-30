@@ -116,6 +116,19 @@ This since there for natural ways can be many different versions of any module s
 
 ## Flutter
 
+The project is built using Flutter which in turn uses the dart programming language.
+
+For C# programmers an intuitive analogy would bee:
+
+C# is to dart as C++ is to C#
+
+The C# language is clearly a 'simplified' version of C++ as dart is a 'simplified' version of C# but with tons of similarities.
+
+This is good news if one is already used to ASP .NET developement and want to have a frontend client with similar syntax and design.
+
+##
+
+
 This project is a starting point for a Flutter application.
 
 A few resources to get you started if this is your first Flutter project:
