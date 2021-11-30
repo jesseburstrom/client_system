@@ -69,6 +69,15 @@ Though the construct is to explore ways of organizing page handling over the ful
 
 It has the benefit of simplifying the layout of main.dart and the startup.dart file.
 
+## Second project interactive shopping system
+
+To show the usage of this system and develop further the api and communication with .NET server with Entity Framework,
+this project is a 'copy'(under construction) of the interactive ordering application at Burger King.
+
+The chat could be changed to serve as a customer contact chat in this case or maybe for internal messaging among staff.
+
+![Alt Text](DemoDatabase.jpg?raw=true "Demo Database")
+
 ## Layout
 
 Each module has a layout file that defines the various widgets position on the screen and the relative order of display.
