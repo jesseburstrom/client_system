@@ -16,6 +16,8 @@ class Highscore extends LanguagesHighscore with AnimationsHighscore {
       //var result = await net.deleteDb("/Delete", "eric.burstrom@gmail.com");
       //print(result.body);
       var serverResponse = await net.getDB("/GetTopScores?count=20");
+      print(serverResponse.statusCode);
+      print(serverResponse.body);
       if (serverResponse.statusCode == 200) {
         highscores = jsonDecode(serverResponse.body);
         print("Highscores loaded from server");

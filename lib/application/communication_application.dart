@@ -22,6 +22,7 @@ extension CommunicationApplication on Application {
         userName = userNames[myPlayerId];
         applicationStarted = true;
         onSettingsPage = true;
+        animation.players = nrPlayers;
         navigateToApp(pages._context);
         break;
       case "onRequestGames":

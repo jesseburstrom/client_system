@@ -20,7 +20,7 @@ extension WidgetAuthenticate on Authenticate {
               SingleChildScrollView(
                 child: Form(
                   autovalidateMode: AutovalidateMode.always,
-                  key: loginFormKey,
+                  //key: loginFormKey,
                   child: Column(
                     children: <Widget>[
                       widgetImage(200, 150, "assets/images/flutter_logo.png"),
@@ -39,7 +39,7 @@ extension WidgetAuthenticate on Authenticate {
               SingleChildScrollView(
                 child: Form(
                   autovalidateMode: AutovalidateMode.always,
-                  key: signupFormKey,
+                  //key: signupFormKey,
                   child: Column(
                     children: <Widget>[
                       widgetImage(200, 150, "assets/images/flutter_logo.png"),

@@ -16,8 +16,8 @@ class Authenticate extends LanguagesLogin with InputItems {
   final signupUser = TextEditingController();
   final signupPassword = TextEditingController();
 
-  var signupFormKey = GlobalKey<FormState>();
-  var loginFormKey = GlobalKey<FormState>();
+  //var signupFormKey = GlobalKey<FormState>();
+  //var loginFormKey = GlobalKey<FormState>();
 
   var jwt = "";
 
@@ -89,9 +89,9 @@ class Authenticate extends LanguagesLogin with InputItems {
           {"username": signupUser.text, "password": signupPassword.text},
           fileAuthenticate);
       if (await tryLogin(signupUser.text, signupPassword.text)) {
-        fileHandler.saveFile(
-            {"username": loginUser.text, "password": loginPassword.text},
-            fileAuthenticate);
+        // fileHandler.saveFile(
+        //     {"username": loginUser.text, "password": loginPassword.text},
+        //     fileAuthenticate);
         navigateToSettings(context);
       } else {
         print("error logging in user");
@@ -122,20 +122,22 @@ class Authenticate extends LanguagesLogin with InputItems {
   }
 
   void loginButtonPressed(BuildContext context) {
-    if (loginFormKey.currentState!.validate()) {
-      print("Validated format");
-      checkUser(context);
-    } else {
-      print("Not Validated format");
-    }
+    checkUser(context);
+    // if (loginFormKey.currentState!.validate()) {
+    //   print("Validated format");
+    //   checkUser(context);
+    // } else {
+    //   print("Not Validated format");
+    // }
   }
 
   void signupButtonPressed(BuildContext context) {
-    if (signupFormKey.currentState!.validate()) {
-      print("Validated format");
-      attemptSignup(context);
-    } else {
-      print("Not Validated format");
-    }
+    attemptSignup(context);
+    // if (signupFormKey.currentState!.validate()) {
+    //   print("Validated format");
+    //   attemptSignup(context);
+    // } else {
+    //   print("Not Validated format");
+    // }
   }
 }

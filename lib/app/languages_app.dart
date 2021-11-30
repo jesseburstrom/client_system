@@ -20,7 +20,7 @@ class LanguagesApp extends Languages {
 
   String get misc_ => getText(_misc);
 
-  void languagesSetup() {
+  languagesSetup() {
     _hello["Swedish"] = "Hej";
     _choseLanguage["Swedish"] = "Välj Språk";
     _settings["Swedish"] = "Inställningar";
