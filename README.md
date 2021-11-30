@@ -1,7 +1,7 @@
 
 ## Demonstration of the project with a multiplayer board game.
 
-The system can handle web platform (CHrome), desktop (Windows), emulator (Android) and real phone (Android).
+The system can handle web platform (Chrome), desktop (Windows), emulator (Android) and real phone (Android).
 
 It can also handle iOs both mobile as well as desktop and Linux desktop.
 
