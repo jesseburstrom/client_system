@@ -94,7 +94,7 @@ The chat module really showcase the effectiveness of this system.
 
 It uses all parts even in it's simplest form and is very easy to change and integrate with any project.
 
-## Accknowledgements
+## Acknowledgements
 
 I want to thank all great people around the world who shared their ideas upon which this project is built, hundreds of them at least maybe more.
 
