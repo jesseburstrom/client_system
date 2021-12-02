@@ -10,7 +10,7 @@ The mobile versions (phone/tablet) can also have Unity 3D plugin with realtime a
 The players communicate through socket connections and there is chat enabled.
 
 ![Alt Text](DemoMultiplayer.jpg?raw=true "Demo Multiplayer"){:target="_blank"}
-[![Live Demo](VidePlayImage.jpg?raw=true "Demo Multiplayer"){:target="_blank"}](https://www.youtube.com/watch?v=czephRjgjD4)
+![Live Demo](VidePlayImage.jpg?raw=true "Demo Multiplayer")(https://www.youtube.com/watch?v=czephRjgjD4){:target="_blank"}
 <a href="https://www.youtube.com/watch?v=czephRjgjD4" target="_blank">![Alt Text](DemoMultiplayer.jpg?raw=true "Demo Multiplayer")</a>
 
 # client_system
