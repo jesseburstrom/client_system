@@ -11,7 +11,7 @@ The players communicate through socket connections and there is chat enabled.
 
 ![Alt Text](DemoMultiplayer.jpg?raw=true "Demo Multiplayer")
 [![Live Demo](VidePlayImage.jpg?raw=true "Demo Multiplayer")](https://www.youtube.com/watch?v=czephRjgjD4)
-<a href="http://example.com/" target="_blank">Hello, world!</a>
+<a href="http://example.com/" target="_blank">![Alt Text](DemoMultiplayer.jpg?raw=true "Demo Multiplayer")</a>
 
 # client_system
 
