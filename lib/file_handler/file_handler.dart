@@ -12,24 +12,13 @@ class FileHandler {
     return File("$path/" + fileName);
   }
 
-  Future readFileAsString(String fileName) async {
+  Future readFileAsBytes(String fileName) async {
     try {
-      final file = await localFile(fileName);
+      //audio.data = await rootBundle.load("assets/blipp.mp3");
 
-      var contents = await file.readAsBytes();
-      print(contents.runtimeType);
-      print(contents.length);
-      // final file2 = await localFile("test4.jpg");
-      var tmp = jsonEncode(contents);
-      print(tmp.length);
-      // var tmp2 = jsonDecode(tmp).cast<int>();
-      // //print(tmp2);
-      // print(tmp2.runtimeType);
-      // print(tmp2.length);
+      // print(contents.length);
       //
-      // await file2.writeAsBytes(tmp2);
-
-      return tmp;
+      // return contents;
     } catch (e) {
       // If encountering an error, return 0
       print("no file");

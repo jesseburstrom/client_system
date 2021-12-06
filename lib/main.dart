@@ -3,10 +3,13 @@ import "dart:async";
 import "dart:convert";
 import "dart:io";
 import "dart:math";
+import 'dart:typed_data';
 
+import 'package:just_audio/just_audio.dart';
 import "package:http/http.dart";
 import "package:flutter/material.dart";
 import "package:path_provider/path_provider.dart";
+import 'package:flutter/services.dart';
 import "package:socket_io_client/socket_io_client.dart";
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -63,6 +66,8 @@ part "application/languages_application.dart";
 part "application/widget_application.dart";
 
 part "application/widget_application_scaffold.dart";
+
+part "audio/audio.dart";
 
 part 'authenticate/authenticate.dart';
 

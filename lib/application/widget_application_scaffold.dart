@@ -17,7 +17,7 @@ extension WidgetApplicationScaffold on Application {
           ),
           body: Stack(
             children: <Widget>[
-                  Image.asset("assets/images/yatzy_portrait.jpg",
+                  Image.asset("assets/images/yatzy_portrait_dark.jpg",
                       fit: BoxFit.cover,
                       height: double.infinity,
                       width: double.infinity),
@@ -46,10 +46,17 @@ extension WidgetApplicationScaffold on Application {
           ),
           body: Stack(
             children: <Widget>[
+                  // ColorFiltered(
+                  //   colorFilter: const ColorFilter.mode(
+                  //     Color.fromRGBO(0, 0, 0, 0.5),
+                  //     BlendMode.darken,
+                  //   ),
+                  //  child:
                   Image.asset("assets/images/yatzy_landscape2.jpg",
                       fit: BoxFit.cover,
                       height: double.infinity,
                       width: double.infinity),
+                  // ),
                   Stack(children: stackedWidgets)
                 ] +
                 layoutLeftToRight(screenWidth, screenHeight, [

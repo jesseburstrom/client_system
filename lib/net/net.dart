@@ -2,7 +2,7 @@ part of "../main.dart";
 
 class Net {
   // Set to true for ASP .NET server with websocket and false for NodeJS server with socket.io
-  var isWebSocketChannel = true;
+  var isWebSocketChannel = false;
   var socketConnectionId = "";
 
   late Socket socketConnection;

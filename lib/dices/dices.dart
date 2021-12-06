@@ -40,7 +40,7 @@ class Dices extends LanguagesDices with AnimationsRollDices, InputItems {
 
   late UnityWidgetController unityWidgetController;
   var unityCreated = false;
-  var unityColors = [0.6, 0.7, 0.8, 0.1];
+  var unityColors = [0.0, 0.0, 0.0, 0.1];
   var unityDices = false;
   var unityTransparent = true;
   var unityLightMotion = true;

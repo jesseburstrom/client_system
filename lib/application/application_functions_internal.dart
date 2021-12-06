@@ -13,6 +13,7 @@ extension ApplicationFunctionsInternal on Application {
         myPlayerId == playerToMove &&
         !fixedCell[player][cell] &&
         cellValue[player][cell] != -1) {
+      audio.playLocal("harp");
       Map<String, dynamic> msg = {};
       msg["diceValue"] = gameDices.diceValue;
       msg["gameId"] = gameId;
@@ -23,12 +24,17 @@ extension ApplicationFunctionsInternal on Application {
       print(msg);
       net.sendToClients(msg);
       calcNewSums(player, cell);
+    } else {
+      audio.playLocal("thud");
     }
   }
 
   calcNewSums(int player, int cell) {
     if (gameDices.unityDices) {
       gameDices.sendResetToUnity();
+      if (nrPlayers == 1) {
+        gameDices.sendStartToUnity();
+      }
     }
 
     appColors[playerToMove + 1][cell] = Colors.green.withOpacity(0.7);
