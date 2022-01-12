@@ -36,7 +36,7 @@ I will also follow up with a youtube channel explaining how it works in detail.
 
 This can be great it seems to me, maybe every large company will have their own 'in-source' version of the frontend client for their own developement.
 
-After all this replaces html/css/javascript/native etc for development even though the web version actually translates the code to html/css/javascript.
+After all this replaces html/css/javascript/react etc for development even though the web version actually translates the code to html/css/javascript.
 
 Above all one can get a professional application up and running quickly.
 
