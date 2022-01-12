@@ -30,6 +30,9 @@ It also has a authentication 'module'.
 
 Right now as of january 12 2022 I am in the process of finding a job and therefore I have to wait with starting the open source part of this project.
 
+Since all companies have their own routines, code bases and needs I want to keep my mind open for whatever is coming!
+
+
 I plan to write detailed instructions on how to install everything needed to compile and run this project both server(.NET and NodeJS) and client and the unity project.
 
 I will also follow up with a youtube channel explaining how it works in detail.
@@ -50,7 +53,9 @@ Layout I have not worked too much on but it has many extensions like templates f
 
 The second project for hamburger orders I think can be completed workingly in a couple of days. It too need work on context handling/nyanced api calls/automated class JSON handling etc. But still can be done quickly.
 
-One of the big points of this project is to create a 'non black box system'. Meaning I want to leave the control fully to the programmer. Therefore I do not want to fall in the 'package and sell' pit. If I buy say communication then I will have to install it externally and first then I depend on an external program and cannot debug it. Second the layout of the code gets crippled and would not work as smooth as it can. Allowed black boxes are those that clearly define often used functions like the widget library of Flutter and dart packages.
+One of the big points of this project is to create a 'non black box system'. Meaning I want to leave the control fully to the programmer. Therefore the best is if the system is open source and not packaged. If I buy say communication then I will have to install it externally and first then I depend on an external program and cannot debug it. Second the layout of the code gets crippled and would not work as smooth as it can. Allowed black boxes are those that clearly define often used functions like the widget library of Flutter and dart packages.
+
+Ofcourse anyone can provide extra functionality like 3d module that functions on all platforms not only mobile. That can be charged. And any app made as well but the ground system should be open source. It also gives developement acceleration for everyone.
 
 There is a tradeoff between automation and practical developement time. If close to the sweat spot where there is little gain in complicating code I chose to keep it simple although in a slightly more complicated settings there can be positive gain in developement time.
 
