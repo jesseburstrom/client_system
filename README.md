@@ -27,7 +27,39 @@ in a way that is easily maintainable and reusable to save valuable time and have
 The project has evolved to now include both NodeJS server as well as ASP .NET server solutions with socket support for both.
 It also has a authentication 'module'.
 
-This brings us to 'modules'
+
+Right now as of january 12 2022 I am in the process of finding a job and therefore I have to wait with starting the open source part of this project.
+
+I plan to write detailed instructions on how to install everything needed to compile and run this project both server(.NET and NodeJS) and client and the unity project.
+
+I will also follow up with a youtube channel explaining how it works in detail.
+
+This can be great it seems to me, maybe every large company will have their own 'in-source' version of the frontend client for their own developement.
+
+After all this replaces html/css/javascript/native etc for development even though the web version actually translates the code to html/css/javascript.
+
+Above all one can get a professional application up and running quickly.
+
+I could easily add features, but right now I try to get some minimal version together for open source. There is a lot for me to learn on that end.
+
+Language I see can be updated easily from server in form of JSON which is already built into the system. This is good since usually one develop a project with maybe 2 different languages and if the user base expands one want to be able to seamlessly add new ones.
+
+There the api communication need some build out and the filehandler to save locally (this needs checking on all systems).
+
+Layout I have not worked too much on but it has many extensions like templates for appearance or just getting all the usual flutter visual into the apps.
+
+The second project for hamburger orders I think can be completed workingly in a couple of days. It too need work on context handling/nyanced api calls/automated class JSON handling etc. But still can be done quickly.
+
+One of the big points of this project is to create a 'non black box system'. Meaning I want to leave the control fully to the programmer. Therefore I do not want to fall in the 'package and sell' pit. If I buy say communication then I will have to install it externally and first then I depend on an external program and cannot debug it. Second the layout of the code gets crippled and would not work as smooth as it can. Allowed black boxes are those that clearly define often used functions like the widget library of Flutter and dart packages.
+
+There is a tradeoff between automation and practical developement time. If close to the sweat spot where there is little gain in complicating code I chose to keep it simple although in a slightly more complicated settings there can be positive gain in developement time.
+
+This also allows for easy upgrades which is important developing apps for many people, say games, where small changes pop up on request all the time. Or improvements like, what if the game could also do so, what if one could also control that? Just locate the module/part of your app and update, possibly add one new module or just tweak existing.
+
+Further maybe with some work apps can be embedded inside apps so say in a board game one can have many games running simultaneously. This will require some extension of the communication module.
+
+Then I also need to actually deploy some apps and test and debug in real life...
+
 
 ## Modules
 
