@@ -13,7 +13,7 @@ The players communicate through socket connections and there is chat enabled.
 <!-- ![Alt Text](/jesseburstrom/client_system/blob/master/DemoMultiplayer.jpg?raw=true "Demo Multiplayer") -->
 [![Live Demo](VidePlayImage.jpg?raw=true "Demo Multiplayer")](https://www.youtube.com/watch?v=IE9bFjeJQHQ)
 
-[Link To Server](https://github.com/jesseburstrom/WebAPIIdentity/blob/master/README.md)
+[Link To Server](https://github.com/jesseburstrom/WebAPIIdentity/)
 
 [Link To Unity](https://github.com/jesseburstrom/unityplugin/)
 
