@@ -15,7 +15,7 @@ The players communicate through socket connections and there is chat enabled.
 
 [Link To Server](https://github.com/jesseburstrom/WebAPIIdentity/blob/master/README.md)
 
-[Link To Unity](https://github.com/jesseburstrom/unityplugin/blob/master/README.md)
+[Link To Unity](https://github.com/jesseburstrom/unityplugin/blob/master/)
 
 # client_system
 
