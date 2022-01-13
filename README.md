@@ -30,8 +30,6 @@ It also has a authentication 'module'.
 
 Right now as of january 12 2022 I am in the process of finding a job and therefore I have to wait with starting the open source part of this project.
 
-Since all companies have their own routines, code bases and needs I want to keep my mind open for whatever is coming!
-
 
 I plan to write detailed instructions on how to install everything needed to compile and run this project both server(.NET and NodeJS) and client and the unity project.
 
