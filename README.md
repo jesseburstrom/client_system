@@ -44,7 +44,7 @@ After all this replaces html/css/javascript/react etc for development even thoug
 
 If nothing else it is a cool cross platform 'Meta' game engine.
 
-The Flare open source 2d-game engine project is interesting as it supports all platforms and sound and need the server and multiplayer part provided with this system to get really useful.
+The Flame open source 2d-game engine project is interesting as it supports all platforms and sound and need the server and multiplayer part provided with this system to get really useful.
 
 I also found [zerodha.tech](https://zerodha.tech/blog/from-native-to-react-native-to-flutter/) where Aijin describes how they eventually successfully migrated their online applications to Flutter. He also have many projects on his Github that can be used with this system such as application idle handling (to refresh the Unity plugin), socket disconnect support and Http2/3 support for rest API.
 
