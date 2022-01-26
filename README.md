@@ -38,13 +38,15 @@ Right now as of january 12 2022 I am in the process of finding a job and therefo
 
 I plan to write detailed instructions on how to install everything needed to compile and run this project both server(.NET and NodeJS) and client and the unity project.
 
-I will also follow up with a youtube channel explaining how it works in detail.
-
 This can be great it seems to me, maybe every large company will have their own 'in-source' version of the frontend client for their own developement.
 
 After all this replaces html/css/javascript/react etc for development even though the web version actually translates the code to html/css/javascript.
 
-Above all one can get a professional application up and running quickly.
+If nothing else it is a cool cross platform 'Meta' game engine.
+
+The Flare open source 2d-game engine project is interesting as it supports all platforms and sound and need the server and multiplayer part provided with this system to get really useful.
+
+I also found ![Alt Text](https://zerodha.tech/blog/from-native-to-react-native-to-flutter/)
 
 I could easily add features, but right now I try to get some minimal version together for open source. There is a lot for me to learn on that end.
 
