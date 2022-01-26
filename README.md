@@ -17,6 +17,8 @@ The players communicate through socket connections and there is chat enabled.
 
 [Link To Unity](https://github.com/jesseburstrom/unityplugin/)
 
+[Link To Node Server](https://github.com/jesseburstrom/node_server/)
+
 # client_system
 
 Generalized Frontend Client System
