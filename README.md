@@ -46,7 +46,7 @@ If nothing else it is a cool cross platform 'Meta' game engine.
 
 The Flare open source 2d-game engine project is interesting as it supports all platforms and sound and need the server and multiplayer part provided with this system to get really useful.
 
-I also found ![Alt Text](https://zerodha.tech/blog/from-native-to-react-native-to-flutter/)
+I also found [zerodha.tech](https://zerodha.tech/blog/from-native-to-react-native-to-flutter/)
 
 I could easily add features, but right now I try to get some minimal version together for open source. There is a lot for me to learn on that end.
 
