@@ -33,7 +33,7 @@ The project has evolved to now include both NodeJS server as well as ASP .NET se
 It also has a authentication 'module'.
 
 
-Right now as of january 12 2022 I am in the process of finding a job and therefore I have to wait with starting the open source part of this project.
+Right now as of january 26 2022 I am in the process of finding a job and therefore I have to wait with starting the open source part of this project.
 
 
 I plan to write detailed instructions on how to install everything needed to compile and run this project both server(.NET and NodeJS) and client and the unity project.
