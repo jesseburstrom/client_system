@@ -19,6 +19,40 @@ The players communicate through socket connections and there is chat enabled.
 
 [Link To Node Server](https://github.com/jesseburstrom/node_server/)
 
+# update
+
+Adressing the issue of break in using direct reference in : 
+
+var animationController = AnimationController(
+      vsync: _PageMainState(),
+      duration: const Duration(milliseconds: 300));
+      
+_PageMainState() is wrong but easy shortcut but breaks in newest update Flutter 2.8
+
+Working with resolve:
+
+var animationController = AnimationController(
+      vsync: _pageMainState,
+      duration: const Duration(milliseconds: 300));
+      
+and simply declare global var in:
+
+var pageMainState;
+
+class PageMain extends StatefulWidget {
+  const PageMain({Key? key}) : super(key: key);
+
+  @override
+  _PageMainState createState() => pageMainState = _PageMainState();
+}
+
+Since all objects need to be declared digitally this should work, only need to make sure both pages are loaded at init, right now I jump to the settings (dynamical version)
+immediately but think setting boolean variable first open main page, not render but jump to (thereby creating) the settings page (dynamic page).
+
+I wonder how the navigate to page works can one not just activate from list... This is where true system knowledge meets heuristic empirical knowledge...
+
+
+      
 # client_system
 
 Generalized Frontend Client System
