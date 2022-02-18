@@ -55,14 +55,23 @@ I have been studying React and it is fantastic great to make web pages and i lik
 
 But Then only 2-d version of app but anyway that is my goal, so you can log in have highscore yatzy any web browser for now.
 
-Then it is also problem how to open source Unity project it is huge on disc even assets which is needed to replicate.
-
-But glad i understand more or less totally React and javascript Node more now and i can use that structure to build this system.
+But glad i understand more or less totally React and javascript Node and i can use that structure to build this system.
 
 Actually the big difference between React and Flutter is tha fact that at State in Flutter there is too (all objects have access to state) THAT is the breaking change.
 
 And also the fact Flutter is a true object oriented system (it looks like i build a system ontop but really just use the system under for best result, Flutter is the system but since left its wings open need someone to care for them)
-      
+
+# waiting for open source
+
+Last but not least i am looking for the most efficient open source solution, after uplifing the project, and it will come soon.
+Some mini version with mock db on server that is not persistant etc etc just to make it more managable.
+
+Question is still should i only upload some files with Node.js server, Flutter project, unity project, and give instructions how to install locally?
+
+I find no directions online how to coordinate multiproject open source like this.
+
+Important is still to give precise instruction to replicate project first, then comes open source i believe.
+
 # client_system
 
 Generalized Frontend Client System
