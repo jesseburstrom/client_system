@@ -51,7 +51,17 @@ immediately but think setting boolean variable first open main page, not render 
 
 I wonder how the navigate to page works can one not just activate from list... This is where true system knowledge meets heuristic empirical knowledge...
 
+I have been studying React and it is fantastic great to make web pages and i like the structure and at the same time had lecture in how to publish Node server to AWS which is great news then i could resolve publishing flutter app to web, with of course as always caveat i need to figure out how socket works, maybe just one google away.
 
+But Then only 2-d version of app but anyway that is my goal, so you can log in have highscore yatzy any web browser for now.
+
+Then it is also problem how to open source Unity project it is huge on disc even assets which is needed to replicate.
+
+But glad i understand more or less totally React and javascript Node more now and i can use that structure to build this system.
+
+Actually the big difference between React and Flutter is tha fact that at State in Flutter there is too (all objects have access to state) THAT is the breaking change.
+
+And also the fact Flutter is a true object oriented system (it looks like i build a system ontop but really just use the system under for best result, Flutter is the system but since left its wings open need someone to care for them)
       
 # client_system
 
