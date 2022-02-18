@@ -72,6 +72,17 @@ I find no directions online how to coordinate multiproject open source like this
 
 Important is still to give precise instruction to replicate project first, then comes open source i believe.
 
+# Deeper thoughts
+
+This project can be seen as an identification of the fact that the growing number of computer systems having same systems
+and with open source even more like that can be seen as a field of a dynamical system.
+
+A dynamical system has inflection points (like ice/water/gas) or bifurcation points like in chaos theory.
+
+I claim this is something like that. If the computer industry is reduced that drastically and from every day users so much more availible then it is truly a changing event.
+
+That is the driving force of this more or less successful failed project.
+
 # client_system
 
 Generalized Frontend Client System
