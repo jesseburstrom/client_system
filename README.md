@@ -30,6 +30,8 @@ This is important since I believe the heart of any application is on the web and
 React is perfect for this rubust and highly maintained and works on all browsers. Here I want to put all extra information, like news, contact FAQ etc
 with the Flutter app as plugin.
 
+Also to get the desktop version one would go to the website for download, and so if the browser is not supported there is always the desktop version!
+
 Having studied the Redux state managment solution I clearly see that I will need something like bloc in the Flutter app.
 
 I will try to see if there is some minimum but 'covers most cases' implemmentation of bloc into the system.
@@ -38,9 +40,9 @@ Either way if I do it myself it's somewhat messy and complicated so seems good i
 
 So the setup looks like: web React(Redux, Thunk) with Flutter Plugin, Flutter with Bloc on all platforms same code, NodeJS express server with MongoDB database on Google Cloud.
 
-Almost free since SSL free and domainname is like 10$/year and free tier GCP. All tech open source.
+Almost free since SSL free and domainname is like 12$/year and free tier GCP. All tech open source (ok not database but need buy service as soon as serious project anyway).
 
-A good way to start some project and if getting traction, one can always move to paid services (like database which is smart to let pros handle case having many users)
+A good way to start some project and if getting traction, one can always move to paid services.
 
 ----------------------------------------------------
 Adressing the issue of break in using direct reference in : 
