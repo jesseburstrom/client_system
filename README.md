@@ -21,6 +21,28 @@ The players communicate through socket connections and there is chat enabled.
 
 # update
 
+2022-03-27
+
+Have learnt React with Redux/THunks and custom middleware and Google Cloud With NodeJS and nginx prerouter for SSL
+
+This is important since I believe the heart of any application is on the web and you also need a place to administrate the application.
+
+React is perfect for this rubust and highly maintained and works on all browsers. Here I want to put all extra information, like news, contact FAQ etc
+with the Flutter app as plugin.
+
+Having studied the Redux state managment solution I clearly see that I will need something like bloc in the Flutter app.
+
+I will try to see if there is some minimum but 'covers most cases' implemmentation of bloc into the system.
+
+Either way if I do it myself it's somewhat messy and complicated so seems good idea to use bloc.
+
+So the setup looks like: web React(Redux, Thunk) with Flutter Plugin, Flutter with Bloc on all platforms same code, NodeJS express server with MongoDB database on Google Cloud.
+
+Almost free since SSL free and domainname is like 10$/year and free tier GCP. All tech open source and mostly from google.
+
+A good way to start some project and if getting traction, one can always move to paid services (like database which is smart to let pros handle case having many users)
+
+----------------------------------------------------
 Adressing the issue of break in using direct reference in : 
 
 var animationController = AnimationController(
