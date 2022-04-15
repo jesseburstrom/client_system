@@ -45,45 +45,6 @@ Almost free since SSL free and domainname is like 12$/year and free tier GCP. Al
 A good way to start some project and if getting traction, one can always move to paid services.
 
 ----------------------------------------------------
-Adressing the issue of break in using direct reference in : 
-
-var animationController = AnimationController(
-      vsync: _PageMainState(),
-      duration: const Duration(milliseconds: 300));
-      
-_PageMainState() is wrong but easy shortcut but breaks in newest update Flutter 2.8
-
-Working with resolve:
-
-var animationController = AnimationController(
-      vsync: _pageMainState,
-      duration: const Duration(milliseconds: 300));
-      
-and simply declare global var in:
-
-var pageMainState;
-
-class PageMain extends StatefulWidget {
-  const PageMain({Key? key}) : super(key: key);
-
-  @override
-  _PageMainState createState() => pageMainState = _PageMainState();
-}
-
-Since all objects need to be declared digitally this should work, only need to make sure both pages are loaded at init, right now I jump to the settings (dynamical version)
-immediately but think setting boolean variable first open main page, not render but jump to (thereby creating) the settings page (dynamic page).
-
-I wonder how the navigate to page works can one not just activate from list... This is where true system knowledge meets heuristic empirical knowledge...
-
-I have been studying React and it is fantastic great to make web pages and i like the structure and at the same time had lecture in how to publish Node server to AWS which is great news then i could resolve publishing flutter app to web, with of course as always caveat i need to figure out how socket works, maybe just one google away.
-
-But Then only 2-d version of app but anyway that is my goal, so you can log in have highscore yatzy any web browser for now.
-
-But glad i understand more or less totally React and javascript Node and i can use that structure to build this system.
-
-Actually the big difference between React and Flutter is tha fact that at State in Flutter there is too (all objects have access to state) THAT is the breaking change.
-
-And also the fact Flutter is a true object oriented system (it looks like i build a system ontop but really just use the system under for best result, Flutter is the system but since left its wings open need someone to care for them)
 
 # waiting for open source
 
