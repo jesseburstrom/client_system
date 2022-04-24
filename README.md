@@ -20,6 +20,13 @@ The players communicate through socket connections and there is chat enabled.
 [Link To Node Server](https://github.com/jesseburstrom/react-demo/)
 
 # update
+2022-04-24
+
+After working on many other things I have finally got to point of integrating this project with React but most importantly
+reworked the code in detail and have online multiplayer version ready. I will put up on GCP next week after some local testing first.
+
+Now I'm convinced React and Flutter work well together and that Flutter indeed is great for frontend on all devices!
+
 
 2022-03-27
 
