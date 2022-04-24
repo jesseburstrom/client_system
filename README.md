@@ -45,7 +45,7 @@ I will try to see if there is some minimum but 'covers most cases' implemmentati
 
 Either way if I do it myself it's somewhat messy and complicated so seems good idea to use bloc.
 
-So the setup looks like: web React(Redux, Thunk) with Flutter Plugin, Flutter with Bloc on all platforms same code, NodeJS express server with MongoDB database on Google Cloud.
+So the setup looks like: web React(Redux, Thunk) with Flutter Plugin, Flutter with Bloc on all platforms same code, NodeJS express server with MongoDB/MySQL database on Google Cloud.
 
 Almost free since SSL free and domainname is like 12$/year and free tier GCP. All tech open source (ok not database but need buy service as soon as serious project anyway).
 
