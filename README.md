@@ -58,7 +58,3 @@ For C# programmers an intuitive analogy would bee:
 
 C# is to dart as C++ is to C#
 
-The C# language is clearly a 'simplified' version of C++ as dart is a 'simplified' version of C# but with tons of similarities.
-
-This is good news if one is already used to ASP .NET developement and want to have a frontend client with similar syntax and design.
-
