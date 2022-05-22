@@ -11,7 +11,7 @@ The players communicate through socket connections and there is chat enabled.
 
 <!-- ![Alt Text](DemoMultiplayer.jpg?raw=true "Demo Multiplayer") -->
 <!-- ![Alt Text](/jesseburstrom/client_system/blob/master/DemoMultiplayer.jpg?raw=true "Demo Multiplayer") -->
-[![Live Demo](VidePlayImage.jpg?raw=true "Demo Multiplayer")](https://www.youtube.com/watch?v=IE9bFjeJQHQ)
+[Link To Live Demo](https://clientsystem.net/flutter-app)
 
 [Link To Server](https://github.com/jesseburstrom/WebAPIIdentity/)
 
