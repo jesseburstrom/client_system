@@ -18,48 +18,22 @@ The players communicate through socket connections and there is chat enabled.
 [Link To Node Server](https://github.com/jesseburstrom/react-demo/)
 
 # update
-2022-04-24
+2022-05-22
 
-After working on many other things I have finally got to point of integrating this project with React but most importantly
-reworked the code in detail and have online multiplayer version ready. I will put up on GCP next week after some local testing first.
+WOrks on web now and have last fix of communication between Unity and Flutter to fix and then it works with 3d Unity on web as well!
 
-Now I'm convinced React and Flutter work well together and that Flutter indeed is great for frontend on all devices!
+Have some testing and bugfixing to do in general considering multiplayer socket.
 
+So the setup looks like: web React(Redux, Thunk) with Flutter Plugin, Flutter with Bloc(soon) on all platforms same code, NodeJS express server with MongoDB database on Google Cloud.
 
-2022-03-27
-
-Have learnt React with Redux/THunks and custom middleware and Google Cloud With NodeJS and nginx prerouter for SSL
-
-This is important since I believe the heart of any application is on the web and you also need a place to administrate the application.
-
-React is perfect for this rubust and highly maintained and works on all browsers. Here I want to put all extra information, like news, contact FAQ etc
-with the Flutter app as plugin.
-
-Also to get the desktop version one would go to the website for download, and so if the browser is not supported there is always the desktop version!
-
-Having studied the Redux state managment solution I clearly see that I will need something like bloc in the Flutter app.
-
-I will try to see if there is some minimum but 'covers most cases' implemmentation of bloc into the system.
-
-Either way if I do it myself it's somewhat messy and complicated so seems good idea to use bloc.
-
-So the setup looks like: web React(Redux, Thunk) with Flutter Plugin, Flutter with Bloc on all platforms same code, NodeJS express server with MongoDB/MySQL database on Google Cloud.
-
-Almost free since SSL free and domainname is like 12$/year and free tier GCP. All tech open source (ok not database but need buy service as soon as serious project anyway).
-
-A good way to start some project and if getting traction, one can always move to paid services.
+Surpricingly the web version works equally good on both android(tested chrome and edge) and iphone(tested chrome and safari) also with unity 3d eliminating completely the need to compile to mobile platform!
 
 ----------------------------------------------------
 
 # waiting for open source
 
-Last but not least i am looking for the most efficient open source solution, after uplifing the project, and it will come soon.
-Some mini version with mock db on server that is not persistant etc etc just to make it more managable.
-
-Question is still should i only upload some files with Node.js server, Flutter project, unity project, and give instructions how to install locally?
-
-
-Important is still to give precise instruction to replicate project first, then comes open source i believe.
+Until system fully tested and tried out also with more applications.
+I mean all obvious things I see needs working out.
 
 
 # client_system
@@ -88,16 +62,3 @@ The C# language is clearly a 'simplified' version of C++ as dart is a 'simplifie
 
 This is good news if one is already used to ASP .NET developement and want to have a frontend client with similar syntax and design.
 
-##
-
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
