@@ -36,6 +36,7 @@ Surpricingly the web version works equally good on both android(tested chrome an
 
 Until system fully tested and tried out also with more applications.
 I mean all obvious things I see needs working out.
+
 The code presented is not the recent version which i develop on other repo until ready for open source.
 
 
