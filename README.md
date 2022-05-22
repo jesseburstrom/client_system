@@ -13,8 +13,6 @@ The players communicate through socket connections and there is chat enabled.
 <!-- ![Alt Text](/jesseburstrom/client_system/blob/master/DemoMultiplayer.jpg?raw=true "Demo Multiplayer") -->
 [Link To Live Demo](https://clientsystem.net/flutter-app)
 
-[Link To Server](https://github.com/jesseburstrom/WebAPIIdentity/)
-
 [Link To Unity](https://github.com/jesseburstrom/unityplugin/)
 
 [Link To Node Server](https://github.com/jesseburstrom/react-demo/)
