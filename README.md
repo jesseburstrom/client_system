@@ -13,6 +13,8 @@ The players communicate through socket connections and there is chat enabled.
 <!-- ![Alt Text](/jesseburstrom/client_system/blob/master/DemoMultiplayer.jpg?raw=true "Demo Multiplayer") -->
 [Link To Live Demo](https://clientsystem.net/flutter-app)
 
+The link : clientsystem.net/flutter can be used in phone to test the system (not including react to get full screen).
+
 [Link To Unity](https://github.com/jesseburstrom/unityplugin/)
 
 [Link To Node Server](https://github.com/jesseburstrom/react-demo/)
@@ -34,6 +36,7 @@ Surpricingly the web version works equally good on both android(tested chrome an
 
 Until system fully tested and tried out also with more applications.
 I mean all obvious things I see needs working out.
+The code presented is not the recent version which i develop on other repo until ready for open source.
 
 
 # client_system
@@ -45,9 +48,6 @@ using the framework of Google Flutter.
 
 The idea is simple: To make a system which saves all the repetetive tasks of application developement 
 in a way that is easily maintainable and reusable to save valuable time and have good organization from the first code line.
-
-The project has evolved to now include both NodeJS server as well as ASP .NET server solutions with socket support for both.
-It also has a authentication 'module'.
 
 
 ## Flutter
