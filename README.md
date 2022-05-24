@@ -24,7 +24,7 @@ The link : clientsystem.net/flutter can be used in phone to test the system (not
 
 Fixed Flutter to Unity communication by adding also websocket communication. There is one that also works with webGL luckily!
 I have also put up good workflow between Online/Local developement in Unity, Flutter, NodeJS and React.
-Working on all those old and new fixes...
+3D dices now works in demo! Working on making it all better UI and visually now technical issues mainly fixed!
 
 2022-05-22
 
