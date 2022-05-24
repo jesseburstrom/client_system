@@ -26,7 +26,7 @@ Fixed Flutter to Unity communication by adding also websocket communication. The
 I have also put up good workflow between Online/Local developement in Unity, Flutter, NodeJS and React.
 3D dices now works in demo! Working on making it all better UI and visually now technical issues mainly fixed!
 
-(It might help others it was [endel/NativeWebSocket](https://github.com/endel/NativeWebSocket) that saved it! (of course if I find other resolution, my mistake it is not necessary but right now it made it work and I learnt alot.)
+(It might help others it was [endel/NativeWebSocket](https://github.com/endel/NativeWebSocket) that saved it! (of course if I find other resolution maybe it was my mistake from first but right now it made it work for me and I learnt alot.)
 
 2022-05-22
 
