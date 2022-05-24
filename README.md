@@ -20,6 +20,12 @@ The link : clientsystem.net/flutter can be used in phone to test the system (not
 [Link To Node Server](https://github.com/jesseburstrom/react-demo/)
 
 # update
+2022-05-24
+
+Fixed Flutter to Unity communication by adding also websocket communication. There is one that also works with webGL luckily!
+I have also put up good workflow between Online/Local developement in Unity, Flutter, NodeJS and React.
+Working on all those old and new fixes...
+
 2022-05-22
 
 WOrks on web now and have last fix of communication between Unity and Flutter to fix and then it works with 3d Unity on web as well!
