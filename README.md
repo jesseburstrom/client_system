@@ -20,19 +20,15 @@ The link : clientsystem.net/flutter can be used in phone to test the system (not
 [Link To Node Server](https://github.com/jesseburstrom/react-demo/)
 
 # update
-2022-05-24
+2022-06-04
 
-Fixed Flutter to Unity communication by adding also websocket communication. There is one that also works with webGL luckily!
-I have also put up good workflow between Online/Local developement in Unity, Flutter, NodeJS and React.
-3D dices now works in demo! Working on making it all better UI and visually now technical issues mainly fixed!
+Perfect on web and also mobile but not good UI for that will be better just that it works is cool!
 
-(It might help others it was [endel/NativeWebSocket](https://github.com/endel/NativeWebSocket) that saved it! (of course if I find other resolution maybe it was my mistake from first but right now it made it work for me and I learnt alot.)
+The backend com. Unity To NodeJS is also good if say transmit images of play or so...
 
-2022-05-22
+I am happy but new things on horizon to tackle!
 
-WOrks on web now and have last fix of communication between Unity and Flutter to fix and then it works with 3d Unity on web as well!
-
-Have some testing and bugfixing to do in general considering multiplayer socket.
+-----------------------------------------------------------------------------------------------------------------------------------
 
 So the setup looks like: web React(Redux, Thunk) with Flutter Plugin, Flutter with Bloc(soon) on all platforms same code, NodeJS express server with MongoDB database on Google Cloud.
 
