@@ -30,7 +30,7 @@ Merged to strict ES6 first then magically everything worked out like before Type
 
 I am happy but new things on horizon to tackle!
 
-Artstation insisted : [Lion]([https://clientsystem.net/flutter-app](https://magazine.artstation.com/2022/06/nvidiastudio-massimorighi/))
+Artstation insisted : [Lion](https://clientsystem.net/flutter-app](https://magazine.artstation.com/2022/06/nvidiastudio-massimorighi/))
 
 -----------------------------------------------------------------------------------------------------------------------------------
 
