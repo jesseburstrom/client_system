@@ -30,6 +30,8 @@ Merged to strict ES6 first then magically everything worked out like before Type
 
 I am happy but new things on horizon to tackle!
 
+Artstation insisted : [Lion]([https://clientsystem.net/flutter-app](https://magazine.artstation.com/2022/06/nvidiastudio-massimorighi/))
+
 -----------------------------------------------------------------------------------------------------------------------------------
 
 So the setup looks like: web React(Redux, Thunk) with Flutter Plugin, Flutter with Bloc(soon) on all platforms same code, NodeJS express server with MongoDB database on Google Cloud.
