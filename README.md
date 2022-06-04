@@ -26,6 +26,8 @@ Perfect on web and also mobile but not good UI for that will be better just that
 
 The backend com. Unity To NodeJS is also good if say transmit images of play or so...
 
+Merged to strict ES6 first then magically everything worked out like before Typescript!
+
 I am happy but new things on horizon to tackle!
 
 -----------------------------------------------------------------------------------------------------------------------------------
