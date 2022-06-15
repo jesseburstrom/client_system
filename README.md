@@ -30,8 +30,6 @@ Merged to strict ES6 first then magically everything worked out like before Type
 
 I am happy but new things on horizon to tackle!
 
-Artstation insisted : [Tiger](https://magazine.artstation.com/2022/06/nvidiastudio-massimorighi/)
-
 -----------------------------------------------------------------------------------------------------------------------------------
 
 So the setup looks like: web React(Redux, Thunk) with Flutter Plugin, Flutter with Bloc(soon) on all platforms same code, NodeJS express server with MongoDB database on Google Cloud.
@@ -39,14 +37,6 @@ So the setup looks like: web React(Redux, Thunk) with Flutter Plugin, Flutter wi
 Surpricingly the web version works equally good on both android(tested chrome and edge) and iphone(tested chrome and safari) also with unity 3d eliminating completely the need to compile to mobile platform!
 
 ----------------------------------------------------
-
-# waiting for open source
-
-Until system fully tested and tried out also with more applications.
-I mean all obvious things I see needs working out.
-
-The code presented is not the recent version which i develop on other repo until ready for open source.
-
 
 # client_system
 
@@ -63,7 +53,4 @@ in a way that is easily maintainable and reusable to save valuable time and have
 
 The project is built using Flutter which in turn uses the dart programming language.
 
-For C# programmers an intuitive analogy would bee:
-
-C# is to dart as C++ is to C#
 
