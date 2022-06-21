@@ -58,4 +58,6 @@ in a way that is easily maintainable and reusable to save valuable time and have
 
 The project is built using Flutter which in turn uses the dart programming language.
 
+OBS this repo is not the current Flutter Part of the System just DEMO!
+
 
