@@ -19,6 +19,13 @@ The link : clientsystem.net/flutter can be used in phone to test the system (not
 
 [Link To Node Server](https://github.com/jesseburstrom/react-demo/)
 
+#update 2022-06-27
+
+Using batch script to compile flutter and then copy files to server and upload to repo with one command. Use different domain and instance for that. Makes sense to have same environment for testing as deployment. Also hot-reload works if run on Android Studio!
+
+Beginning to build other apps like a presentation app where one logs in on say web and use phone as controller. Many such things are seamless in this setting.
+Maybe other clients can be allowed to navigate presentation as well locally (many times one wanted to see earlier slide but to late...)
+
 # update
 2022-06-21
 
