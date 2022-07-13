@@ -7,6 +7,8 @@ It can also handle iOs both mobile as well as desktop and Linux desktop.
 
 The mobile versions (phone/tablet) can also have Unity 3D plugin with realtime animations and light effects!
 
+(The web version of the mobile platforms with 3D are currently instable due to update but without 3D works great!)
+
 The players communicate through socket connections and there is chat enabled.
 
 <!-- ![Alt Text](DemoMultiplayer.jpg?raw=true "Demo Multiplayer") -->
@@ -18,6 +20,15 @@ The link : clientsystem.net/flutter can be used in phone to test the system (not
 [Link To Unity](https://github.com/jesseburstrom/unityplugin/)
 
 [Link To Node Server](https://github.com/jesseburstrom/react-demo/)
+
+#update 2022-07-13
+
+Added general tutorial with moving arrows on objects having text and fixed many small things.
+
+THe layout system is now working good on small and large devices and the idea is to have it work good on any project from scratch.
+Say one develops an ordering system to work in industry then the size or model of tablet is from layout perspective irrelevant, looks and works well on all.
+
+Putting 3d to side (it will take long time before it is stable anyway, revisit later.) to work only on general project with design patterns and technical organisation.
 
 #update 2022-06-27
 
