@@ -21,15 +21,6 @@ The link : clientsystem.net/flutter can be used in phone to test the system (not
 
 [Link To Node Server](https://github.com/jesseburstrom/react-demo/)
 
-# update 2022-07-14
-
-Had great idea today:
-
-Maybe one can make two universal apps one android and one ios that simply loads a web page with flutter web app.
-Then it is seamless to publish new applications on both platforms and the whole process is greatly simplified and
-users get the app like they are used to!
-
-From now on I will only work with the web implementation!
 
 # update 2022-07-13
 
